@@ -42,7 +42,7 @@ jobs:
           key: ${{ runner.os }}-pdk-${{ github.run_id }}
 
   rtl_tests:
-    runs-on: ubuntulatest
+    runs-on: ubuntu-latest
     needs: [pdk]
     steps:
       - uses: actions/checkout@v3
