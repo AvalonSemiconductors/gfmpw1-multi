@@ -80,7 +80,7 @@ jobs:
     
       - name: Run tests
         run: |
-          make verify-blink-rtl
+          make verify-blinker-rtl
           make verify-sid-rtl
           make verify-sn76489-rtl
           make verify-qcpu-rtl
