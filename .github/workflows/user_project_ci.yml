@@ -80,11 +80,12 @@ jobs:
 
       - name: Harden using Openlane
         run: |
+          make uncompress
           make blinker
           make Multiplexer
           make wrapped_qcpu
           make wrapped_sn76489
-          make wraped_sid
+          make wrapped_sid
           make user_project_wrapper
 
       - name: run precheck
