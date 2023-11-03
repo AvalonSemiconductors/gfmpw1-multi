@@ -131,12 +131,19 @@ jobs:
         run: |
           make uncompress
           make blinker
+          rm -rf openlane/blinker/runs
           make Multiplexer
+          rm -rf openlane/Multiplexer/runs
           make wrapped_qcpu
+          rm -rf openlane/wrapped_qcpu/runs
           make wrapped_sn76489
+          rm -rf openlane/wrapped_sn76489/runs
           make wrapped_sid
+          rm -rf openlane/wrapped_sid/runs
           make wrapped_mc14500
+          rm -rf openlane/wrapped_mc14500/runs
           make user_project_wrapper
+          rm -rf openlane/user_project_wrapper/runs
 
       - name: run precheck
         run: |
