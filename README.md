@@ -33,3 +33,8 @@ C64 SID replica, times two. Implements the same functionality as two Sound Inter
 ## Multiplexer
 
 Simplest setup to allow the multiple designs to share the chip IO. Has a connection to the wishbone bus, so a design can be selected and other settings configured. Also contains 64 bytes of RAM usable by designs, and pre-programmable over wishbone.
+
+## Bit-serial CPU (MC14500)
+
+A very simple, bit-serial yet turing-complete CPU based on the MC14500 architecture, but modified to allow it to operate on 8-bit values.
+Example program included in verification can multiply two numbers, despite the CPU only supporting logical operations on 1-bit operands.

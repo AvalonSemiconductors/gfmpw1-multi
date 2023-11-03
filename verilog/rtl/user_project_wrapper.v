@@ -223,7 +223,8 @@ wrapped_mc14500 mc14500(
     .sram_addr(mc14500_sram_addr),
     .sram_in(mc14500_sram_in),
     .sram_out(qcpu_sram_out),
-    .sram_gwe(mc14500_sram_gwe)
+    .sram_gwe(mc14500_sram_gwe),
+    .custom_setting(custom_settings[0])
 );
 
 endmodule	// user_project_wrapper

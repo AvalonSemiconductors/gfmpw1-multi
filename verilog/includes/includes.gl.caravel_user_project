@@ -6,3 +6,4 @@
 -v $(USER_PROJECT_VERILOG)/gl/wrapped_sn76489.v
 -v $(USER_PROJECT_VERILOG)/rtl/Logo/avali_logo.v
 -v $(USER_PROJECT_VERILOG)/gl/wrapped_qcpu.v
+-v $(USER_PROJECT_VERILOG)/gl/wrapped_mc14500.v

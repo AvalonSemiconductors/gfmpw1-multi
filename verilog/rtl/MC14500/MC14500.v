@@ -20,7 +20,8 @@ reg RR_l;
 reg IEN_l;
 reg OEN_l;
 
-reg [3:0] instr;
+reg [3:0] instr_l;
+wire [3:0] instr = (!X2 ? I : instr_l) & {4{~skip}};
 reg skip;
 reg data_out;
 
@@ -69,19 +70,19 @@ wire   WE     = ~(~g_2_3 | ~(g_1_1 | g_1_2));
 assign WRITE  = WE & OEN_l;
 assign X1     = X2;
 
-assign DATA_OUT = WE ? data_out : 1'bz;
+assign DATA_OUT = data_out;
 
 always @(posedge X2) begin
 	//The one thing I’m 100% unsure about is how reset is done in MC14500, but the easiest way I’ve found is to force skip permanently during reset, and AND the RR latch data with reset.
-	skip  <= ~(SKZ_i | RR_l) | RST;
 	RR_l  <= (update_rr ? LU_out : RR_l) & ~RST;
 	IEN_l <= IEN_i ? IEN_l : DATA_IN;
 	OEN_l <= OEN_i ? OEN_l : DATA_IN;
 	data_out <= (g_1_1 ? RR_l : ~RR_l) & OEN_l;
+	instr_l <= I;
 end
 
 always @(negedge X2) begin
-	instr <= I & {4{~skip}};
+	skip  <= ~(SKZ_i | RR_l) | RST;
 end
 
 endmodule

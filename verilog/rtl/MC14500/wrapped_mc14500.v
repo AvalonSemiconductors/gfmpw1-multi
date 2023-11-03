@@ -13,7 +13,8 @@ module wrapped_mc14500(
 	output [5:0] sram_addr,
 	output [7:0] sram_in,
 	input [7:0] sram_out,
-	output sram_gwe
+	output sram_gwe,
+	input custom_setting
 );
 
 wire X1;
@@ -41,11 +42,13 @@ assign io_out[30] = out_2;
 wire [3:0] addr = io_in[7:4];
 
 reg [7:0] mar;
+wire [7:0] mar_adj = {mar[0], mar[1], mar[2], mar[3], mar[4], mar[5], mar[6], mar[7]};
 reg [7:0] dob;
 reg [7:0] dia;
 reg [7:0] dib;
+reg [1:0] rst_latency;
 reg scratch [7:0];
-assign sram_addr = mar[5:0];
+assign sram_addr = mar_adj[5:0];
 assign sram_in = dob;
 assign sram_gwe = !clk_div && FLAG_F;
 wire SCLK = scratch[6];
@@ -53,6 +56,8 @@ wire SDO = scratch[7];
 
 `ifdef SIM
 wire [7:0] scratch_mem = {scratch[7], scratch[6], scratch[5], scratch[4], scratch[3], scratch[2], scratch[1], scratch[0]};
+
+wire [7:0] dob_adj = {dob[0], dob[1], dob[2], dob[3], dob[4], dob[5], dob[6], dob[7]};
 `endif
 
 wire DATA_IN = addr == 0 ? 1'b1 : (addr[3] ? scratch[addr[2:0]] : (
@@ -78,17 +83,23 @@ always @(posedge clk_i) begin
 		scratch[5] <= 1'b0;
 		scratch[6] <= 1'b0;
 		scratch[7] <= 1'b0;
+		rst_latency <= 2'b11;
 	end else begin
+		if(custom_setting) begin
+			dest[16] <= 1'b0;
+			PC[16] <= 1'b0;
+		end
 		clk_div <= !clk_div;
-		if(clk_div) begin
+		if(rst_latency) rst_latency <= rst_latency - 1;
+		if(clk_div && !rst_latency) begin
 			if(JMP) PC <= dest;
 			else PC <= PC + 1;
 			if(RTN) mar <= 8'h00;
-			else if(WRITE && addr == 1) mar <= {mar[7:1], DATA_OUT};
-			if(WRITE && addr == 0) dest <= {dest[15:1], DATA_OUT};
-			if(WRITE && addr == 2) dob <= {dob[7:1], DATA_OUT};
-			if(FLAG_O && addr == 1) dia <= sram_in;
-			if(FLAG_O && addr == 2) dib <= sram_in;
+			else if(WRITE && addr == 1) mar <= {mar[6:0], DATA_OUT};
+			if(WRITE && addr == 0) dest <= {dest[15:0], DATA_OUT};
+			if(WRITE && addr == 2) dob <= {dob[6:0], DATA_OUT};
+			if(FLAG_O && addr == 1) dia <= sram_out;
+			if(FLAG_O && addr == 2) dib <= sram_out;
 			if(WRITE && addr[3]) scratch[addr[2:0]] <= DATA_OUT;
 			if(WRITE && addr == 5) out_1 <= DATA_OUT;
 			if(WRITE && addr == 6) out_2 <= DATA_OUT;
@@ -100,7 +111,7 @@ end
 
 mc14500 mc14500(
 	.X2(clk_div),
-	.RST(~rst_n),
+	.RST(~rst_n || rst_latency),
 	.I(io_in[3:0]),
 	.X1(X1),
 	.DATA_IN(DATA_IN),

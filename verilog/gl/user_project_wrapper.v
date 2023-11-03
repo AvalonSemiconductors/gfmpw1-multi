@@ -74,6 +74,52 @@ module user_project_wrapper (user_clock2,
  wire \custom_settings[7] ;
  wire \custom_settings[8] ;
  wire \custom_settings[9] ;
+ wire \mc14500_do[0] ;
+ wire \mc14500_do[10] ;
+ wire \mc14500_do[11] ;
+ wire \mc14500_do[12] ;
+ wire \mc14500_do[13] ;
+ wire \mc14500_do[14] ;
+ wire \mc14500_do[15] ;
+ wire \mc14500_do[16] ;
+ wire \mc14500_do[17] ;
+ wire \mc14500_do[18] ;
+ wire \mc14500_do[19] ;
+ wire \mc14500_do[1] ;
+ wire \mc14500_do[20] ;
+ wire \mc14500_do[21] ;
+ wire \mc14500_do[22] ;
+ wire \mc14500_do[23] ;
+ wire \mc14500_do[24] ;
+ wire \mc14500_do[25] ;
+ wire \mc14500_do[26] ;
+ wire \mc14500_do[27] ;
+ wire \mc14500_do[28] ;
+ wire \mc14500_do[29] ;
+ wire \mc14500_do[2] ;
+ wire \mc14500_do[30] ;
+ wire \mc14500_do[3] ;
+ wire \mc14500_do[4] ;
+ wire \mc14500_do[5] ;
+ wire \mc14500_do[6] ;
+ wire \mc14500_do[7] ;
+ wire \mc14500_do[8] ;
+ wire \mc14500_do[9] ;
+ wire \mc14500_sram_addr[0] ;
+ wire \mc14500_sram_addr[1] ;
+ wire \mc14500_sram_addr[2] ;
+ wire \mc14500_sram_addr[3] ;
+ wire \mc14500_sram_addr[4] ;
+ wire \mc14500_sram_addr[5] ;
+ wire mc14500_sram_gwe;
+ wire \mc14500_sram_in[0] ;
+ wire \mc14500_sram_in[1] ;
+ wire \mc14500_sram_in[2] ;
+ wire \mc14500_sram_in[3] ;
+ wire \mc14500_sram_in[4] ;
+ wire \mc14500_sram_in[5] ;
+ wire \mc14500_sram_in[6] ;
+ wire \mc14500_sram_in[7] ;
  wire \qcpu_do[0] ;
  wire \qcpu_do[10] ;
  wire \qcpu_do[11] ;
@@ -164,6 +210,7 @@ module user_project_wrapper (user_clock2,
  wire \qcpu_sram_out[6] ;
  wire \qcpu_sram_out[7] ;
  wire rst_blinker;
+ wire rst_mc14500;
  wire rst_qcpu;
  wire rst_sid;
  wire rst_sn76489;
@@ -227,8 +274,78 @@ module user_project_wrapper (user_clock2,
     .io_out({\blinker_do[2] ,
     \blinker_do[1] ,
     \blinker_do[0] }));
- multiplexer multiplexer (.qcpu_sram_gwe(qcpu_sram_gwe),
+ wrapped_mc14500 mc14500 (.SDI(io_in[36]),
+    .clk_i(io_in[37]),
+    .custom_setting(\custom_settings[0] ),
+    .rst_n(rst_mc14500),
+    .sram_gwe(mc14500_sram_gwe),
+    .vdd(vdd),
+    .vss(vss),
+    .io_in({io_in[12],
+    io_in[11],
+    io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6],
+    io_in[5]}),
+    .io_out({\mc14500_do[30] ,
+    \mc14500_do[29] ,
+    \mc14500_do[28] ,
+    \mc14500_do[27] ,
+    \mc14500_do[26] ,
+    \mc14500_do[25] ,
+    \mc14500_do[24] ,
+    \mc14500_do[23] ,
+    \mc14500_do[22] ,
+    \mc14500_do[21] ,
+    \mc14500_do[20] ,
+    \mc14500_do[19] ,
+    \mc14500_do[18] ,
+    \mc14500_do[17] ,
+    \mc14500_do[16] ,
+    \mc14500_do[15] ,
+    \mc14500_do[14] ,
+    \mc14500_do[13] ,
+    \mc14500_do[12] ,
+    \mc14500_do[11] ,
+    \mc14500_do[10] ,
+    \mc14500_do[9] ,
+    \mc14500_do[8] ,
+    \mc14500_do[7] ,
+    \mc14500_do[6] ,
+    \mc14500_do[5] ,
+    \mc14500_do[4] ,
+    \mc14500_do[3] ,
+    \mc14500_do[2] ,
+    \mc14500_do[1] ,
+    \mc14500_do[0] }),
+    .sram_addr({\mc14500_sram_addr[5] ,
+    \mc14500_sram_addr[4] ,
+    \mc14500_sram_addr[3] ,
+    \mc14500_sram_addr[2] ,
+    \mc14500_sram_addr[1] ,
+    \mc14500_sram_addr[0] }),
+    .sram_in({\mc14500_sram_in[7] ,
+    \mc14500_sram_in[6] ,
+    \mc14500_sram_in[5] ,
+    \mc14500_sram_in[4] ,
+    \mc14500_sram_in[3] ,
+    \mc14500_sram_in[2] ,
+    \mc14500_sram_in[1] ,
+    \mc14500_sram_in[0] }),
+    .sram_out({\qcpu_sram_out[7] ,
+    \qcpu_sram_out[6] ,
+    \qcpu_sram_out[5] ,
+    \qcpu_sram_out[4] ,
+    \qcpu_sram_out[3] ,
+    \qcpu_sram_out[2] ,
+    \qcpu_sram_out[1] ,
+    \qcpu_sram_out[0] }));
+ multiplexer multiplexer (.mc14500_sram_gwe(mc14500_sram_gwe),
+    .qcpu_sram_gwe(qcpu_sram_gwe),
     .rst_blinker(rst_blinker),
+    .rst_mc14500(rst_mc14500),
     .rst_qcpu(rst_qcpu),
     .rst_sid(rst_sid),
     .rst_sn76489(rst_sn76489),
@@ -393,6 +510,51 @@ module user_project_wrapper (user_clock2,
     .irq({user_irq[2],
     user_irq[1],
     user_irq[0]}),
+    .mc14500_do({\mc14500_do[30] ,
+    \mc14500_do[29] ,
+    \mc14500_do[28] ,
+    \mc14500_do[27] ,
+    \mc14500_do[26] ,
+    \mc14500_do[25] ,
+    \mc14500_do[24] ,
+    \mc14500_do[23] ,
+    \mc14500_do[22] ,
+    \mc14500_do[21] ,
+    \mc14500_do[20] ,
+    \mc14500_do[19] ,
+    \mc14500_do[18] ,
+    \mc14500_do[17] ,
+    \mc14500_do[16] ,
+    \mc14500_do[15] ,
+    \mc14500_do[14] ,
+    \mc14500_do[13] ,
+    \mc14500_do[12] ,
+    \mc14500_do[11] ,
+    \mc14500_do[10] ,
+    \mc14500_do[9] ,
+    \mc14500_do[8] ,
+    \mc14500_do[7] ,
+    \mc14500_do[6] ,
+    \mc14500_do[5] ,
+    \mc14500_do[4] ,
+    \mc14500_do[3] ,
+    \mc14500_do[2] ,
+    \mc14500_do[1] ,
+    \mc14500_do[0] }),
+    .mc14500_sram_addr({\mc14500_sram_addr[5] ,
+    \mc14500_sram_addr[4] ,
+    \mc14500_sram_addr[3] ,
+    \mc14500_sram_addr[2] ,
+    \mc14500_sram_addr[1] ,
+    \mc14500_sram_addr[0] }),
+    .mc14500_sram_in({\mc14500_sram_in[7] ,
+    \mc14500_sram_in[6] ,
+    \mc14500_sram_in[5] ,
+    \mc14500_sram_in[4] ,
+    \mc14500_sram_in[3] ,
+    \mc14500_sram_in[2] ,
+    \mc14500_sram_in[1] ,
+    \mc14500_sram_in[0] }),
     .qcpu_do({\qcpu_do[32] ,
     \qcpu_do[31] ,
     \qcpu_do[30] ,

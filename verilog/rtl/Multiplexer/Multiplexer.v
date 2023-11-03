@@ -153,6 +153,10 @@ always @(*) begin
 			design_out = qcpu_do;
 			design_oeb = qcpu_oeb;
 		end
+		5: begin
+			design_out = {1'b0, 1'b0, mc14500_do};
+			design_oeb = {1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 17'h00000, 8'hFF};
+		end
 
 		default: begin
 			design_out = 33'b000000000010001010011000101001100; //'RTFM' in base64
