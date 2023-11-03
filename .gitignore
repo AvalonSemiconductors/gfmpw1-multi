@@ -1,0 +1,17 @@
+/.idea/
+/precheck_results/
+*/tmp
+*/*/tmp
+*.hex*
+*.lst
+*.vcd
+*.gtkw
+*.nl.v
+/DFFRAM/
+/caravel/
+/mgmt_core_wrapper/
+/verilator_sim/SID/obj_dir/
+/verilator_sim/SN76489/obj_dir/
+/venv/
+/dependencies/
+*.class

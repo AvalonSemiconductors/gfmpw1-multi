@@ -1,0 +1,192 @@
+name: CI
+
+on: [ push, workflow_dispatch ]
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  pdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Export PDK ROOT
+        run: echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+      
+      - name: Export OPENLANE ROOT
+        run: echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+
+      - name: Export PDK
+        run: echo "PDK=gf180mcuD" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          sudo mkdir -p ${{ env.PDK_ROOT }}
+          sudo chown -R $USER:$USER ${{ env.PDK_ROOT }}
+          make install
+          make openlane
+          make pdk-with-volare
+          
+      - name: populate pdk cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PDK_ROOT }}
+          key: ${{ runner.os }}-pdk-${{ github.run_id }}
+
+  user_project_flow_gf180mcuD:
+    runs-on: ubuntu-latest
+    needs: [pdk]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Export PDK ROOT
+        run: echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
+
+      - name: Export PDK PATH
+        run: echo "PDKPATH=/home/runner/work/pdk/gf180mcuD" >> $GITHUB_ENV
+
+      - name: Export PDK
+        run: echo "PDK=gf180mcuD" >> $GITHUB_ENV
+
+      - name: Export OPENLANE ROOT
+        run: echo "OPENLANE_ROOT=/home/runner/work/gfmpw1-multi/openlane" >> $GITHUB_ENV
+          
+      - name: restore pdk cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PDK_ROOT }}
+          key: ${{ runner.os }}-pdk-${{ github.run_id }}
+
+      - name: Install dependencies
+        run: |
+          make install
+          make install_mcw
+          make openlane
+          make simenv
+
+      - name: Harden using Openlane
+        run: |
+          make blinker
+          make Multiplexer
+          make wrapped_qcpu
+          make wrapped_sn76489
+          make wraped_sid
+          make user_project_wrapper
+
+      - name: run precheck
+        run: |
+          make precheck
+          make run-precheck
+
+          cnt=$(grep -c "All Checks Passed" precheck_results/*/logs/precheck.log)
+          if ! [[ $cnt ]]; then cnt=0; fi
+          if [[ $cnt -eq 1 ]]; then exit 0; fi
+          exit 2
+          
+      - name: Tarball GDS outputs
+        run: |
+          tar -cf /tmp/gds.tar -C ./gds .
+
+      - name: Upload GDS Tarball
+        uses: actions/upload-artifact@v3
+        with:
+          name: gds-tarball
+          path: /tmp/gds.tar
+
+      - name: upload failure logs
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: error
+          path: |
+            /home/runner/work/gfmpw1-multi/gfmpw1-multi/precheck_results/*
+
+  generate_gltf:
+    runs-on: ubuntu-latest
+    needs: [user_project_flow_gf180mcuD]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download GDS Tarball
+        uses: actions/download-artifact@v3
+        with:
+          name: gds-tarball
+          path: /tmp
+
+      - name: Unpack GDS Tarball
+        run: |
+          sudo mkdir -p ./gds
+          sudo chown -R $USER:$USER ./gds
+          tar -xf /tmp/gds.tar -C ./gds .
+      
+      - name: Generate models
+        run: |
+             echo "chirp"
+             pip3 install numpy gdspy triangle pygltflib
+             python3 gds2gltf.py gds/user_project_wrapper.gds
+             
+      - uses: actions/upload-artifact@v3
+        with:
+          name: glTF
+          path: |
+            /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/user_project_wrapper.gds.gltf
+  generate_svg:
+    runs-on: ubuntu-latest
+    needs: [user_project_flow_gf180mcuD]
+    steps:
+      - name: Download GDS Tarball
+        uses: actions/download-artifact@v3
+        with:
+          name: gds-tarball
+          path: /tmp
+      - name: Unpack GDS Tarball
+        run: |
+          sudo mkdir -p /tmp/gds
+          sudo mkdir -p /tmp/svg
+          sudo chown -R $USER:$USER /tmp/gds
+          sudo chown -R $USER:$USER /tmp/svg
+          tar -xf /tmp/gds.tar -C /tmp/gds .
+
+      - name: Install dependencies
+        run: |
+          python -m pip install gdstk
+          python -m pip install numpy==1.23.5
+          
+      - name: Generate SVGs
+        run: |
+          python << EOF
+          import gdstk
+          
+          library = gdstk.read_gds('/tmp/gds/wrapped_qcpu.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/wrapped_qcpu.svg')
+          
+          library = gdstk.read_gds('/tmp/gds/wrapped_sn76489.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/wrapped_sn76489.svg')
+          
+          library = gdstk.read_gds('/tmp/gds/user_project_wrapper.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/user_project_wrapper.svg')
+          
+      - uses: actions/upload-artifact@v3
+        with:
+          name: SVG
+          path: |
+            /tmp/svg/wrapped_qcpu.svg
+            /tmp/svg/wrapped_sn76489.svg
+            /tmp/gds/user_project_wrapper.svg

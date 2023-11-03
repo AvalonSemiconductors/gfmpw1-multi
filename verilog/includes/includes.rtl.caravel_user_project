@@ -1,0 +1,23 @@
+# Caravel user project includes
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/SID/SID_channels.v
+-v $(USER_PROJECT_VERILOG)/rtl/SID/SID_filter.v
+-v $(USER_PROJECT_VERILOG)/rtl/SID/SID_top.v
+-v $(USER_PROJECT_VERILOG)/rtl/SID/spi_dac_i.v
+-v $(USER_PROJECT_VERILOG)/rtl/SID/wrapped_sid.v 
+-v $(USER_PROJECT_VERILOG)/rtl/Multiplexer/Multiplexer.v
+-v $(USER_PROJECT_VERILOG)/rtl/Blinker/blinker.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/attenuation.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/noise.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/tone.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/pwm.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/spi_dac_i.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/signal_edge.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/tt_um_rejunity_sn76489.v
+-v $(USER_PROJECT_VERILOG)/rtl/SN76489/wrapped_sn76489.v
+-v $(USER_PROJECT_VERILOG)/rtl/Logo/avali_logo.v
+-v $(USER_PROJECT_VERILOG)/rtl/Multiplexer/dffram.v
+-v $(USER_PROJECT_VERILOG)/rtl/QCPU/qcpu.v
+-v $(USER_PROJECT_VERILOG)/rtl/QCPU/wrapped_qcpu.v
+-v $(USER_PROJECT_VERILOG)/rtl/QCPU/spi.v
+-v $(USER_PROJECT_VERILOG)/rtl/QCPU/uart.v
