@@ -24,7 +24,7 @@ The purpose of this design is it to provide a minimal yet powerful CPU that take
 
 ## SN76489
 
-Design contributed by (rejunity)[https://github.com/rejunity]. More info at the (original repo)[https://github.com/rejunity/tt05-psg-sn76489].
+Design contributed by [rejunity](https://github.com/rejunity). More info at the [original repo](https://github.com/rejunity/tt05-psg-sn76489).
 
 ## SID
 
