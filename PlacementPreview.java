@@ -23,10 +23,10 @@ public class PlacementPreview {
 		
 		Macro[] macros = new Macro[] {
 			new Macro(1230, 1280, 600, 500, Color.GREEN, "Multiplexer"), //Multiplexer
-			new Macro(200, 300, 1150, 750, Color.RED, "SID"), //wrapped_sid
+			new Macro(200, 300, 1150, 800, Color.RED, "SID"), //wrapped_sid
 			new Macro(1450, 300, 180, 180, Color.GRAY, "LED Blinker Test"), //blinker
 			new Macro(1800, 300, 300, 350, new Color(32, 64, 240), "SN76489"), //wrapped_sn76489
-			new Macro(300, 2400, 250, 293, new Color(240, 128, 32), "Avali Logo"), //avali_logo
+			new Macro(300, 2400, 300, 352, new Color(240, 128, 32), "Avali Logo"), //avali_logo
 			new Macro(2300, 300, 500, 500, new Color(240, 64, 64), "QCPU"), //wrapped_qcpu
 		};
 

@@ -3,6 +3,7 @@
 #define reg_mprj_proj_sel (*(volatile uint32_t*)0x30800000)
 #define reg_mprj_counter (*(volatile uint32_t*)0x30400000)
 #define reg_mprj_settings (*(volatile uint32_t*)0x30200000)
+#define reg_mprj_sram ((volatile uint32_t*)0x30100000)
 
 void delay(const int d) {
     /* Configure timer for a single-shot countdown */

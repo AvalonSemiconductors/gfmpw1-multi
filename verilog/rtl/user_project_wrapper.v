@@ -88,6 +88,12 @@ wire [7:0] qcpu_sram_in;
 wire [7:0] qcpu_sram_out;
 wire qcpu_sram_gwe;
 
+wire rst_mc14500;
+wire [30:0] mc14500_do;
+wire [5:0] mc14500_sram_addr;
+wire [7:0] mc14500_sram_in;
+wire mc14500_sram_gwe;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -135,6 +141,12 @@ multiplexer multiplexer (
     .qcpu_sram_in(qcpu_sram_in),
     .qcpu_sram_out(qcpu_sram_out),
     .qcpu_sram_gwe(qcpu_sram_gwe),
+    
+    .rst_mc14500(rst_mc14500),
+    .mc14500_do(mc14500_do),
+    .mc14500_sram_addr(mc14500_sram_addr),
+    .mc14500_sram_in(mc14500_sram_in),
+    .mc14500_sram_gwe(mc14500_sram_gwe),
 
     .custom_settings(custom_settings)
 );
@@ -196,6 +208,22 @@ wrapped_qcpu wrapped_qcpu(
     .sram_in(qcpu_sram_in),
     .sram_out(qcpu_sram_out),
     .sram_gwe(qcpu_sram_gwe)
+);
+
+wrapped_mc14500 mc14500(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .clk_i(io_in[37]),
+    .rst_n(rst_mc14500),
+    .io_in(io_in[12:5]),
+    .SDI(io_in[36]),
+    .io_out(mc14500_do),
+    .sram_addr(mc14500_sram_addr),
+    .sram_in(mc14500_sram_in),
+    .sram_out(qcpu_sram_out),
+    .sram_gwe(mc14500_sram_gwe)
 );
 
 endmodule	// user_project_wrapper

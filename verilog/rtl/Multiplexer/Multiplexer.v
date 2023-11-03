@@ -36,6 +36,12 @@ module multiplexer(
 	input [7:0] qcpu_sram_in,
 	output [7:0] qcpu_sram_out,
 	input qcpu_sram_gwe,
+	
+	output rst_mc14500,
+	input [30:0] mc14500_do,
+	input [5:0] mc14500_sram_addr,
+	input [7:0] mc14500_sram_in,
+	input mc14500_sram_gwe,
 
 	output reg [31:0] custom_settings,
 	
@@ -62,14 +68,14 @@ reg [32:0] design_oeb;
 assign io_out = {design_out, 5'h00};
 assign io_oeb = {design_oeb, 5'h1F};
 
-wire design_needs_sram = design_select == 0 || design_select == 4;
+wire design_needs_sram = design_select == 0 || design_select == 4 || design_select == 5;
 wire sram_cen = ~design_needs_sram || wb_rst_i;
 
 reg wb_sram_we;
-wire [5:0] sram_A = design_select == 4 ? qcpu_sram_addr : wbs_adr_i[7:2];
-wire [7:0] sram_D = design_select == 4 ? qcpu_sram_in : wbs_dat_i[7:0];
+wire [5:0] sram_A = design_select == 4 ? qcpu_sram_addr : (design_select == 5 ? mc14500_sram_addr : wbs_adr_i[7:2]);
+wire [7:0] sram_D = design_select == 4 ? qcpu_sram_in : (design_select == 5 ? mc14500_sram_in : wbs_dat_i[7:0]);
 wire [7:0] sram_wen = 8'h00;
-wire sram_gwen = design_select == 4 ? ~qcpu_sram_gwe : ~wb_sram_we;
+wire sram_gwen = design_select == 4 ? ~qcpu_sram_gwe : (design_select == 5 ? ~mc14500_sram_gwe : ~wb_sram_we);
 wire [7:0] sram_Q;
 assign qcpu_sram_out = sram_Q;
 
@@ -123,6 +129,7 @@ assign rst_blinker = design_rst_base && design_select == 1;
 assign rst_sid = design_rst_base && design_select == 2;
 assign rst_sn76489 = design_rst_base && design_select == 3;
 assign rst_qcpu = design_rst_base && design_select == 4;
+assign rst_mc14500 = design_rst_base && design_select == 5;
 
 always @(*) begin
 	case(design_select)
