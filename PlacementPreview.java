@@ -22,13 +22,14 @@ public class PlacementPreview {
 		BufferedImage img = new BufferedImage(2968, 2968, BufferedImage.TYPE_INT_RGB);
 		
 		Macro[] macros = new Macro[] {
-			new Macro(1230, 1280, 600, 600, Color.GREEN, "Multiplexer"), //Multiplexer
+			new Macro(1205, 1280, 650, 600, Color.GREEN, "Multiplexer"), //Multiplexer
 			new Macro(200, 250, 1150, 800, Color.RED, "SID"), //wrapped_sid
 			new Macro(1450, 250, 180, 180, Color.GRAY, "LED Blinker Test"), //blinker
 			new Macro(1800, 250, 300, 350, new Color(32, 64, 240), "SN76489"), //wrapped_sn76489
 			new Macro(300, 2400, 300, 352, new Color(240, 128, 32), "Avali Logo"), //avali_logo
 			new Macro(2300, 250, 500, 500, new Color(240, 64, 64), "QCPU"), //wrapped_qcpu
-			new Macro(2400, 1000, 175, 175, new Color(166, 166, 166), "MC14500") //wrapped_mc14500
+			new Macro(2400, 1000, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
+			new Macro(200, 1200, 300, 300, new Color(166, 32, 166), "AY8913") //wrapped_ay8913
 		};
 
 		/*Macro[] macros = new Macro[] {

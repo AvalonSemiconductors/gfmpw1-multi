@@ -23,3 +23,9 @@
 -v $(USER_PROJECT_VERILOG)/rtl/QCPU/uart.v
 -v $(USER_PROJECT_VERILOG)/rtl/MC14500/MC14500.v
 -v $(USER_PROJECT_VERILOG)/rtl/MC14500/wrapped_mc14500.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/attenuation.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/envelope.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/noise.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/tone.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/tt_um_rejunity_ay8913.v
+-v $(USER_PROJECT_VERILOG)/rtl/AY8913/wrapped_ay8913.v

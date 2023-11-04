@@ -35,9 +35,8 @@ wire spi_do;
 wire M1;
 wire pwm;
 wire toggle;
-wire Q;
 
-assign io_out = {Q, toggle, pwm, 1'b0, 1'b0, M1, 1'b0, spi_do, spi_sclk, 1'b0, txd, PORTB, PORTA, SCLK_ROM, CS_ROM, ROM_DO};
+assign io_out = {ROM_OEB, toggle, pwm, 1'b0, 1'b0, M1, 1'b0, spi_do, spi_sclk, 1'b0, txd, PORTB, PORTA, SCLK_ROM, CS_ROM, ROM_DO};
 assign io_oeb = {1'b0, 1'b0, 1'b0, 1'b1, 1'b1, 1'b0, 1'b1, 1'b0, 1'b0, 1'b1, 1'b0, ~PORTB_DDR, ~PORTA_DDR, 1'b0, 1'b0, ROM_spi_mode ? 1'b0 : ROM_OEB, ROM_spi_mode ? 1'b0 : ROM_OEB, ROM_spi_mode ? 1'b1 : ROM_OEB, ROM_spi_mode ? 1'b0 : ROM_OEB};
 
 qcpu cpu(
@@ -74,8 +73,7 @@ qcpu cpu(
   .intb(io_in[28]),
   .pause(io_in[29]),
   .pwm(pwm),
-  .toggle(toggle),
-  .Q(Q)
+  .toggle(toggle)
 );
 
 endmodule

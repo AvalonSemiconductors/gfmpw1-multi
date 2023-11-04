@@ -39,6 +39,34 @@ module user_project_wrapper (user_clock2,
  output [31:0] wbs_dat_o;
  input [3:0] wbs_sel_i;
 
+ wire \ay8913_do[0] ;
+ wire \ay8913_do[10] ;
+ wire \ay8913_do[11] ;
+ wire \ay8913_do[12] ;
+ wire \ay8913_do[13] ;
+ wire \ay8913_do[14] ;
+ wire \ay8913_do[15] ;
+ wire \ay8913_do[16] ;
+ wire \ay8913_do[17] ;
+ wire \ay8913_do[18] ;
+ wire \ay8913_do[19] ;
+ wire \ay8913_do[1] ;
+ wire \ay8913_do[20] ;
+ wire \ay8913_do[21] ;
+ wire \ay8913_do[22] ;
+ wire \ay8913_do[23] ;
+ wire \ay8913_do[24] ;
+ wire \ay8913_do[25] ;
+ wire \ay8913_do[26] ;
+ wire \ay8913_do[27] ;
+ wire \ay8913_do[2] ;
+ wire \ay8913_do[3] ;
+ wire \ay8913_do[4] ;
+ wire \ay8913_do[5] ;
+ wire \ay8913_do[6] ;
+ wire \ay8913_do[7] ;
+ wire \ay8913_do[8] ;
+ wire \ay8913_do[9] ;
  wire \blinker_do[0] ;
  wire \blinker_do[1] ;
  wire \blinker_do[2] ;
@@ -209,6 +237,7 @@ module user_project_wrapper (user_clock2,
  wire \qcpu_sram_out[5] ;
  wire \qcpu_sram_out[6] ;
  wire \qcpu_sram_out[7] ;
+ wire rst_ay8913;
  wire rst_blinker;
  wire rst_mc14500;
  wire rst_qcpu;
@@ -267,6 +296,50 @@ module user_project_wrapper (user_clock2,
 
  avali_logo avali_logo (.vss(vss),
     .vdd(vdd));
+ wrapped_ay8913 ay8913 (.rst_n(rst_ay8913),
+    .vdd(vdd),
+    .vss(vss),
+    .wb_clk_i(wb_clk_i),
+    .custom_settings({\custom_settings[1] ,
+    \custom_settings[0] }),
+    .io_in_1({io_in[12],
+    io_in[11],
+    io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6],
+    io_in[5]}),
+    .io_in_2({io_in[20],
+    io_in[19]}),
+    .io_out({\ay8913_do[27] ,
+    \ay8913_do[26] ,
+    \ay8913_do[25] ,
+    \ay8913_do[24] ,
+    \ay8913_do[23] ,
+    \ay8913_do[22] ,
+    \ay8913_do[21] ,
+    \ay8913_do[20] ,
+    \ay8913_do[19] ,
+    \ay8913_do[18] ,
+    \ay8913_do[17] ,
+    \ay8913_do[16] ,
+    \ay8913_do[15] ,
+    \ay8913_do[14] ,
+    \ay8913_do[13] ,
+    \ay8913_do[12] ,
+    \ay8913_do[11] ,
+    \ay8913_do[10] ,
+    \ay8913_do[9] ,
+    \ay8913_do[8] ,
+    \ay8913_do[7] ,
+    \ay8913_do[6] ,
+    \ay8913_do[5] ,
+    \ay8913_do[4] ,
+    \ay8913_do[3] ,
+    \ay8913_do[2] ,
+    \ay8913_do[1] ,
+    \ay8913_do[0] }));
  blinker blinker (.rst_n(rst_blinker),
     .vdd(vdd),
     .vss(vss),
@@ -344,6 +417,7 @@ module user_project_wrapper (user_clock2,
     \qcpu_sram_out[0] }));
  multiplexer multiplexer (.mc14500_sram_gwe(mc14500_sram_gwe),
     .qcpu_sram_gwe(qcpu_sram_gwe),
+    .rst_ay8913(rst_ay8913),
     .rst_blinker(rst_blinker),
     .rst_mc14500(rst_mc14500),
     .rst_qcpu(rst_qcpu),
@@ -358,6 +432,34 @@ module user_project_wrapper (user_clock2,
     .wbs_cyc_i(wbs_cyc_i),
     .wbs_stb_i(wbs_stb_i),
     .wbs_we_i(wbs_we_i),
+    .ay8913_do({\ay8913_do[27] ,
+    \ay8913_do[26] ,
+    \ay8913_do[25] ,
+    \ay8913_do[24] ,
+    \ay8913_do[23] ,
+    \ay8913_do[22] ,
+    \ay8913_do[21] ,
+    \ay8913_do[20] ,
+    \ay8913_do[19] ,
+    \ay8913_do[18] ,
+    \ay8913_do[17] ,
+    \ay8913_do[16] ,
+    \ay8913_do[15] ,
+    \ay8913_do[14] ,
+    \ay8913_do[13] ,
+    \ay8913_do[12] ,
+    \ay8913_do[11] ,
+    \ay8913_do[10] ,
+    \ay8913_do[9] ,
+    \ay8913_do[8] ,
+    \ay8913_do[7] ,
+    \ay8913_do[6] ,
+    \ay8913_do[5] ,
+    \ay8913_do[4] ,
+    \ay8913_do[3] ,
+    \ay8913_do[2] ,
+    \ay8913_do[1] ,
+    \ay8913_do[0] }),
     .blinker_do({\blinker_do[2] ,
     \blinker_do[1] ,
     \blinker_do[0] }),

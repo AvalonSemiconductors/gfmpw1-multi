@@ -38,3 +38,7 @@ Simplest setup to allow the multiple designs to share the chip IO. Has a connect
 
 A very simple, bit-serial yet turing-complete CPU based on the MC14500 architecture, but modified to allow it to operate on 8-bit values.
 Example program included in verification can multiply two numbers, despite the CPU only supporting logical operations on 1-bit operands.
+
+## AY8913
+
+Design contributed by [rejunity](https://github.com/rejunity). More info at the [original repo](https://github.com/rejunity/rejunity/tt05-psg-ay8913).

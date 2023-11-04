@@ -42,6 +42,9 @@ module multiplexer(
 	input [5:0] mc14500_sram_addr,
 	input [7:0] mc14500_sram_in,
 	input mc14500_sram_gwe,
+	
+	output rst_ay8913,
+	input [27:0] ay8913_do,
 
 	output reg [31:0] custom_settings,
 	
@@ -130,6 +133,7 @@ assign rst_sid = design_rst_base && design_select == 2;
 assign rst_sn76489 = design_rst_base && design_select == 3;
 assign rst_qcpu = design_rst_base && design_select == 4;
 assign rst_mc14500 = design_rst_base && design_select == 5;
+assign rst_ay8913 = design_rst_base && design_select == 6;
 
 always @(*) begin
 	case(design_select)
@@ -156,6 +160,10 @@ always @(*) begin
 		5: begin
 			design_out = {1'b0, 1'b0, mc14500_do};
 			design_oeb = {1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 17'h00000, 8'hFF};
+		end
+		6: begin
+			design_out = {5'h00, ay8913_do};
+			design_oeb = {5'h00, 8'h00, 3'b000, 5'h1F, custom_settings[2] ? 4'b0000 : 4'b1111, 8'hFF};
 		end
 
 		default: begin

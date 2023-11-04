@@ -1,0 +1,39 @@
+{
+	"PDK": "gf180mcuD",
+	"STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+	"DESIGN_NAME": "wrapped_ay8913",
+	"VERILOG_FILES": [
+		"dir::../../verilog/rtl/defines.v",
+		"dir::../../verilog/rtl/AY8913/attenuation.v",
+		"dir::../../verilog/rtl/AY8913/noise.v",
+		"dir::../../verilog/rtl/AY8913/envelope.v",
+		"dir::../../verilog/rtl/SN76489/pwm.v",
+		"dir::../../verilog/rtl/SN76489/spi_dac_i.v",
+		"dir::../../verilog/rtl/AY8913/tone.v",
+		"dir::../../verilog/rtl/SN76489/signal_edge.v",
+		"dir::../../verilog/rtl/AY8913/tt_um_rejunity_ay8913.v",
+		"dir::../../verilog/rtl/AY8913/wrapped_ay8913.v"
+	],
+	"DESIGN_IS_CORE": 0,
+	"CLOCK_PORT": "wb_clk_i",
+	"CLOCK_NET": "tt_um_rejunity_ay8913.clk",
+	"CLOCK_PERIOD": "25",
+	"FP_SIZING": "absolute",
+	"DIE_AREA": "0 0 300 300",
+	"FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+	"PL_BASIC_PLACEMENT": 0,
+	"PL_TARGET_DENSITY": 0.43,
+	"FP_CORE_UTIL": 40,
+	"MAX_FANOUT_CONSTRAINT": 4,
+	"RT_MAX_LAYER": "Metal4",
+	"VDD_NETS": [
+		"vdd"
+	],
+	"GND_NETS": [
+		"vss"
+	],
+    "BASE_SDC_FILE": "dir::base_wrapped_ay8913.sdc",
+	"RUN_HEURISTIC_DIODE_INSERTION": 1,
+	"RUN_CVC": 1,
+	"QUIT_ON_LINTER_ERRORS": 0
+}

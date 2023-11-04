@@ -34,7 +34,6 @@ module qcpu(
 	input pause,
 	output reg pwm,
 	output reg toggle,
-	output reg Q,
 
 	input intb
 );
@@ -227,7 +226,6 @@ always @(posedge clk) begin
 		toggle_clkdiv <= 1'b0;
 		toggle_ctr <= 16'h0000;
 		toggle_top <= 16'h0100;
-		Q <= 1'b0;
 	end else begin
 		pwm_counter <= pwm_counter + 1;
 		if(pwm_counter == pwm_top) pwm <= 1'b1;
@@ -521,7 +519,6 @@ always @(posedge clk) begin
 						19: pwm_top <= regs[ext_reg];
 						20: toggle_top[7:0] <= regs[ext_reg];
 						21: toggle_top[15:8] <= regs[ext_reg];
-						22: Q <= regs[ext_reg][0];
 					endcase
 					PC <= PC + 1;
 					instr_cycle <= 0;
@@ -554,7 +551,6 @@ always @(posedge clk) begin
 						19: regs[ext_reg] <= pwm_top;
 						20: regs[ext_reg] <= toggle_top[7:0];
 						21: regs[ext_reg] <= toggle_top[15:8];
-						22: regs[ext_reg] <= {7'h0, Q};
 					endcase
 					PC <= PC + 1;
 					instr_cycle <= 0;

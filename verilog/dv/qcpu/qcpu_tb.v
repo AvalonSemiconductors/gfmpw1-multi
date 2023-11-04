@@ -64,7 +64,7 @@ module qcpu_tb;
 
 	wire pwm = mprj_io[35];
 	wire toggle = mprj_io[36];
-	wire Q = mprj_io[37];
+	wire ROM_OEB = mprj_io[37];
 	
 	initial begin
 		clock = 0;

@@ -94,6 +94,9 @@ wire [5:0] mc14500_sram_addr;
 wire [7:0] mc14500_sram_in;
 wire mc14500_sram_gwe;
 
+wire rst_ay8913;
+wire [27:0] ay8913_do;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -147,6 +150,9 @@ multiplexer multiplexer (
     .mc14500_sram_addr(mc14500_sram_addr),
     .mc14500_sram_in(mc14500_sram_in),
     .mc14500_sram_gwe(mc14500_sram_gwe),
+    
+    .rst_ay8913(rst_ay8913),
+    .ay8913_do(ay8913_do),
 
     .custom_settings(custom_settings)
 );
@@ -225,6 +231,19 @@ wrapped_mc14500 mc14500(
     .sram_out(qcpu_sram_out),
     .sram_gwe(mc14500_sram_gwe),
     .custom_setting(custom_settings[0])
+);
+
+wrapped_ay8913 ay8913(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+	.wb_clk_i(wb_clk_i),
+	.rst_n(rst_ay8913),
+	.io_in_1(io_in[12:5]),
+	.io_in_2(io_in[20:19]),
+	.io_out(ay8913_do),
+	.custom_settings(custom_settings[1:0])
 );
 
 endmodule	// user_project_wrapper

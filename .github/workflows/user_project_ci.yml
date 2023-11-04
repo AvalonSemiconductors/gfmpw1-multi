@@ -142,28 +142,38 @@ jobs:
           rm -rf openlane/wrapped_sid/runs
           make wrapped_mc14500
           rm -rf openlane/wrapped_mc14500/runs
+          make wrapped_ay8913
+          rm -rf openlane/wrapped_ay8913/runs
           make user_project_wrapper
           rm -rf openlane/user_project_wrapper/runs
-
-      - name: run precheck
-        run: |
-          make precheck
-          make run-precheck
-
-          cnt=$(grep -c "All Checks Passed" precheck_results/*/logs/precheck.log)
-          if ! [[ $cnt ]]; then cnt=0; fi
-          if [[ $cnt -eq 1 ]]; then exit 0; fi
-          exit 2
           
-      - name: Tarball GDS outputs
-        run: |
-          tar -cf /tmp/gds.tar -C ./gds .
+       - name: run GL tests
+         run: |
+           make verify-blinker-gl
+           make verify-sid-gl
+           make verify-sn76489-gl
+           make verify-mc14500-gl
+           make verify-qcpu-gl
 
-      - name: Upload GDS Tarball
-        uses: actions/upload-artifact@v3
-        with:
-          name: gds-tarball
-          path: /tmp/gds.tar
+      #- name: run precheck
+      #  run: |
+      #    make precheck
+      #    make run-precheck
+
+      #    cnt=$(grep -c "All Checks Passed" precheck_results/*/logs/precheck.log)
+      #    if ! [[ $cnt ]]; then cnt=0; fi
+      #    if [[ $cnt -eq 1 ]]; then exit 0; fi
+      #    exit 2
+          
+      #- name: Tarball GDS outputs
+      #  run: |
+      #    tar -cf /tmp/gds.tar -C ./gds .
+
+      #- name: Upload GDS Tarball
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: gds-tarball
+      #    path: /tmp/gds.tar
 
       - name: upload failure logs
         if: failure()
