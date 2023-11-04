@@ -147,13 +147,13 @@ jobs:
           make user_project_wrapper
           rm -rf openlane/user_project_wrapper/runs
           
-       - name: run GL tests
-         run: |
-           make verify-blinker-gl
-           make verify-sid-gl
-           make verify-sn76489-gl
-           make verify-mc14500-gl
-           make verify-qcpu-gl
+      - name: run GL tests
+        run: |
+          make verify-blinker-gl
+          make verify-sid-gl
+          make verify-sn76489-gl
+          make verify-mc14500-gl
+          make verify-qcpu-gl
 
       #- name: run precheck
       #  run: |
