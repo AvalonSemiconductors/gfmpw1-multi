@@ -147,6 +147,10 @@ jobs:
           make user_project_wrapper
           rm -rf openlane/user_project_wrapper/runs
           
+      - name: Patch Caravel
+        run: |
+          cp patches/simple_por.v caravel/verilog/rtl/simple_por.v
+          
       - name: run GL tests
         run: |
           make verify-blinker-gl
