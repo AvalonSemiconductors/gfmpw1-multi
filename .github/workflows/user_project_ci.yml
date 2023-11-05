@@ -254,6 +254,18 @@ jobs:
           library = gdstk.read_gds('/tmp/gds/wrapped_sn76489.gds')
           top_cells = library.top_level()
           top_cells[0].write_svg('/tmp/svg/wrapped_sn76489.svg')
+
+          library = gdstk.read_gds('/tmp/gds/wrapped_ay8913.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/wrapped_ay8913.svg')
+
+          library = gdstk.read_gds('/tmp/gds/wrapped_mc14500.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/wrapped_mc14500.svg')
+
+          library = gdstk.read_gds('/tmp/gds/wrapped_sid.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/wrapped_sid.svg')
           
           library = gdstk.read_gds('/tmp/gds/user_project_wrapper.gds')
           top_cells = library.top_level()
@@ -265,4 +277,7 @@ jobs:
           path: |
             /tmp/svg/wrapped_qcpu.svg
             /tmp/svg/wrapped_sn76489.svg
-            /tmp/gds/user_project_wrapper.svg
+            /tmp/svg/wrapped_ay8913.svg
+            /tmp/svg/wrapped_mc14500.svg
+            /tmp/svg/wrapped_sid.svg
+            /tmp/svg/user_project_wrapper.svg
