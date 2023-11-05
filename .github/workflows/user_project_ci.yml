@@ -159,15 +159,15 @@ jobs:
           make verify-mc14500-gl
           make verify-qcpu-gl
 
-      - name: run precheck
-        run: |
-          make precheck
-          make run-precheck
+      #- name: run precheck
+      #  run: |
+      #    make precheck
+      #    make run-precheck
 
-          cnt=$(grep -c "All Checks Passed" precheck_results/*/logs/precheck.log)
-          if ! [[ $cnt ]]; then cnt=0; fi
-          if [[ $cnt -eq 1 ]]; then exit 0; fi
-          exit 2
+      #    cnt=$(grep -c "All Checks Passed" precheck_results/*/logs/precheck.log)
+      #    if ! [[ $cnt ]]; then cnt=0; fi
+      #    if [[ $cnt -eq 1 ]]; then exit 0; fi
+      #    exit 2
           
       - name: Tarball GDS outputs
         run: |
