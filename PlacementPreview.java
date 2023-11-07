@@ -29,7 +29,8 @@ public class PlacementPreview {
 			new Macro(300, 2400, 300, 352, new Color(240, 128, 32), "Avali Logo"), //avali_logo
 			new Macro(2300, 250, 500, 500, new Color(240, 64, 64), "QCPU"), //wrapped_qcpu
 			new Macro(2400, 1000, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
-			new Macro(200, 1200, 300, 300, new Color(166, 32, 166), "AY8913") //wrapped_ay8913
+			new Macro(200, 1200, 300, 300, new Color(166, 32, 166), "AY8913"), //wrapped_ay8913
+			new Macro(800, 1300, 130, 130, new Color(166, 32, 255), "Hellorld"),
 		};
 
 		/*Macro[] macros = new Macro[] {

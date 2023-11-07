@@ -97,6 +97,9 @@ wire mc14500_sram_gwe;
 wire rst_ay8913;
 wire [27:0] ay8913_do;
 
+wire rst_hellorld;
+wire hellorld_do;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -153,6 +156,9 @@ multiplexer multiplexer (
     
     .rst_ay8913(rst_ay8913),
     .ay8913_do(ay8913_do),
+    
+    .rst_hellorld(rst_hellorld),
+    .hellorld_do(hellorld_do),
 
     .custom_settings(custom_settings)
 );
@@ -244,6 +250,17 @@ wrapped_ay8913 ay8913(
 	.io_in_2(io_in[20:19]),
 	.io_out(ay8913_do),
 	.custom_settings(custom_settings[1:0])
+);
+
+hellorld hellorld(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .wb_clk_i(wb_clk_i),
+    .rst_n(rst_hellorld),
+    .io_out(hellorld_do),
+    .custom_settings(custom_settings[11:0])
 );
 
 endmodule	// user_project_wrapper

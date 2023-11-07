@@ -18,7 +18,8 @@
 		"dir::../../verilog/rtl/Logo/avali_logo.v",
 		"dir::../../verilog/gl/wrapped_qcpu.v",
 		"dir::../../verilog/gl/wrapped_mc14500.v",
-		"dir::../../verilog/gl/wrapped_ay8913.v"
+		"dir::../../verilog/gl/wrapped_ay8913.v",
+		"dir::../../verilog/gl/hellorld.v"
 	],
 	"EXTRA_LEFS": [
 		"dir::../../lef/multiplexer.lef",
@@ -28,7 +29,8 @@
 		"dir::../../lef/avali_logo.lef",
 		"dir::../../lef/wrapped_qcpu.lef",
 		"dir::../../lef/wrapped_mc14500.lef",
-		"dir::../../lef/wrapped_ay8913.lef"
+		"dir::../../lef/wrapped_ay8913.lef",
+		"dir::../../lef/hellorld.lef"
 	],
 	"EXTRA_GDS_FILES": [
 		"dir::../../gds/multiplexer.gds",
@@ -38,7 +40,8 @@
 		"dir::../../gds/avali_logo.gds",
 		"dir::../../gds/wrapped_qcpu.gds",
 		"dir::../../gds/wrapped_mc14500.gds",
-		"dir::../../gds/wrapped_ay8913.gds"
+		"dir::../../gds/wrapped_ay8913.gds",
+		"dir::../../gds/hellorld.gds"
 	],
 	"EXTRA_LIBS": [
 		"dir::../../lib/multiplexer.lib",
@@ -47,7 +50,8 @@
 		"dir::../../lib/wrapped_sn76489.lib",
 		"dir::../../lib/wrapped_qcpu.lib",
 		"dir::../../lib/wrapped_mc14500.lib",
-		"dir::../../lib/wrapped_ay8913.lib"
+		"dir::../../lib/wrapped_ay8913.lib",
+		"dir::../../lib/hellorld.lib"
 	],
 	"EXTRA_SPEFS": [
 		"multiplexer",
@@ -83,9 +87,14 @@
 		"wrapped_ay8913",
 		"dir::../../spef/multicorner/wrapped_ay8913.min.spef",
 		"dir::../../spef/multicorner/wrapped_ay8913.nom.spef",
-		"dir::../../spef/multicorner/wrapped_ay8913.max.spef"
+		"dir::../../spef/multicorner/wrapped_ay8913.max.spef",
+		
+		"hellorld",
+		"dir::../../spef/multicorner/hellorld.min.spef",
+		"dir::../../spef/multicorner/hellorld.nom.spef",
+		"dir::../../spef/multicorner/hellorld.max.spef"
 	],
-	"FP_PDN_MACRO_HOOKS": "multiplexer vdd vss vdd vss, sid vdd vss vdd vss, blinker vdd vss vdd vss, wrapped_sn76489 vdd vss vdd vss, avali_logo vdd vss vdd vss, wrapped_qcpu vdd vss vdd vss, mc14500 vdd vss vdd vss, ay8913 vdd vss vdd vss",
+	"FP_PDN_MACRO_HOOKS": "multiplexer vdd vss vdd vss, sid vdd vss vdd vss, blinker vdd vss vdd vss, wrapped_sn76489 vdd vss vdd vss, avali_logo vdd vss vdd vss, wrapped_qcpu vdd vss vdd vss, mc14500 vdd vss vdd vss, ay8913 vdd vss vdd vss, hellorld vdd vss vdd vss",
 	"QUIT_ON_SYNTH_CHECKS": 0,
 	"FP_PDN_CHECK_NODES": 0,
 	"SYNTH_ELABORATE_ONLY": 1,

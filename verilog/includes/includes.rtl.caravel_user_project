@@ -29,3 +29,4 @@
 -v $(USER_PROJECT_VERILOG)/rtl/AY8913/tone.v
 -v $(USER_PROJECT_VERILOG)/rtl/AY8913/tt_um_rejunity_ay8913.v
 -v $(USER_PROJECT_VERILOG)/rtl/AY8913/wrapped_ay8913.v
+-v $(USER_PROJECT_VERILOG)/rtl/Hellorld/hellorld.v

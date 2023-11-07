@@ -102,6 +102,7 @@ module user_project_wrapper (user_clock2,
  wire \custom_settings[7] ;
  wire \custom_settings[8] ;
  wire \custom_settings[9] ;
+ wire hellorld_do;
  wire \mc14500_do[0] ;
  wire \mc14500_do[10] ;
  wire \mc14500_do[11] ;
@@ -239,6 +240,7 @@ module user_project_wrapper (user_clock2,
  wire \qcpu_sram_out[7] ;
  wire rst_ay8913;
  wire rst_blinker;
+ wire rst_hellorld;
  wire rst_mc14500;
  wire rst_qcpu;
  wire rst_sid;
@@ -347,6 +349,23 @@ module user_project_wrapper (user_clock2,
     .io_out({\blinker_do[2] ,
     \blinker_do[1] ,
     \blinker_do[0] }));
+ hellorld hellorld (.io_out(hellorld_do),
+    .rst_n(rst_hellorld),
+    .vdd(vdd),
+    .vss(vss),
+    .wb_clk_i(wb_clk_i),
+    .custom_settings({\custom_settings[11] ,
+    \custom_settings[10] ,
+    \custom_settings[9] ,
+    \custom_settings[8] ,
+    \custom_settings[7] ,
+    \custom_settings[6] ,
+    \custom_settings[5] ,
+    \custom_settings[4] ,
+    \custom_settings[3] ,
+    \custom_settings[2] ,
+    \custom_settings[1] ,
+    \custom_settings[0] }));
  wrapped_mc14500 mc14500 (.SDI(io_in[36]),
     .clk_i(io_in[37]),
     .custom_setting(\custom_settings[0] ),
@@ -415,10 +434,12 @@ module user_project_wrapper (user_clock2,
     \qcpu_sram_out[2] ,
     \qcpu_sram_out[1] ,
     \qcpu_sram_out[0] }));
- multiplexer multiplexer (.mc14500_sram_gwe(mc14500_sram_gwe),
+ multiplexer multiplexer (.hellorld_do(hellorld_do),
+    .mc14500_sram_gwe(mc14500_sram_gwe),
     .qcpu_sram_gwe(qcpu_sram_gwe),
     .rst_ay8913(rst_ay8913),
     .rst_blinker(rst_blinker),
+    .rst_hellorld(rst_hellorld),
     .rst_mc14500(rst_mc14500),
     .rst_qcpu(rst_qcpu),
     .rst_sid(rst_sid),

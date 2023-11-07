@@ -85,6 +85,7 @@ jobs:
       - name: Run tests
         run: |
           make verify-blinker-rtl
+          make verify-hellorld-rtl
           make verify-sid-rtl
           make verify-sn76489-rtl
           make verify-qcpu-rtl
@@ -131,6 +132,8 @@ jobs:
         run: |
           make uncompress
           make blinker
+          make hellorld
+          rm -rf openlane/hellorld/runs
           rm -rf openlane/blinker/runs
           make Multiplexer
           rm -rf openlane/Multiplexer/runs
@@ -154,6 +157,7 @@ jobs:
       - name: run GL tests
         run: |
           make verify-blinker-gl
+          make verify-hellorld-gl
           make verify-sid-gl
           make verify-sn76489-gl
           make verify-mc14500-gl
@@ -257,6 +261,10 @@ jobs:
           top_cells = library.top_level()
           top_cells[0].write_svg('/tmp/svg/wrapped_qcpu.svg')
           
+          library = gdstk.read_gds('/tmp/gds/hellorld.gds')
+          top_cells = library.top_level()
+          top_cells[0].write_svg('/tmp/svg/hellorld.svg')
+          
           library = gdstk.read_gds('/tmp/gds/wrapped_sn76489.gds')
           top_cells = library.top_level()
           top_cells[0].write_svg('/tmp/svg/wrapped_sn76489.svg')
@@ -281,6 +289,7 @@ jobs:
         with:
           name: SVG
           path: |
+            /tmp/svg/hellorld.svg
             /tmp/svg/wrapped_qcpu.svg
             /tmp/svg/wrapped_sn76489.svg
             /tmp/svg/wrapped_ay8913.svg

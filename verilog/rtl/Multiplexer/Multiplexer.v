@@ -45,6 +45,9 @@ module multiplexer(
 	
 	output rst_ay8913,
 	input [27:0] ay8913_do,
+	
+	output rst_hellorld,
+	input hellorld_do,
 
 	output reg [31:0] custom_settings,
 	
@@ -134,6 +137,7 @@ assign rst_sn76489 = design_rst_base && design_select == 3;
 assign rst_qcpu = design_rst_base && design_select == 4;
 assign rst_mc14500 = design_rst_base && design_select == 5;
 assign rst_ay8913 = design_rst_base && design_select == 6;
+assign rst_hellorld = design_rst_base && design_select == 7;
 
 always @(*) begin
 	case(design_select)
@@ -165,9 +169,13 @@ always @(*) begin
 			design_out = {5'h00, ay8913_do};
 			design_oeb = {5'h00, 8'h00, 3'b000, 5'h1F, custom_settings[2] ? 4'b0000 : 4'b1111, 8'hFF};
 		end
+		7: begin
+			design_out = {21'h000000, {12{hellorld_do}}};
+			design_oeb = 33'h1FFFFF000;
+		end
 
 		default: begin
-			design_out = 33'b000000000010001010011000101001100; //'RTFM' in base64
+			design_out = 33'b100000000010001010011000101001100; //'RTFM' in base64
 			design_oeb = 33'h000000000;
 		end
 	endcase

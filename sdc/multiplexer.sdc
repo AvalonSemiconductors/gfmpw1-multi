@@ -1,6 +1,6 @@
 ###############################################################################
 # Created by write_sdc
-# Sat Nov  4 18:05:14 2023
+# Tue Nov  7 13:06:19 2023
 ###############################################################################
 current_design multiplexer
 ###############################################################################
@@ -232,6 +232,7 @@ set_multicycle_path -setup\
 ###############################################################################
 set_load -pin_load 0.1900 [get_ports {rst_ay8913}]
 set_load -pin_load 0.1900 [get_ports {rst_blinker}]
+set_load -pin_load 0.1900 [get_ports {rst_hellorld}]
 set_load -pin_load 0.1900 [get_ports {rst_mc14500}]
 set_load -pin_load 0.1900 [get_ports {rst_qcpu}]
 set_load -pin_load 0.1900 [get_ports {rst_sid}]
