@@ -33,9 +33,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'CIIC Harness'
-copyright = '2020, efabless'
-author = 'efabless'
+project = 'GFMPW-1-Multi'
+copyright = '2023, Tholin'
+author = 'Tholin'
 
 
 # -- General configuration ---------------------------------------------------

@@ -47,7 +47,7 @@ always @(posedge wb_clk_i) begin
 		if(baud_delay == custom_settings) begin
 			baud_delay <= 0;
 			if(frame_counter == 4'b1010) begin
-				frame_counter = 0;
+				frame_counter <= 0;
 				char_pointer <= char_pointer == 10 ? 0 : char_pointer + 1;
 				uart_frame <= {1'b1, 1'b0, char_at, 1'b0};
 			end else begin

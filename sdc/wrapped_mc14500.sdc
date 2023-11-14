@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Fri Nov  3 18:47:30 2023
+# Tue Nov 14 10:15:01 2023
 ###############################################################################
 current_design wrapped_mc14500
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 25.0000 [get_ports {clk_i}]
+create_clock -name clk -period 6.0000 [get_ports {clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]

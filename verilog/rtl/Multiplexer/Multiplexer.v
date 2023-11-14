@@ -98,7 +98,7 @@ always @(posedge wb_clk_i) begin
 		custom_settings <= 1'b0;
 	end else begin
 		wb_counter <= wb_counter + 1;
-		if(wb_valid) begin
+		if(wb_valid && !wb_feedback_delay) begin
 			if(wbs_adr_i[23]) begin
 				if(wbs_we_i) begin
 					wb_override_act <= wbs_dat_i[0];

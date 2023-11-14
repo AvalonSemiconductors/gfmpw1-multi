@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 5
-timestamp 1698916420
+timestamp 1699958466
 << obsm1 >>
 rect 672 1538 29288 33417
 << metal2 >>
@@ -62,8 +62,8 @@ rect 24614 34570 25506 34600
 rect 25622 34570 26514 34600
 rect 26630 34570 27522 34600
 rect 27638 34570 28530 34600
-rect 28646 34570 29218 34600
-rect 854 1549 29218 34570
+rect 28646 34570 29162 34600
+rect 854 1549 29162 34570
 << metal3 >>
 rect 29600 33040 30000 33096
 rect 29600 29568 30000 29624
@@ -112,11 +112,11 @@ rect 9904 1538 10064 33350
 rect 17584 1538 17744 33350
 rect 25264 1538 25424 33350
 << obsm4 >>
-rect 2142 3705 2194 31575
-rect 2414 3705 9874 31575
-rect 10094 3705 17554 31575
-rect 17774 3705 25234 31575
-rect 25454 3705 28770 31575
+rect 2142 2921 2194 31575
+rect 2414 2921 9874 31575
+rect 10094 2921 17554 31575
+rect 17774 2921 25234 31575
+rect 25454 2921 25746 31575
 << labels >>
 rlabel metal3 s 29600 29568 30000 29624 6 custom_settings[0]
 port 1 nsew signal input
@@ -212,8 +212,8 @@ port 43 nsew signal input
 string FIXED_BBOX 0 0 30000 35000
 string LEFclass BLOCK
 string LEFview TRUE
-string GDS_END 2815054
-string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1_group/openlane/wrapped_sn76489/runs/23_11_02_10_11/results/signoff/wrapped_sn76489.magic.gds
-string GDS_START 353364
+string GDS_END 2874506
+string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/wrapped_sn76489/runs/23_11_14_11_37/results/signoff/wrapped_sn76489.magic.gds
+string GDS_START 391704
 << end >>
 

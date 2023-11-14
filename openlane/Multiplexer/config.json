@@ -10,7 +10,7 @@
 	"DESIGN_IS_CORE": 0,
 	"CLOCK_PORT": "wb_clk_i",
 	"CLOCK_NET": "sid_top.clk",
-	"CLOCK_PERIOD": "17",
+	"CLOCK_PERIOD": "16",
 	"FP_SIZING": "absolute",
 	"DIE_AREA": "0 0 650 600",
 	"FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
