@@ -245,6 +245,7 @@ module user_project_wrapper (user_clock2,
  wire rst_qcpu;
  wire rst_sid;
  wire rst_sn76489;
+ wire rst_tbb1143;
  wire \sid_do[0] ;
  wire \sid_do[10] ;
  wire \sid_do[11] ;
@@ -295,6 +296,11 @@ module user_project_wrapper (user_clock2,
  wire \sn76489_do[7] ;
  wire \sn76489_do[8] ;
  wire \sn76489_do[9] ;
+ wire \tbb1143_do[0] ;
+ wire \tbb1143_do[1] ;
+ wire \tbb1143_do[2] ;
+ wire \tbb1143_do[3] ;
+ wire \tbb1143_do[4] ;
 
  avali_logo avali_logo (.vss(vss),
     .vdd(vdd));
@@ -444,6 +450,7 @@ module user_project_wrapper (user_clock2,
     .rst_qcpu(rst_qcpu),
     .rst_sid(rst_sid),
     .rst_sn76489(rst_sn76489),
+    .rst_tbb1143(rst_tbb1143),
     .sid_oeb(sid_oeb),
     .vdd(vdd),
     .vss(vss),
@@ -815,6 +822,11 @@ module user_project_wrapper (user_clock2,
     \sn76489_do[2] ,
     \sn76489_do[1] ,
     \sn76489_do[0] }),
+    .tbb1143_do({\tbb1143_do[4] ,
+    \tbb1143_do[3] ,
+    \tbb1143_do[2] ,
+    \tbb1143_do[1] ,
+    \tbb1143_do[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -970,6 +982,21 @@ module user_project_wrapper (user_clock2,
     \sid_do[2] ,
     \sid_do[1] ,
     \sid_do[0] }));
+ tholin_avalonsemi_tbb1143 tbb1143 (.clk(io_in[11]),
+    .rst_n(rst_tbb1143),
+    .vdd(vdd),
+    .vss(vss),
+    .io_in({io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6],
+    io_in[5]}),
+    .io_out({\tbb1143_do[4] ,
+    \tbb1143_do[3] ,
+    \tbb1143_do[2] ,
+    \tbb1143_do[1] ,
+    \tbb1143_do[0] }));
  wrapped_qcpu wrapped_qcpu (.rst_n(rst_qcpu),
     .sram_gwe(qcpu_sram_gwe),
     .vdd(vdd),

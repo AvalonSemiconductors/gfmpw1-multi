@@ -1,0 +1,45 @@
+{
+	"PDK": "gf180mcuD",
+	"STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+	"DESIGN_NAME": "tholin_avalonsemi_tbb1143",
+	"VERILOG_FILES": [
+		"dir::../../verilog/rtl/defines.v",
+		"dir::../../verilog/rtl/TBB1143/Adder.v",
+		"dir::../../verilog/rtl/TBB1143/AND_GATE.v",
+		"dir::../../verilog/rtl/TBB1143/AND_GATE_BUS.v",
+		"dir::../../verilog/rtl/TBB1143/Demultiplexer_16.v",
+		"dir::../../verilog/rtl/TBB1143/D_FLIPFLOP.v",
+		"dir::../../verilog/rtl/TBB1143/logisimTopLevelShell.v",
+		"dir::../../verilog/rtl/TBB1143/main.v",
+		"dir::../../verilog/rtl/TBB1143/OR_GATE.v",
+		"dir::../../verilog/rtl/TBB1143/REGISTER_FLIP_FLOP.v",
+		"dir::../../verilog/rtl/TBB1143/tone_generator.v",
+		"dir::../../verilog/rtl/TBB1143/tone_generator_2.v",
+		"dir::../../verilog/rtl/TBB1143/triangle_wave_generator.v",
+		"dir::../../verilog/rtl/TBB1143/XNOR_GATE_ONEHOT.v",
+		"dir::../../verilog/rtl/TBB1143/XOR_GATE_ONEHOT.v",
+		"dir::../../verilog/rtl/SN76489/spi_dac_i.v"
+	],
+	"DESIGN_IS_CORE": 0,
+	"CLOCK_PORT": "clk_i",
+	"CLOCK_NET": "clk_i",
+	"CLOCK_PERIOD": "60",
+	"FP_SIZING": "absolute",
+	"DIE_AREA": "0 0 230 230",
+	"FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+	"PL_BASIC_PLACEMENT": 0,
+	"PL_TARGET_DENSITY": 0.62,
+	"FP_CORE_UTIL": 40,
+	"MAX_FANOUT_CONSTRAINT": 4,
+	"RT_MAX_LAYER": "Metal4",
+	"VDD_NETS": [
+		"vdd"
+	],
+	"GND_NETS": [
+		"vss"
+	],
+    "BASE_SDC_FILE": "dir::base_tbb1143.sdc",
+	"RUN_HEURISTIC_DIODE_INSERTION": 1,
+	"RUN_CVC": 1,
+	"QUIT_ON_LINTER_ERRORS": 0
+}

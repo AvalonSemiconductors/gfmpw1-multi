@@ -48,6 +48,9 @@ module multiplexer(
 	
 	output rst_hellorld,
 	input hellorld_do,
+	
+	output rst_tbb1143,
+	input [4:0] tbb1143_do,
 
 	output reg [31:0] custom_settings,
 	
@@ -138,6 +141,7 @@ assign rst_qcpu = design_rst_base && design_select == 4;
 assign rst_mc14500 = design_rst_base && design_select == 5;
 assign rst_ay8913 = design_rst_base && design_select == 6;
 assign rst_hellorld = design_rst_base && design_select == 7;
+assign rst_tbb1143 = design_rst_base && design_select == 8;
 
 always @(*) begin
 	case(design_select)
@@ -172,6 +176,10 @@ always @(*) begin
 		7: begin
 			design_out = {21'h000000, {12{hellorld_do}}};
 			design_oeb = 33'h1FFFFF000;
+		end
+		8: begin
+			design_out = {11'h000, tbb1143_do[4:3], tbb1143_do[1], tbb1143_do[0], tbb1143_do[2], 3'b000, 6'h00, 8'h00};
+			design_oeb = {11'h7FF, 2'b00, 3'b000, 3'b111, 6'h3F, 8'hFF};
 		end
 
 		default: begin

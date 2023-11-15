@@ -147,6 +147,8 @@ jobs:
           rm -rf openlane/wrapped_mc14500/runs
           make wrapped_ay8913
           rm -rf openlane/wrapped_ay8913/runs
+          make tbb1143
+          rm -rf openlane/tbb1143/runs
           make user_project_wrapper
           rm -rf openlane/user_project_wrapper/runs
           

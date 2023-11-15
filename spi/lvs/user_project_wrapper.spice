@@ -80,14 +80,15 @@
 + qcpu_sram_in[2] qcpu_sram_in[3] qcpu_sram_in[4] qcpu_sram_in[5] qcpu_sram_in[6]
 + qcpu_sram_in[7] qcpu_sram_out[0] qcpu_sram_out[1] qcpu_sram_out[2] qcpu_sram_out[3]
 + qcpu_sram_out[4] qcpu_sram_out[5] qcpu_sram_out[6] qcpu_sram_out[7] rst_ay8913 rst_blinker
-+ rst_hellorld rst_mc14500 rst_qcpu rst_sid rst_sn76489 sid_do[0] sid_do[10] sid_do[11]
-+ sid_do[12] sid_do[13] sid_do[14] sid_do[15] sid_do[16] sid_do[17] sid_do[18] sid_do[19]
-+ sid_do[1] sid_do[20] sid_do[2] sid_do[3] sid_do[4] sid_do[5] sid_do[6] sid_do[7]
-+ sid_do[8] sid_do[9] sid_oeb sn76489_do[0] sn76489_do[10] sn76489_do[11] sn76489_do[12]
-+ sn76489_do[13] sn76489_do[14] sn76489_do[15] sn76489_do[16] sn76489_do[17] sn76489_do[18]
-+ sn76489_do[19] sn76489_do[1] sn76489_do[20] sn76489_do[21] sn76489_do[22] sn76489_do[23]
-+ sn76489_do[24] sn76489_do[25] sn76489_do[26] sn76489_do[27] sn76489_do[2] sn76489_do[3]
-+ sn76489_do[4] sn76489_do[5] sn76489_do[6] sn76489_do[7] sn76489_do[8] sn76489_do[9]
++ rst_hellorld rst_mc14500 rst_qcpu rst_sid rst_sn76489 rst_tbb1143 sid_do[0] sid_do[10]
++ sid_do[11] sid_do[12] sid_do[13] sid_do[14] sid_do[15] sid_do[16] sid_do[17] sid_do[18]
++ sid_do[19] sid_do[1] sid_do[20] sid_do[2] sid_do[3] sid_do[4] sid_do[5] sid_do[6]
++ sid_do[7] sid_do[8] sid_do[9] sid_oeb sn76489_do[0] sn76489_do[10] sn76489_do[11]
++ sn76489_do[12] sn76489_do[13] sn76489_do[14] sn76489_do[15] sn76489_do[16] sn76489_do[17]
++ sn76489_do[18] sn76489_do[19] sn76489_do[1] sn76489_do[20] sn76489_do[21] sn76489_do[22]
++ sn76489_do[23] sn76489_do[24] sn76489_do[25] sn76489_do[26] sn76489_do[27] sn76489_do[2]
++ sn76489_do[3] sn76489_do[4] sn76489_do[5] sn76489_do[6] sn76489_do[7] sn76489_do[8]
++ sn76489_do[9] tbb1143_do[0] tbb1143_do[1] tbb1143_do[2] tbb1143_do[3] tbb1143_do[4]
 + vdd vss wb_clk_i wb_rst_i wbs_ack_o wbs_adr_i[0] wbs_adr_i[10] wbs_adr_i[11] wbs_adr_i[12]
 + wbs_adr_i[13] wbs_adr_i[14] wbs_adr_i[15] wbs_adr_i[16] wbs_adr_i[17] wbs_adr_i[18]
 + wbs_adr_i[19] wbs_adr_i[1] wbs_adr_i[20] wbs_adr_i[21] wbs_adr_i[22] wbs_adr_i[23]
@@ -105,6 +106,11 @@
 + wbs_dat_o[27] wbs_dat_o[28] wbs_dat_o[29] wbs_dat_o[2] wbs_dat_o[30] wbs_dat_o[31]
 + wbs_dat_o[3] wbs_dat_o[4] wbs_dat_o[5] wbs_dat_o[6] wbs_dat_o[7] wbs_dat_o[8] wbs_dat_o[9]
 + wbs_stb_i wbs_we_i
+.ends
+
+* Black-box entry subcircuit for tholin_avalonsemi_tbb1143 abstract view
+.subckt tholin_avalonsemi_tbb1143 clk io_in[0] io_in[1] io_in[2] io_in[3] io_in[4]
++ io_in[5] io_out[0] io_out[1] io_out[2] io_out[3] io_out[4] rst_n vdd vss
 .ends
 
 * Black-box entry subcircuit for wrapped_qcpu abstract view
@@ -299,7 +305,7 @@ Xmultiplexer ay8913_do\[0\] ay8913_do\[10\] ay8913_do\[11\] ay8913_do\[12\] ay89
 + qcpu_sram_in\[4\] qcpu_sram_in\[5\] qcpu_sram_in\[6\] qcpu_sram_in\[7\] qcpu_sram_out\[0\]
 + qcpu_sram_out\[1\] qcpu_sram_out\[2\] qcpu_sram_out\[3\] qcpu_sram_out\[4\] qcpu_sram_out\[5\]
 + qcpu_sram_out\[6\] qcpu_sram_out\[7\] rst_ay8913 rst_blinker rst_hellorld rst_mc14500
-+ rst_qcpu rst_sid rst_sn76489 sid_do\[0\] sid_do\[10\] sid_do\[11\] sid_do\[12\]
++ rst_qcpu rst_sid rst_sn76489 rst_tbb1143 sid_do\[0\] sid_do\[10\] sid_do\[11\] sid_do\[12\]
 + sid_do\[13\] sid_do\[14\] sid_do\[15\] sid_do\[16\] sid_do\[17\] sid_do\[18\] sid_do\[19\]
 + sid_do\[1\] sid_do\[20\] sid_do\[2\] sid_do\[3\] sid_do\[4\] sid_do\[5\] sid_do\[6\]
 + sid_do\[7\] sid_do\[8\] sid_do\[9\] sid_oeb sn76489_do\[0\] sn76489_do\[10\] sn76489_do\[11\]
@@ -308,6 +314,7 @@ Xmultiplexer ay8913_do\[0\] ay8913_do\[10\] ay8913_do\[11\] ay8913_do\[12\] ay89
 + sn76489_do\[21\] sn76489_do\[22\] sn76489_do\[23\] sn76489_do\[24\] sn76489_do\[25\]
 + sn76489_do\[26\] sn76489_do\[27\] sn76489_do\[2\] sn76489_do\[3\] sn76489_do\[4\]
 + sn76489_do\[5\] sn76489_do\[6\] sn76489_do\[7\] sn76489_do\[8\] sn76489_do\[9\]
++ tbb1143_do\[0\] tbb1143_do\[1\] tbb1143_do\[2\] tbb1143_do\[3\] tbb1143_do\[4\]
 + vdd vss wb_clk_i wb_rst_i wbs_ack_o wbs_adr_i[0] wbs_adr_i[10] wbs_adr_i[11] wbs_adr_i[12]
 + wbs_adr_i[13] wbs_adr_i[14] wbs_adr_i[15] wbs_adr_i[16] wbs_adr_i[17] wbs_adr_i[18]
 + wbs_adr_i[19] wbs_adr_i[1] wbs_adr_i[20] wbs_adr_i[21] wbs_adr_i[22] wbs_adr_i[23]
@@ -325,6 +332,9 @@ Xmultiplexer ay8913_do\[0\] ay8913_do\[10\] ay8913_do\[11\] ay8913_do\[12\] ay89
 + wbs_dat_o[27] wbs_dat_o[28] wbs_dat_o[29] wbs_dat_o[2] wbs_dat_o[30] wbs_dat_o[31]
 + wbs_dat_o[3] wbs_dat_o[4] wbs_dat_o[5] wbs_dat_o[6] wbs_dat_o[7] wbs_dat_o[8] wbs_dat_o[9]
 + wbs_stb_i wbs_we_i multiplexer
+Xtbb1143 io_in[11] io_in[5] io_in[6] io_in[7] io_in[8] io_in[9] io_in[10] tbb1143_do\[0\]
++ tbb1143_do\[1\] tbb1143_do\[2\] tbb1143_do\[3\] tbb1143_do\[4\] rst_tbb1143 vdd
++ vss tholin_avalonsemi_tbb1143
 Xwrapped_qcpu custom_settings\[0\] custom_settings\[10\] custom_settings\[11\] custom_settings\[12\]
 + custom_settings\[13\] custom_settings\[14\] custom_settings\[15\] custom_settings\[16\]
 + custom_settings\[17\] custom_settings\[18\] custom_settings\[19\] custom_settings\[1\]

@@ -1,6 +1,6 @@
 ###############################################################################
 # Created by write_sdc
-# Tue Nov 14 10:03:29 2023
+# Wed Nov 15 14:48:56 2023
 ###############################################################################
 current_design multiplexer
 ###############################################################################
@@ -237,6 +237,7 @@ set_load -pin_load 0.1900 [get_ports {rst_mc14500}]
 set_load -pin_load 0.1900 [get_ports {rst_qcpu}]
 set_load -pin_load 0.1900 [get_ports {rst_sid}]
 set_load -pin_load 0.1900 [get_ports {rst_sn76489}]
+set_load -pin_load 0.1900 [get_ports {rst_tbb1143}]
 set_load -pin_load 0.1900 [get_ports {wbs_ack_o}]
 set_load -pin_load 0.1900 [get_ports {custom_settings[31]}]
 set_load -pin_load 0.1900 [get_ports {custom_settings[30]}]

@@ -100,6 +100,9 @@ wire [27:0] ay8913_do;
 wire rst_hellorld;
 wire hellorld_do;
 
+wire rst_tbb1143;
+wire [4:0] tbb1143_do;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -159,6 +162,9 @@ multiplexer multiplexer (
     
     .rst_hellorld(rst_hellorld),
     .hellorld_do(hellorld_do),
+    
+    .rst_tbb1143(rst_tbb1143),
+    .tbb1143_do(tbb1143_do),
 
     .custom_settings(custom_settings)
 );
@@ -261,6 +267,17 @@ hellorld hellorld(
     .rst_n(rst_hellorld),
     .io_out(hellorld_do),
     .custom_settings(custom_settings[11:0])
+);
+
+tholin_avalonsemi_tbb1143 tbb1143(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .clk(io_in[11]),
+    .rst_n(rst_tbb1143),
+    .io_in(io_in[10:5]),
+    .io_out(tbb1143_do)
 );
 
 endmodule	// user_project_wrapper
