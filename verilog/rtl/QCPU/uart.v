@@ -40,6 +40,10 @@ always @(posedge clk) begin
         receiving <= 0;
         dout <= 0;
         has_byte <= 0;
+        receive_buff <= 0;
+        receive_counter <= 0;
+        receive_div_counter <= 0;
+        data_buff <= 0;
     end else begin
         if(clr_hb) begin
             has_byte <= 0;

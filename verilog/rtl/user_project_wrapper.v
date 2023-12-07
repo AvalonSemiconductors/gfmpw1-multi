@@ -103,6 +103,10 @@ wire hellorld_do;
 wire rst_tbb1143;
 wire [4:0] tbb1143_do;
 
+wire rst_pdp11;
+wire [32:0] pdp11_do;
+wire [32:0] pdp11_oeb;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -126,9 +130,9 @@ multiplexer multiplexer (
 
     // IO Pads
 
-    .io_in (io_in),
-    .io_out(io_out),
-    .io_oeb(io_oeb),
+    .io_in_0(io_in[0]),
+    .io_out (io_out),
+    .io_oeb (io_oeb),
 
     // IRQ
     .irq(user_irq),
@@ -165,6 +169,10 @@ multiplexer multiplexer (
     
     .rst_tbb1143(rst_tbb1143),
     .tbb1143_do(tbb1143_do),
+    
+    .rst_pdp11(rst_pdp11),
+    .pdp11_do(pdp11_do),
+    .pdp11_oeb(pdp11_oeb),
 
     .custom_settings(custom_settings)
 );
@@ -278,6 +286,19 @@ tholin_avalonsemi_tbb1143 tbb1143(
     .rst_n(rst_tbb1143),
     .io_in(io_in[10:5]),
     .io_out(tbb1143_do)
+);
+
+wrapped_pdp11 wrapped_pdp11(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+	.wb_clk_i(wb_clk_i),
+	.rst_n(rst_pdp11),
+	.io_in(io_in[37:5]),
+	.io_out(pdp11_do),
+	.io_oeb(pdp11_oeb),
+	.custom_settings(custom_settings)
 );
 
 endmodule	// user_project_wrapper

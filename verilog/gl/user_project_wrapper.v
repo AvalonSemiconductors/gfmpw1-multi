@@ -149,6 +149,72 @@ module user_project_wrapper (user_clock2,
  wire \mc14500_sram_in[5] ;
  wire \mc14500_sram_in[6] ;
  wire \mc14500_sram_in[7] ;
+ wire \pdp11_do[0] ;
+ wire \pdp11_do[10] ;
+ wire \pdp11_do[11] ;
+ wire \pdp11_do[12] ;
+ wire \pdp11_do[13] ;
+ wire \pdp11_do[14] ;
+ wire \pdp11_do[15] ;
+ wire \pdp11_do[16] ;
+ wire \pdp11_do[17] ;
+ wire \pdp11_do[18] ;
+ wire \pdp11_do[19] ;
+ wire \pdp11_do[1] ;
+ wire \pdp11_do[20] ;
+ wire \pdp11_do[21] ;
+ wire \pdp11_do[22] ;
+ wire \pdp11_do[23] ;
+ wire \pdp11_do[24] ;
+ wire \pdp11_do[25] ;
+ wire \pdp11_do[26] ;
+ wire \pdp11_do[27] ;
+ wire \pdp11_do[28] ;
+ wire \pdp11_do[29] ;
+ wire \pdp11_do[2] ;
+ wire \pdp11_do[30] ;
+ wire \pdp11_do[31] ;
+ wire \pdp11_do[32] ;
+ wire \pdp11_do[3] ;
+ wire \pdp11_do[4] ;
+ wire \pdp11_do[5] ;
+ wire \pdp11_do[6] ;
+ wire \pdp11_do[7] ;
+ wire \pdp11_do[8] ;
+ wire \pdp11_do[9] ;
+ wire \pdp11_oeb[0] ;
+ wire \pdp11_oeb[10] ;
+ wire \pdp11_oeb[11] ;
+ wire \pdp11_oeb[12] ;
+ wire \pdp11_oeb[13] ;
+ wire \pdp11_oeb[14] ;
+ wire \pdp11_oeb[15] ;
+ wire \pdp11_oeb[16] ;
+ wire \pdp11_oeb[17] ;
+ wire \pdp11_oeb[18] ;
+ wire \pdp11_oeb[19] ;
+ wire \pdp11_oeb[1] ;
+ wire \pdp11_oeb[20] ;
+ wire \pdp11_oeb[21] ;
+ wire \pdp11_oeb[22] ;
+ wire \pdp11_oeb[23] ;
+ wire \pdp11_oeb[24] ;
+ wire \pdp11_oeb[25] ;
+ wire \pdp11_oeb[26] ;
+ wire \pdp11_oeb[27] ;
+ wire \pdp11_oeb[28] ;
+ wire \pdp11_oeb[29] ;
+ wire \pdp11_oeb[2] ;
+ wire \pdp11_oeb[30] ;
+ wire \pdp11_oeb[31] ;
+ wire \pdp11_oeb[32] ;
+ wire \pdp11_oeb[3] ;
+ wire \pdp11_oeb[4] ;
+ wire \pdp11_oeb[5] ;
+ wire \pdp11_oeb[6] ;
+ wire \pdp11_oeb[7] ;
+ wire \pdp11_oeb[8] ;
+ wire \pdp11_oeb[9] ;
  wire \qcpu_do[0] ;
  wire \qcpu_do[10] ;
  wire \qcpu_do[11] ;
@@ -242,6 +308,7 @@ module user_project_wrapper (user_clock2,
  wire rst_blinker;
  wire rst_hellorld;
  wire rst_mc14500;
+ wire rst_pdp11;
  wire rst_qcpu;
  wire rst_sid;
  wire rst_sn76489;
@@ -441,12 +508,14 @@ module user_project_wrapper (user_clock2,
     \qcpu_sram_out[1] ,
     \qcpu_sram_out[0] }));
  multiplexer multiplexer (.hellorld_do(hellorld_do),
+    .io_in_0(io_in[0]),
     .mc14500_sram_gwe(mc14500_sram_gwe),
     .qcpu_sram_gwe(qcpu_sram_gwe),
     .rst_ay8913(rst_ay8913),
     .rst_blinker(rst_blinker),
     .rst_hellorld(rst_hellorld),
     .rst_mc14500(rst_mc14500),
+    .rst_pdp11(rst_pdp11),
     .rst_qcpu(rst_qcpu),
     .rst_sid(rst_sid),
     .rst_sn76489(rst_sn76489),
@@ -523,44 +592,6 @@ module user_project_wrapper (user_clock2,
     \custom_settings[2] ,
     \custom_settings[1] ,
     \custom_settings[0] }),
-    .io_in({io_in[37],
-    io_in[36],
-    io_in[35],
-    io_in[34],
-    io_in[33],
-    io_in[32],
-    io_in[31],
-    io_in[30],
-    io_in[29],
-    io_in[28],
-    io_in[27],
-    io_in[26],
-    io_in[25],
-    io_in[24],
-    io_in[23],
-    io_in[22],
-    io_in[21],
-    io_in[20],
-    io_in[19],
-    io_in[18],
-    io_in[17],
-    io_in[16],
-    io_in[15],
-    io_in[14],
-    io_in[13],
-    io_in[12],
-    io_in[11],
-    io_in[10],
-    io_in[9],
-    io_in[8],
-    io_in[7],
-    io_in[6],
-    io_in[5],
-    io_in[4],
-    io_in[3],
-    io_in[2],
-    io_in[1],
-    io_in[0]}),
     .io_oeb({io_oeb[37],
     io_oeb[36],
     io_oeb[35],
@@ -685,6 +716,72 @@ module user_project_wrapper (user_clock2,
     \mc14500_sram_in[2] ,
     \mc14500_sram_in[1] ,
     \mc14500_sram_in[0] }),
+    .pdp11_do({\pdp11_do[32] ,
+    \pdp11_do[31] ,
+    \pdp11_do[30] ,
+    \pdp11_do[29] ,
+    \pdp11_do[28] ,
+    \pdp11_do[27] ,
+    \pdp11_do[26] ,
+    \pdp11_do[25] ,
+    \pdp11_do[24] ,
+    \pdp11_do[23] ,
+    \pdp11_do[22] ,
+    \pdp11_do[21] ,
+    \pdp11_do[20] ,
+    \pdp11_do[19] ,
+    \pdp11_do[18] ,
+    \pdp11_do[17] ,
+    \pdp11_do[16] ,
+    \pdp11_do[15] ,
+    \pdp11_do[14] ,
+    \pdp11_do[13] ,
+    \pdp11_do[12] ,
+    \pdp11_do[11] ,
+    \pdp11_do[10] ,
+    \pdp11_do[9] ,
+    \pdp11_do[8] ,
+    \pdp11_do[7] ,
+    \pdp11_do[6] ,
+    \pdp11_do[5] ,
+    \pdp11_do[4] ,
+    \pdp11_do[3] ,
+    \pdp11_do[2] ,
+    \pdp11_do[1] ,
+    \pdp11_do[0] }),
+    .pdp11_oeb({\pdp11_oeb[32] ,
+    \pdp11_oeb[31] ,
+    \pdp11_oeb[30] ,
+    \pdp11_oeb[29] ,
+    \pdp11_oeb[28] ,
+    \pdp11_oeb[27] ,
+    \pdp11_oeb[26] ,
+    \pdp11_oeb[25] ,
+    \pdp11_oeb[24] ,
+    \pdp11_oeb[23] ,
+    \pdp11_oeb[22] ,
+    \pdp11_oeb[21] ,
+    \pdp11_oeb[20] ,
+    \pdp11_oeb[19] ,
+    \pdp11_oeb[18] ,
+    \pdp11_oeb[17] ,
+    \pdp11_oeb[16] ,
+    \pdp11_oeb[15] ,
+    \pdp11_oeb[14] ,
+    \pdp11_oeb[13] ,
+    \pdp11_oeb[12] ,
+    \pdp11_oeb[11] ,
+    \pdp11_oeb[10] ,
+    \pdp11_oeb[9] ,
+    \pdp11_oeb[8] ,
+    \pdp11_oeb[7] ,
+    \pdp11_oeb[6] ,
+    \pdp11_oeb[5] ,
+    \pdp11_oeb[4] ,
+    \pdp11_oeb[3] ,
+    \pdp11_oeb[2] ,
+    \pdp11_oeb[1] ,
+    \pdp11_oeb[0] }),
     .qcpu_do({\qcpu_do[32] ,
     \qcpu_do[31] ,
     \qcpu_do[30] ,
@@ -997,6 +1094,129 @@ module user_project_wrapper (user_clock2,
     \tbb1143_do[2] ,
     \tbb1143_do[1] ,
     \tbb1143_do[0] }));
+ wrapped_pdp11 wrapped_pdp11 (.rst_n(rst_pdp11),
+    .vdd(vdd),
+    .vss(vss),
+    .wb_clk_i(wb_clk_i),
+    .custom_settings({\custom_settings[19] ,
+    \custom_settings[18] ,
+    \custom_settings[17] ,
+    \custom_settings[16] ,
+    \custom_settings[15] ,
+    \custom_settings[14] ,
+    \custom_settings[13] ,
+    \custom_settings[12] ,
+    \custom_settings[11] ,
+    \custom_settings[10] ,
+    \custom_settings[9] ,
+    \custom_settings[8] ,
+    \custom_settings[7] ,
+    \custom_settings[6] ,
+    \custom_settings[5] ,
+    \custom_settings[4] ,
+    \custom_settings[3] ,
+    \custom_settings[2] ,
+    \custom_settings[1] ,
+    \custom_settings[0] }),
+    .io_in({io_in[37],
+    io_in[36],
+    io_in[35],
+    io_in[34],
+    io_in[33],
+    io_in[32],
+    io_in[31],
+    io_in[30],
+    io_in[29],
+    io_in[28],
+    io_in[27],
+    io_in[26],
+    io_in[25],
+    io_in[24],
+    io_in[23],
+    io_in[22],
+    io_in[21],
+    io_in[20],
+    io_in[19],
+    io_in[18],
+    io_in[17],
+    io_in[16],
+    io_in[15],
+    io_in[14],
+    io_in[13],
+    io_in[12],
+    io_in[11],
+    io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6],
+    io_in[5]}),
+    .io_oeb({\pdp11_oeb[32] ,
+    \pdp11_oeb[31] ,
+    \pdp11_oeb[30] ,
+    \pdp11_oeb[29] ,
+    \pdp11_oeb[28] ,
+    \pdp11_oeb[27] ,
+    \pdp11_oeb[26] ,
+    \pdp11_oeb[25] ,
+    \pdp11_oeb[24] ,
+    \pdp11_oeb[23] ,
+    \pdp11_oeb[22] ,
+    \pdp11_oeb[21] ,
+    \pdp11_oeb[20] ,
+    \pdp11_oeb[19] ,
+    \pdp11_oeb[18] ,
+    \pdp11_oeb[17] ,
+    \pdp11_oeb[16] ,
+    \pdp11_oeb[15] ,
+    \pdp11_oeb[14] ,
+    \pdp11_oeb[13] ,
+    \pdp11_oeb[12] ,
+    \pdp11_oeb[11] ,
+    \pdp11_oeb[10] ,
+    \pdp11_oeb[9] ,
+    \pdp11_oeb[8] ,
+    \pdp11_oeb[7] ,
+    \pdp11_oeb[6] ,
+    \pdp11_oeb[5] ,
+    \pdp11_oeb[4] ,
+    \pdp11_oeb[3] ,
+    \pdp11_oeb[2] ,
+    \pdp11_oeb[1] ,
+    \pdp11_oeb[0] }),
+    .io_out({\pdp11_do[32] ,
+    \pdp11_do[31] ,
+    \pdp11_do[30] ,
+    \pdp11_do[29] ,
+    \pdp11_do[28] ,
+    \pdp11_do[27] ,
+    \pdp11_do[26] ,
+    \pdp11_do[25] ,
+    \pdp11_do[24] ,
+    \pdp11_do[23] ,
+    \pdp11_do[22] ,
+    \pdp11_do[21] ,
+    \pdp11_do[20] ,
+    \pdp11_do[19] ,
+    \pdp11_do[18] ,
+    \pdp11_do[17] ,
+    \pdp11_do[16] ,
+    \pdp11_do[15] ,
+    \pdp11_do[14] ,
+    \pdp11_do[13] ,
+    \pdp11_do[12] ,
+    \pdp11_do[11] ,
+    \pdp11_do[10] ,
+    \pdp11_do[9] ,
+    \pdp11_do[8] ,
+    \pdp11_do[7] ,
+    \pdp11_do[6] ,
+    \pdp11_do[5] ,
+    \pdp11_do[4] ,
+    \pdp11_do[3] ,
+    \pdp11_do[2] ,
+    \pdp11_do[1] ,
+    \pdp11_do[0] }));
  wrapped_qcpu wrapped_qcpu (.rst_n(rst_qcpu),
     .sram_gwe(qcpu_sram_gwe),
     .vdd(vdd),

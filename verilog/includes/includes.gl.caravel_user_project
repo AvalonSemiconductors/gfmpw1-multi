@@ -10,3 +10,4 @@
 -v $(USER_PROJECT_VERILOG)/gl/wrapped_ay8913.v
 -v $(USER_PROJECT_VERILOG)/gl/hellorld.v
 -v $(USER_PROJECT_VERILOG)/gl/tholin_avalonsemi_tbb1143.v
+-v $(USER_PROJECT_VERILOG)/gl/wrapped_pdp11.v

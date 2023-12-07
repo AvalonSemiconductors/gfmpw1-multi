@@ -90,6 +90,7 @@ jobs:
           make verify-sn76489-rtl
           make verify-qcpu-rtl
           make verify-mc14500-rtl
+          make verify-pdp11-rtl
         
   user_project_flow_gf180mcuD:
     runs-on: ubuntu-latest
@@ -149,6 +150,8 @@ jobs:
           rm -rf openlane/wrapped_ay8913/runs
           make tbb1143
           rm -rf openlane/tbb1143/runs
+          make wrapped_pdp11
+          rm -rf openlane/wrapped_pdp11/runs
           make user_project_wrapper
           rm -rf openlane/user_project_wrapper/runs
           
@@ -223,6 +226,7 @@ jobs:
              python3 gds2gltf.py gds/wrapped_mc14500.gds
              python3 gds2gltf.py gds/wrapped_qcpu.gds
              python3 gds2gltf.py gds/wrapped_sn76489.gds
+             python3 gds2gltf.py gds/wrapped_pdp11.gds
              
       - uses: actions/upload-artifact@v3
         with:
@@ -232,6 +236,7 @@ jobs:
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_mc14500.gds.gltf
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_qcpu.gds.gltf
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_sn76489.gds.gltf
+            /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_pdp11.gds.gltf
   generate_svg:
     runs-on: ubuntu-latest
     needs: [user_project_flow_gf180mcuD]

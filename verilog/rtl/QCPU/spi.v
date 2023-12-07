@@ -24,6 +24,9 @@ always @(posedge clk) begin
     if(rst) begin
         counter <= 5'b11111;
         dout <= 0;
+        div_counter <= 0;
+        data_in_buff <= 0;
+        data_out_buff <= 0;
     end else begin
         if(start) begin
             counter <= 5'b10000;

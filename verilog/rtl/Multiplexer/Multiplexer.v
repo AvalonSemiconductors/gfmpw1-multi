@@ -4,7 +4,7 @@ module multiplexer(
 	inout vdd,
 	inout vss,
 `endif
-	input [37:0] io_in,
+	input io_in_0,
 	output [37:0] io_out,
 	output [37:0] io_oeb,
 	
@@ -51,6 +51,10 @@ module multiplexer(
 	
 	output rst_tbb1143,
 	input [4:0] tbb1143_do,
+	
+	output rst_pdp11,
+	input [32:0] pdp11_do,
+	input [32:0] pdp11_oeb,
 
 	output reg [31:0] custom_settings,
 	
@@ -70,7 +74,7 @@ assign wbs_dat_o = wbs_o_buff;
 assign wbs_ack_o = wb_ready;
 
 wire wb_valid = wbs_cyc_i && wbs_stb_i;
-wire design_rst_base = wb_override_act ? wb_rst_override : io_in[0];
+wire design_rst_base = wb_override_act ? wb_rst_override : io_in_0;
 reg [32:0] design_out;
 reg [32:0] design_oeb;
 
@@ -102,28 +106,28 @@ always @(posedge wb_clk_i) begin
 	end else begin
 		wb_counter <= wb_counter + 1;
 		if(wb_valid && !wb_feedback_delay) begin
-			if(wbs_adr_i[23]) begin
+			if(wbs_adr_i[19]) begin
 				if(wbs_we_i) begin
 					wb_override_act <= wbs_dat_i[0];
 					wb_rst_override <= wbs_dat_i[1];
 					design_select <= wbs_dat_i[6:2];
 				end
-				wbs_o_buff <= {24'h000000, 1'b1, design_select, wb_rst_override, wb_override_act};
-			end else if(wbs_adr_i[22]) begin
+				else wbs_o_buff <= {24'h000000, 1'b1, design_select, wb_rst_override, wb_override_act};
+			end else if(wbs_adr_i[18]) begin
 				if(wbs_we_i) begin
 					wb_counter <= wbs_dat_i;
 				end
-				wbs_o_buff <= wb_counter;
-			end else if(wbs_adr_i[21]) begin
+				else wbs_o_buff <= wb_counter;
+			end else if(wbs_adr_i[17]) begin
 				if(wbs_we_i) begin
 					custom_settings <= wbs_dat_i;
 				end
-				wbs_o_buff <= custom_settings;
-			end else if(wbs_adr_i[20]) begin
+				else wbs_o_buff <= custom_settings;
+			end else if(wbs_adr_i[16]) begin
 				wb_sram_we <= wbs_we_i && !wb_ready;
-				wbs_o_buff <= {24'h000000, sram_Q};
+				if(!wbs_we_i) wbs_o_buff <= {24'h000000, sram_Q};
 			end else begin
-				wbs_o_buff <= 32'hFFFFFFFF;
+				if(!wbs_we_i) wbs_o_buff <= 32'hFFFFFFFF;
 			end
 		end
 		wb_feedback_delay <= wb_valid;
@@ -142,6 +146,7 @@ assign rst_mc14500 = design_rst_base && design_select == 5;
 assign rst_ay8913 = design_rst_base && design_select == 6;
 assign rst_hellorld = design_rst_base && design_select == 7;
 assign rst_tbb1143 = design_rst_base && design_select == 8;
+assign rst_pdp11 = design_rst_base && design_select == 9;
 
 always @(*) begin
 	case(design_select)
@@ -180,6 +185,10 @@ always @(*) begin
 		8: begin
 			design_out = {11'h000, tbb1143_do[4:3], tbb1143_do[1], tbb1143_do[0], tbb1143_do[2], 3'b000, 6'h00, 8'h00};
 			design_oeb = {11'h7FF, 2'b00, 3'b000, 3'b111, 6'h3F, 8'hFF};
+		end
+		9: begin
+			design_out = pdp11_do;
+			design_oeb = pdp11_oeb;
 		end
 
 		default: begin

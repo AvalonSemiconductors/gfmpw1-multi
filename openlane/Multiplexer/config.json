@@ -12,7 +12,7 @@
 	"CLOCK_NET": "sid_top.clk",
 	"CLOCK_PERIOD": "16",
 	"FP_SIZING": "absolute",
-	"DIE_AREA": "0 0 650 650",
+	"DIE_AREA": "0 0 700 650",
 	"FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
 	"PL_BASIC_PLACEMENT": 0,
 	"PL_TARGET_DENSITY": 0.35,

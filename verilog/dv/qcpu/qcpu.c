@@ -1,9 +1,9 @@
 #include "defs.h"
 
-#define reg_mprj_proj_sel (*(volatile uint32_t*)0x30800000)
-#define reg_mprj_counter (*(volatile uint32_t*)0x30400000)
-#define reg_mprj_settings (*(volatile uint32_t*)0x30200000)
-#define reg_mprj_sram ((volatile uint32_t*)0x30100000)
+#define reg_mprj_proj_sel (*(volatile uint32_t*)0x30080000)
+#define reg_mprj_counter (*(volatile uint32_t*)0x30040000)
+#define reg_mprj_settings (*(volatile uint32_t*)0x30020000)
+#define reg_mprj_sram ((volatile uint32_t*)0x30010000)
 
 void delay(const int d) {
     /* Configure timer for a single-shot countdown */

@@ -1,4 +1,0 @@
-* SPICE3 file created from avali_logo.ext - technology: gf180mcuD
-
-.subckt avali_logo vss vdd
-.ends
