@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 5
-timestamp 1701935626
+timestamp 1702046838
 << obsm1 >>
 rect 672 1538 69328 63142
 << metal2 >>
@@ -2312,7 +2312,7 @@ string FIXED_BBOX 0 0 70000 65000
 string LEFclass BLOCK
 string LEFview TRUE
 string GDS_END 9076072
-string GDS_FILE /run/media/tholin/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/Multiplexer/runs/23_12_07_08_43/results/signoff/multiplexer.magic.gds
+string GDS_FILE /run/media/tholin/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/Multiplexer/runs/23_12_08_15_40/results/signoff/multiplexer.magic.gds
 string GDS_START 398754
 << end >>
 

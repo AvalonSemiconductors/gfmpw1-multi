@@ -67,7 +67,6 @@ localparam INT4 = 15;
 reg [3:0] cycle;
 reg [2:0] addr_mode;
 wire is_defered_mode = addr_mode == 3 || addr_mode == 5 || addr_mode == 7;
-reg is_write;
 reg byte_op;
 reg [15:0] mem_targ;
 reg [15:0] mem_io;
@@ -83,7 +82,7 @@ reg [2:0] handling_int;
 wire [15:0] vector_addr = {IVB, handling_int, cycle == INT4, 1'b0};
 
 reg [15:0] insin;
-wire [15:0] instruction = cycle == FETCH1 && current_addr == requested_addr ? bus_in : insin;
+wire [15:0] instruction = cycle == FETCH1 ? bus_in : insin;
 
 assign bus_oeb = !(latch_enable_pre || (!WEb)) || (!rst_n);
 wire [15:0] mem_read_val = current_addr == 16'hFFFE && enable_map_psw ? {8'h00, PSW} : bus_in;
@@ -118,7 +117,7 @@ wire latch_enable_pre = (requested_addr != current_addr) && rst_n && (warmup == 
 assign latch_enable = latch_enable_pre && clk;
 
 assign bus_out = requested_addr != current_addr ? requested_addr : (cycle == INT1 ? PSW : (cycle == INT2 ? regs[7] : mem_io));
-assign WEb = !((cycle == MEM2 || (cycle == MEM1 && is_write && !is_defered_mode) || cycle == JSR1 || cycle == INT1 || cycle == INT2) && requested_addr == current_addr);
+assign WEb = !((cycle == MEM2 || cycle == JSR1 || cycle == INT1 || cycle == INT2) && requested_addr == current_addr);
 assign OEb = !((is_instr_fetch_cycle || is_data_fetch_cycle || (cycle == JMP1 && is_defered_mode) || cycle == RTS1 || cycle == RTI1 || cycle == INT3 || cycle == INT4) && requested_addr == current_addr) || (!rst_n) || (!WEb);
 
 /*
@@ -305,8 +304,8 @@ always @(*) begin
 			new_flags = {
 				is_byte_instr ? instr_result_neg[7] : instr_result_neg[15],
 				is_byte_instr ? instr_result_neg[7:0] == 0 : instr_result_neg == 0,
-				is_byte_instr ? instr_arg_1[7:0] == 8'h80 : instr_arg_1 == 16'h8000,
-				PSW[0]
+				is_byte_instr ? instr_result_neg[7:0] == 8'h80 : instr_result_neg == 16'h8000,
+				is_byte_instr ? instr_result_neg[7:0] != 0 : instr_result_neg != 0
 			};
 		end
 		else if(is_TST) begin
@@ -388,7 +387,7 @@ always @(*) begin
 			new_flags = {
 				PSW[3],
 				~PSW[3],
-				1'b0,
+				PSW[1],
 				PSW[0]
 			};
 		end
@@ -561,11 +560,13 @@ end
 
 always @(posedge clk) begin
 `ifdef SIM
-	if(collission > 1 || (is_single_op && is_double_op)) begin
-		$display("Colliding opcode decode! %04x", instruction);
-	end else if(collission == 0) begin
-		$display("Invalid opcode decode at %04x! %04x", regs[7], instruction);
-		$finish();
+	if(current_addr == requested_addr) begin
+		if(collission > 1 || (is_single_op && is_double_op)) begin
+			$display("Colliding opcode decode! %04x", instruction);
+		end else if(collission == 0) begin
+			$display("Invalid opcode decode at %04x! %04x", regs[7], instruction);
+			$finish();
+		end
 	end
 `endif
 	if(!rst_n || warmup != 0) begin
@@ -581,7 +582,6 @@ always @(posedge clk) begin
 		current_addr <= 16'hAFAF;
 		cycle <= FETCH1;
 		addr_mode <= 0;
-		is_write <= 0;
 		byte_op <= 0;
 		mem_io <= 0;
 		instr_arg_1 <= 0;
@@ -606,7 +606,6 @@ always @(posedge clk) begin
 		if(cycle == FETCH1) begin
 			source_index <= 0;
 			dest_index <= 0;
-			is_write <= 0;
 			has_second_arg <= 0;
 			if(current_addr == requested_addr) begin
 				insin <= bus_in;
@@ -792,26 +791,21 @@ always @(posedge clk) begin
 				else if(is_byte_instr && requested_addr[0]) mem_io <= {instr_result[7:0], mem_io[7:0]};
 				else mem_io <= instr_result;
 				//mem_targ should be the same as before (read/modify/write type operation)
-				addr_mode <= 1;
-				is_write <= 1;
 				cycle <= MEM2;
 			end
 		end
 
 		if(cycle == MEM1) begin
 			if(current_addr == requested_addr) begin
-				if(addr_mode == 1 || addr_mode == 2 || addr_mode == 4 || addr_mode == 6) begin
-					cycle <= is_write ? FETCH1 : (is_double_op && !has_second_arg ? ARG2 : EXEC1);
-					if(!is_write) begin
-						mem_io <= mem_read_val;
-						if(is_single_op || is_special || (is_double_op && !has_second_arg)) instr_arg_1 <= byte_op ? (current_addr[0] ? {8'h00, mem_read_val[15:8]} : {8'h00, mem_read_val[7:0]}) : mem_read_val;
-						if(is_double_op && has_second_arg) instr_arg_2 <= byte_op ? (current_addr[0] ? {8'h00, mem_read_val[15:8]} : {8'h00, mem_read_val[7:0]}) : mem_read_val;
-					end
-				end
 				if(is_defered_mode) begin
 					cycle <= MEM1;
 					mem_targ <= mem_read_val;
 					addr_mode <= 1;
+				end else begin
+					cycle <= (is_double_op && !has_second_arg ? ARG2 : EXEC1);
+					mem_io <= mem_read_val;
+					if(is_single_op || is_special || (is_double_op && !has_second_arg)) instr_arg_1 <= byte_op ? (current_addr[0] ? {8'h00, mem_read_val[15:8]} : {8'h00, mem_read_val[7:0]}) : mem_read_val;
+					if(is_double_op && has_second_arg) instr_arg_2 <= byte_op ? (current_addr[0] ? {8'h00, mem_read_val[15:8]} : {8'h00, mem_read_val[7:0]}) : mem_read_val;
 				end
 			end
 		end

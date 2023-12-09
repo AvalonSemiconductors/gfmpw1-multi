@@ -298,7 +298,7 @@ wrapped_pdp11 wrapped_pdp11(
 	.io_in(io_in[37:5]),
 	.io_out(pdp11_do),
 	.io_oeb(pdp11_oeb),
-	.custom_settings(custom_settings)
+	.custom_settings(custom_settings[19:0])
 );
 
 endmodule	// user_project_wrapper

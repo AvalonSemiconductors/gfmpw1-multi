@@ -475,7 +475,7 @@ module pdp11_tb;
 		bus_in = 0;
 		@(posedge clock);
 		#3 failures += OEb != 1 || WEb != 0 || bus_dir != 0 || latch_enable != 0 || full_addr != 16'h000E;
-		failures += bus_out != 16'hA608;
+		failures += bus_out != 16'hA60A;
 		@(posedge clock);
 		#3 failures += latch_enable != 1;
 		@(posedge clock);

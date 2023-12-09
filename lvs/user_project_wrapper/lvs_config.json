@@ -24,10 +24,15 @@
     "LVS_VERILOG_FILES": [
         "$UPRJ_ROOT/verilog/gl/blinker.v",
         "$UPRJ_ROOT/verilog/gl/multiplexer.v",
+        "$UPRJ_ROOT/verilog/gl/hellorld.v",
         "$UPRJ_ROOT/verilog/gl/wrapped_qcpu.v",
         "$UPRJ_ROOT/verilog/gl/wrapped_sid.v",
         "$UPRJ_ROOT/verilog/gl/wrapped_sn76489.v",
         "$UPRJ_ROOT/verilog/gl/wrapped_ay8913.v",
+        "$UPRJ_ROOT/verilog/gl/wrapped_pdp11.v",
+        "$UPRJ_ROOT/verilog/gl/wrapped_mc14500.v",
+        "$UPRJ_ROOT/verilog/gl/tholin_avalonsemi_tbb1143.v",
+        "$UPRJ_ROOT/verilog/rtl/Logo/avali_logo.v",
         "$UPRJ_ROOT/verilog/gl/$TOP_SOURCE.v"
     ],
     "LAYOUT_FILE": "$UPRJ_ROOT/gds/$TOP_LAYOUT.gds"

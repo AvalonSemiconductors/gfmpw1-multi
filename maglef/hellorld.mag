@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 10
-timestamp 1699956016
+timestamp 1702046419
 << nwell >>
 rect 1258 22304 24726 22822
 rect 1258 21575 5789 21600
@@ -164,7 +164,7 @@ string FIXED_BBOX 0 0 26000 26000
 string LEFclass BLOCK
 string LEFview TRUE
 string GDS_END 581954
-string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/hellorld/runs/23_11_14_10_58/results/signoff/hellorld.magic.gds
+string GDS_FILE /run/media/tholin/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/hellorld/runs/23_12_08_15_38/results/signoff/hellorld.magic.gds
 string GDS_START 190832
 << end >>
 

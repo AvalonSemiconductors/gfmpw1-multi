@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 10
-timestamp 1699955466
+timestamp 1702046265
 << nwell >>
 rect 1258 31712 34694 32230
 rect 1258 30144 34694 31008
@@ -139,7 +139,7 @@ string FIXED_BBOX 0 0 36000 36000
 string LEFclass BLOCK
 string LEFview TRUE
 string GDS_END 1140872
-string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/blinker/runs/23_11_14_10_48/results/signoff/blinker.magic.gds
+string GDS_FILE /run/media/tholin/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/blinker/runs/23_12_08_15_35/results/signoff/blinker.magic.gds
 string GDS_START 306232
 << end >>
 
