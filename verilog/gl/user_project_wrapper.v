@@ -313,6 +313,7 @@ module user_project_wrapper (user_clock2,
  wire rst_sid;
  wire rst_sn76489;
  wire rst_tbb1143;
+ wire rst_tholin_riscv;
  wire \sid_do[0] ;
  wire \sid_do[10] ;
  wire \sid_do[11] ;
@@ -368,6 +369,72 @@ module user_project_wrapper (user_clock2,
  wire \tbb1143_do[2] ;
  wire \tbb1143_do[3] ;
  wire \tbb1143_do[4] ;
+ wire \tholin_riscv_do[0] ;
+ wire \tholin_riscv_do[10] ;
+ wire \tholin_riscv_do[11] ;
+ wire \tholin_riscv_do[12] ;
+ wire \tholin_riscv_do[13] ;
+ wire \tholin_riscv_do[14] ;
+ wire \tholin_riscv_do[15] ;
+ wire \tholin_riscv_do[16] ;
+ wire \tholin_riscv_do[17] ;
+ wire \tholin_riscv_do[18] ;
+ wire \tholin_riscv_do[19] ;
+ wire \tholin_riscv_do[1] ;
+ wire \tholin_riscv_do[20] ;
+ wire \tholin_riscv_do[21] ;
+ wire \tholin_riscv_do[22] ;
+ wire \tholin_riscv_do[23] ;
+ wire \tholin_riscv_do[24] ;
+ wire \tholin_riscv_do[25] ;
+ wire \tholin_riscv_do[26] ;
+ wire \tholin_riscv_do[27] ;
+ wire \tholin_riscv_do[28] ;
+ wire \tholin_riscv_do[29] ;
+ wire \tholin_riscv_do[2] ;
+ wire \tholin_riscv_do[30] ;
+ wire \tholin_riscv_do[31] ;
+ wire \tholin_riscv_do[32] ;
+ wire \tholin_riscv_do[3] ;
+ wire \tholin_riscv_do[4] ;
+ wire \tholin_riscv_do[5] ;
+ wire \tholin_riscv_do[6] ;
+ wire \tholin_riscv_do[7] ;
+ wire \tholin_riscv_do[8] ;
+ wire \tholin_riscv_do[9] ;
+ wire \tholin_riscv_oeb[0] ;
+ wire \tholin_riscv_oeb[10] ;
+ wire \tholin_riscv_oeb[11] ;
+ wire \tholin_riscv_oeb[12] ;
+ wire \tholin_riscv_oeb[13] ;
+ wire \tholin_riscv_oeb[14] ;
+ wire \tholin_riscv_oeb[15] ;
+ wire \tholin_riscv_oeb[16] ;
+ wire \tholin_riscv_oeb[17] ;
+ wire \tholin_riscv_oeb[18] ;
+ wire \tholin_riscv_oeb[19] ;
+ wire \tholin_riscv_oeb[1] ;
+ wire \tholin_riscv_oeb[20] ;
+ wire \tholin_riscv_oeb[21] ;
+ wire \tholin_riscv_oeb[22] ;
+ wire \tholin_riscv_oeb[23] ;
+ wire \tholin_riscv_oeb[24] ;
+ wire \tholin_riscv_oeb[25] ;
+ wire \tholin_riscv_oeb[26] ;
+ wire \tholin_riscv_oeb[27] ;
+ wire \tholin_riscv_oeb[28] ;
+ wire \tholin_riscv_oeb[29] ;
+ wire \tholin_riscv_oeb[2] ;
+ wire \tholin_riscv_oeb[30] ;
+ wire \tholin_riscv_oeb[31] ;
+ wire \tholin_riscv_oeb[32] ;
+ wire \tholin_riscv_oeb[3] ;
+ wire \tholin_riscv_oeb[4] ;
+ wire \tholin_riscv_oeb[5] ;
+ wire \tholin_riscv_oeb[6] ;
+ wire \tholin_riscv_oeb[7] ;
+ wire \tholin_riscv_oeb[8] ;
+ wire \tholin_riscv_oeb[9] ;
 
  avali_logo avali_logo (.vss(vss),
     .vdd(vdd));
@@ -520,6 +587,7 @@ module user_project_wrapper (user_clock2,
     .rst_sid(rst_sid),
     .rst_sn76489(rst_sn76489),
     .rst_tbb1143(rst_tbb1143),
+    .rst_tholin_riscv(rst_tholin_riscv),
     .sid_oeb(sid_oeb),
     .vdd(vdd),
     .vss(vss),
@@ -924,6 +992,72 @@ module user_project_wrapper (user_clock2,
     \tbb1143_do[2] ,
     \tbb1143_do[1] ,
     \tbb1143_do[0] }),
+    .tholin_riscv_do({\tholin_riscv_do[32] ,
+    \tholin_riscv_do[31] ,
+    \tholin_riscv_do[30] ,
+    \tholin_riscv_do[29] ,
+    \tholin_riscv_do[28] ,
+    \tholin_riscv_do[27] ,
+    \tholin_riscv_do[26] ,
+    \tholin_riscv_do[25] ,
+    \tholin_riscv_do[24] ,
+    \tholin_riscv_do[23] ,
+    \tholin_riscv_do[22] ,
+    \tholin_riscv_do[21] ,
+    \tholin_riscv_do[20] ,
+    \tholin_riscv_do[19] ,
+    \tholin_riscv_do[18] ,
+    \tholin_riscv_do[17] ,
+    \tholin_riscv_do[16] ,
+    \tholin_riscv_do[15] ,
+    \tholin_riscv_do[14] ,
+    \tholin_riscv_do[13] ,
+    \tholin_riscv_do[12] ,
+    \tholin_riscv_do[11] ,
+    \tholin_riscv_do[10] ,
+    \tholin_riscv_do[9] ,
+    \tholin_riscv_do[8] ,
+    \tholin_riscv_do[7] ,
+    \tholin_riscv_do[6] ,
+    \tholin_riscv_do[5] ,
+    \tholin_riscv_do[4] ,
+    \tholin_riscv_do[3] ,
+    \tholin_riscv_do[2] ,
+    \tholin_riscv_do[1] ,
+    \tholin_riscv_do[0] }),
+    .tholin_riscv_oeb({\tholin_riscv_oeb[32] ,
+    \tholin_riscv_oeb[31] ,
+    \tholin_riscv_oeb[30] ,
+    \tholin_riscv_oeb[29] ,
+    \tholin_riscv_oeb[28] ,
+    \tholin_riscv_oeb[27] ,
+    \tholin_riscv_oeb[26] ,
+    \tholin_riscv_oeb[25] ,
+    \tholin_riscv_oeb[24] ,
+    \tholin_riscv_oeb[23] ,
+    \tholin_riscv_oeb[22] ,
+    \tholin_riscv_oeb[21] ,
+    \tholin_riscv_oeb[20] ,
+    \tholin_riscv_oeb[19] ,
+    \tholin_riscv_oeb[18] ,
+    \tholin_riscv_oeb[17] ,
+    \tholin_riscv_oeb[16] ,
+    \tholin_riscv_oeb[15] ,
+    \tholin_riscv_oeb[14] ,
+    \tholin_riscv_oeb[13] ,
+    \tholin_riscv_oeb[12] ,
+    \tholin_riscv_oeb[11] ,
+    \tholin_riscv_oeb[10] ,
+    \tholin_riscv_oeb[9] ,
+    \tholin_riscv_oeb[8] ,
+    \tholin_riscv_oeb[7] ,
+    \tholin_riscv_oeb[6] ,
+    \tholin_riscv_oeb[5] ,
+    \tholin_riscv_oeb[4] ,
+    \tholin_riscv_oeb[3] ,
+    \tholin_riscv_oeb[2] ,
+    \tholin_riscv_oeb[1] ,
+    \tholin_riscv_oeb[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -1418,4 +1552,109 @@ module user_project_wrapper (user_clock2,
     \sn76489_do[2] ,
     \sn76489_do[1] ,
     \sn76489_do[0] }));
+ wrapped_tholin_riscv wrapped_tholin_riscv (.rst_n(rst_tholin_riscv),
+    .vdd(vdd),
+    .vss(vss),
+    .wb_clk_i(wb_clk_i),
+    .custom_settings({\custom_settings[1] ,
+    \custom_settings[0] }),
+    .io_in({io_in[37],
+    io_in[36],
+    io_in[35],
+    io_in[34],
+    io_in[33],
+    io_in[32],
+    io_in[31],
+    io_in[30],
+    io_in[29],
+    io_in[28],
+    io_in[27],
+    io_in[26],
+    io_in[25],
+    io_in[24],
+    io_in[23],
+    io_in[22],
+    io_in[21],
+    io_in[20],
+    io_in[19],
+    io_in[18],
+    io_in[17],
+    io_in[16],
+    io_in[15],
+    io_in[14],
+    io_in[13],
+    io_in[12],
+    io_in[11],
+    io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6],
+    io_in[5]}),
+    .io_oeb({\tholin_riscv_oeb[32] ,
+    \tholin_riscv_oeb[31] ,
+    \tholin_riscv_oeb[30] ,
+    \tholin_riscv_oeb[29] ,
+    \tholin_riscv_oeb[28] ,
+    \tholin_riscv_oeb[27] ,
+    \tholin_riscv_oeb[26] ,
+    \tholin_riscv_oeb[25] ,
+    \tholin_riscv_oeb[24] ,
+    \tholin_riscv_oeb[23] ,
+    \tholin_riscv_oeb[22] ,
+    \tholin_riscv_oeb[21] ,
+    \tholin_riscv_oeb[20] ,
+    \tholin_riscv_oeb[19] ,
+    \tholin_riscv_oeb[18] ,
+    \tholin_riscv_oeb[17] ,
+    \tholin_riscv_oeb[16] ,
+    \tholin_riscv_oeb[15] ,
+    \tholin_riscv_oeb[14] ,
+    \tholin_riscv_oeb[13] ,
+    \tholin_riscv_oeb[12] ,
+    \tholin_riscv_oeb[11] ,
+    \tholin_riscv_oeb[10] ,
+    \tholin_riscv_oeb[9] ,
+    \tholin_riscv_oeb[8] ,
+    \tholin_riscv_oeb[7] ,
+    \tholin_riscv_oeb[6] ,
+    \tholin_riscv_oeb[5] ,
+    \tholin_riscv_oeb[4] ,
+    \tholin_riscv_oeb[3] ,
+    \tholin_riscv_oeb[2] ,
+    \tholin_riscv_oeb[1] ,
+    \tholin_riscv_oeb[0] }),
+    .io_out({\tholin_riscv_do[32] ,
+    \tholin_riscv_do[31] ,
+    \tholin_riscv_do[30] ,
+    \tholin_riscv_do[29] ,
+    \tholin_riscv_do[28] ,
+    \tholin_riscv_do[27] ,
+    \tholin_riscv_do[26] ,
+    \tholin_riscv_do[25] ,
+    \tholin_riscv_do[24] ,
+    \tholin_riscv_do[23] ,
+    \tholin_riscv_do[22] ,
+    \tholin_riscv_do[21] ,
+    \tholin_riscv_do[20] ,
+    \tholin_riscv_do[19] ,
+    \tholin_riscv_do[18] ,
+    \tholin_riscv_do[17] ,
+    \tholin_riscv_do[16] ,
+    \tholin_riscv_do[15] ,
+    \tholin_riscv_do[14] ,
+    \tholin_riscv_do[13] ,
+    \tholin_riscv_do[12] ,
+    \tholin_riscv_do[11] ,
+    \tholin_riscv_do[10] ,
+    \tholin_riscv_do[9] ,
+    \tholin_riscv_do[8] ,
+    \tholin_riscv_do[7] ,
+    \tholin_riscv_do[6] ,
+    \tholin_riscv_do[5] ,
+    \tholin_riscv_do[4] ,
+    \tholin_riscv_do[3] ,
+    \tholin_riscv_do[2] ,
+    \tholin_riscv_do[1] ,
+    \tholin_riscv_do[0] }));
 endmodule

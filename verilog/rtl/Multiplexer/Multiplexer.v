@@ -56,6 +56,10 @@ module multiplexer(
 	input [32:0] pdp11_do,
 	input [32:0] pdp11_oeb,
 
+	output rst_tholin_riscv,
+	input [32:0] tholin_riscv_do,
+	input [32:0] tholin_riscv_oeb,
+
 	output reg [31:0] custom_settings,
 	
 	output [2:0] irq
@@ -147,6 +151,7 @@ assign rst_ay8913 = design_rst_base && design_select == 6;
 assign rst_hellorld = design_rst_base && design_select == 7;
 assign rst_tbb1143 = design_rst_base && design_select == 8;
 assign rst_pdp11 = design_rst_base && design_select == 9;
+assign rst_tholin_riscv = design_rst_base && design_select == 10;
 
 always @(*) begin
 	case(design_select)
@@ -189,6 +194,10 @@ always @(*) begin
 		9: begin
 			design_out = pdp11_do;
 			design_oeb = pdp11_oeb;
+		end
+		10: begin
+			design_out = tholin_riscv_do;
+			design_oeb = tholin_riscv_oeb;
 		end
 
 		default: begin

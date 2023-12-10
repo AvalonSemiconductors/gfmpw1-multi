@@ -22,17 +22,18 @@ public class PlacementPreview {
 		BufferedImage img = new BufferedImage(2968, 2968, BufferedImage.TYPE_INT_RGB);
 		
 		Macro[] macros = new Macro[] {
-			new Macro(1180, 1280, 700, 650, Color.GREEN, "Multiplexer"), //Multiplexer
+			new Macro(950, 1200, 750, 750, Color.GREEN, "Multiplexer"), //Multiplexer
 			new Macro(200, 250, 1150, 800, Color.RED, "SID"), //wrapped_sid
 			new Macro(1450, 250, 180, 180, Color.GRAY, "LED Blinker Test"), //blinker
 			new Macro(1800, 250, 300, 350, new Color(32, 64, 240), "SN76489"), //wrapped_sn76489
-			new Macro(300, 2400, 300, 352, new Color(240, 128, 32), "Avali Logo"), //avali_logo
+			new Macro(300, 2375, 400, 470, new Color(240, 128, 32), "Avali Logo"), //avali_logo
 			new Macro(2300, 250, 500, 500, new Color(240, 64, 64), "QCPU"), //wrapped_qcpu
-			new Macro(2400, 1000, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
+			new Macro(1550, 800, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
 			new Macro(200, 1200, 300, 300, new Color(166, 32, 166), "AY8913"), //wrapped_ay8913
-			new Macro(800, 1300, 130, 130, new Color(166, 32, 255), "Hellorld"),
-			new Macro(750, 1600, 230, 230, new Color(166, 255, 86), "TBB1143"),
-			new Macro(950, 2050, 1800, 800, new Color(166, 255, 86), "PDP-11"),
+			new Macro(700, 1300, 130, 130, new Color(166, 32, 255), "Hellorld"),
+			new Macro(650, 1600, 230, 230, new Color(166, 255, 86), "TBB1143"),
+			new Macro(950, 2050, 1800, 800, new Color(23, 190, 120), "AS-11"),
+			new Macro(1800, 875, 1000, 1100, new Color(19, 182, 222), "Tholin RISCV"),
 		};
 
 		/*Macro[] macros = new Macro[] {

@@ -107,6 +107,10 @@ wire rst_pdp11;
 wire [32:0] pdp11_do;
 wire [32:0] pdp11_oeb;
 
+wire rst_tholin_riscv;
+wire [32:0] tholin_riscv_do;
+wire [32:0] tholin_riscv_oeb;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -173,6 +177,10 @@ multiplexer multiplexer (
     .rst_pdp11(rst_pdp11),
     .pdp11_do(pdp11_do),
     .pdp11_oeb(pdp11_oeb),
+
+    .rst_tholin_riscv(rst_tholin_riscv),
+    .tholin_riscv_do(tholin_riscv_do),
+    .tholin_riscv_oeb(tholin_riscv_oeb),
 
     .custom_settings(custom_settings)
 );
@@ -299,6 +307,19 @@ wrapped_pdp11 wrapped_pdp11(
 	.io_out(pdp11_do),
 	.io_oeb(pdp11_oeb),
 	.custom_settings(custom_settings[19:0])
+);
+
+wrapped_tholin_riscv wrapped_tholin_riscv(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .wb_clk_i(wb_clk_i),
+    .rst_n(rst_tholin_riscv),
+    .io_in(io_in[37:5]),
+    .io_out(tholin_riscv_do),
+    .io_oeb(tholin_riscv_oeb),
+    .custom_settings(custom_settings[1:0])
 );
 
 endmodule	// user_project_wrapper
