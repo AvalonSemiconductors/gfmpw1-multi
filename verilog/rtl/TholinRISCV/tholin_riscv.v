@@ -159,14 +159,26 @@ wire is_muldiv = funct7 == 1 && isALUreg;
 wire is_mul = funct3 < 4;
 wire is_div = !is_mul;
 
+wire [31:0] shifter_in = (funct3 == 3'b001) ? 
+{aluIn1[0], aluIn1[1], aluIn1[2], aluIn1[3], aluIn1[4], aluIn1[5],
+aluIn1[6], aluIn1[7], aluIn1[8], aluIn1[9], aluIn1[10], aluIn1[11], aluIn1[12],
+aluIn1[13], aluIn1[14], aluIn1[15], aluIn1[16], aluIn1[17], aluIn1[18], aluIn1[19],
+aluIn1[20], aluIn1[21], aluIn1[22], aluIn1[23], aluIn1[24], aluIn1[25],
+aluIn1[26], aluIn1[27], aluIn1[28], aluIn1[29], aluIn1[30], aluIn1[31]}
+ : aluIn1;
+wire [31:0] shifter = $signed({funct7[5] & aluIn1[31], shifter_in}) >>> shift_amount;
 always @(*) begin
     case({is_muldiv, funct3})
         0: ALUout = (funct7[5] && instr[5]) ? minus : plus;
-        1: ALUout = aluIn1 << shift_amount;
+        1: ALUout = {shifter[0], shifter[1], shifter[2], shifter[3], shifter[4], shifter[5], shifter[6],
+        shifter[7], shifter[8], shifter[9], shifter[10], shifter[11], shifter[12], shifter[13], shifter[14], shifter[15],
+        shifter[16], shifter[17], shifter[18], shifter[19], shifter[20], shifter[21], shifter[22],
+        shifter[23], shifter[24], shifter[25], shifter[26], shifter[27], shifter[28], shifter[29],
+        shifter[30], shifter[31]};
         2: ALUout = {31'h0, LTS};
         3: ALUout = {31'h0, LT};
         4: ALUout = XOR;
-        5: ALUout = funct7[5] ? $signed(aluIn1) >>> shift_amount : aluIn1 >> shift_amount;
+        5: ALUout = shifter;
         6: ALUout = aluIn1 | aluIn2;
         7: ALUout = aluIn1 & aluIn2;
         8: ALUout = mul_res[31:0];
