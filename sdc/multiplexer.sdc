@@ -1,6 +1,6 @@
 ###############################################################################
 # Created by write_sdc
-# Sun Dec 10 22:36:21 2023
+# Mon Dec 11 15:59:03 2023
 ###############################################################################
 current_design multiplexer
 ###############################################################################
@@ -232,6 +232,7 @@ set_multicycle_path -setup\
 ###############################################################################
 set_load -pin_load 0.1900 [get_ports {rst_ay8913}]
 set_load -pin_load 0.1900 [get_ports {rst_blinker}]
+set_load -pin_load 0.1900 [get_ports {rst_diceroll}]
 set_load -pin_load 0.1900 [get_ports {rst_hellorld}]
 set_load -pin_load 0.1900 [get_ports {rst_mc14500}]
 set_load -pin_load 0.1900 [get_ports {rst_pdp11}]
@@ -240,6 +241,7 @@ set_load -pin_load 0.1900 [get_ports {rst_sid}]
 set_load -pin_load 0.1900 [get_ports {rst_sn76489}]
 set_load -pin_load 0.1900 [get_ports {rst_tbb1143}]
 set_load -pin_load 0.1900 [get_ports {rst_tholin_riscv}]
+set_load -pin_load 0.1900 [get_ports {rst_ue1}]
 set_load -pin_load 0.1900 [get_ports {wbs_ack_o}]
 set_load -pin_load 0.1900 [get_ports {custom_settings[31]}]
 set_load -pin_load 0.1900 [get_ports {custom_settings[30]}]

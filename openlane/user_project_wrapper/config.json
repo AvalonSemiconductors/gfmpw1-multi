@@ -8,7 +8,7 @@
 	],
 	"CLOCK_PORT": "wb_clk_i",
 	"CLOCK_NET": "wb_clk_i",
-	"CLOCK_PERIOD": 100,
+	"CLOCK_PERIOD": 50,
 	"MACRO_PLACEMENT_CFG": "dir::macro.cfg",
 	"VERILOG_FILES_BLACKBOX": [
 		"dir::../../verilog/gl/multiplexer.v",
@@ -22,7 +22,9 @@
 		"dir::../../verilog/gl/hellorld.v",
 		"dir::../../verilog/gl/tholin_avalonsemi_tbb1143.v",
 		"dir::../../verilog/gl/wrapped_pdp11.v",
-		"dir::../../verilog/gl/wrapped_tholin_riscv.v"
+		"dir::../../verilog/gl/wrapped_tholin_riscv.v",
+		"dir::../../verilog/gl/diceroll.v",
+		"dir::../../verilog/gl/ue1.v"
 	],
 	"EXTRA_LEFS": [
 		"dir::../../lef/multiplexer.lef",
@@ -36,7 +38,9 @@
 		"dir::../../lef/hellorld.lef",
 		"dir::../../lef/tholin_avalonsemi_tbb1143.lef",
 		"dir::../../lef/wrapped_pdp11.lef",
-		"dir::../../lef/wrapped_tholin_riscv.lef"
+		"dir::../../lef/wrapped_tholin_riscv.lef",
+		"dir::../../lef/diceroll.lef",
+		"dir::../../lef/ue1.lef"
 	],
 	"EXTRA_GDS_FILES": [
 		"dir::../../gds/multiplexer.gds",
@@ -50,7 +54,9 @@
 		"dir::../../gds/hellorld.gds",
 		"dir::../../gds/tholin_avalonsemi_tbb1143.gds",
 		"dir::../../gds/wrapped_pdp11.gds",
-		"dir::../../gds/wrapped_tholin_riscv.gds"
+		"dir::../../gds/wrapped_tholin_riscv.gds",
+		"dir::../../gds/diceroll.gds",
+		"dir::../../gds/ue1.gds"
 	],
 	"EXTRA_LIBS": [
 		"dir::../../lib/multiplexer.lib",
@@ -63,7 +69,9 @@
 		"dir::../../lib/hellorld.lib",
 		"dir::../../lib/tholin_avalonsemi_tbb1143.lib",
 		"dir::../../lib/wrapped_pdp11.lib",
-		"dir::../../lib/wrapped_tholin_riscv.lib"
+		"dir::../../lib/wrapped_tholin_riscv.lib",
+		"dir::../../lib/diceroll.lib",
+		"dir::../../lib/ue1.lib"
 	],
 	"EXTRA_SPEFS": [
 		"multiplexer",
@@ -119,9 +127,19 @@
 		"wrapped_tholin_riscv",
 		"dir::../../spef/multicorner/wrapped_tholin_riscv.min.spef",
 		"dir::../../spef/multicorner/wrapped_tholin_riscv.nom.spef",
-		"dir::../../spef/multicorner/wrapped_tholin_riscv.max.spef"
+		"dir::../../spef/multicorner/wrapped_tholin_riscv.max.spef",
+		
+		"diceroll",
+		"dir::../../spef/multicorner/diceroll.min.spef",
+		"dir::../../spef/multicorner/diceroll.nom.spef",
+		"dir::../../spef/multicorner/diceroll.max.spef",
+		
+		"ue1",
+		"dir::../../spef/multicorner/ue1.min.spef",
+		"dir::../../spef/multicorner/ue1.nom.spef",
+		"dir::../../spef/multicorner/ue1.max.spef"
 	],
-	"FP_PDN_MACRO_HOOKS": "multiplexer vdd vss vdd vss, sid vdd vss vdd vss, blinker vdd vss vdd vss, wrapped_sn76489 vdd vss vdd vss, avali_logo vdd vss vdd vss, wrapped_qcpu vdd vss vdd vss, mc14500 vdd vss vdd vss, ay8913 vdd vss vdd vss, hellorld vdd vss vdd vss, tbb1143 vdd vss vdd vss, wrapped_pdp11 vdd vss vdd vss, wrapped_tholin_riscv vdd vss vdd vss",
+	"FP_PDN_MACRO_HOOKS": "multiplexer vdd vss vdd vss, sid vdd vss vdd vss, blinker vdd vss vdd vss, wrapped_sn76489 vdd vss vdd vss, avali_logo vdd vss vdd vss, wrapped_qcpu vdd vss vdd vss, mc14500 vdd vss vdd vss, ay8913 vdd vss vdd vss, hellorld vdd vss vdd vss, tbb1143 vdd vss vdd vss, wrapped_pdp11 vdd vss vdd vss, wrapped_tholin_riscv vdd vss vdd vss, diceroll vdd vss vdd vss, ue1 vdd vss vdd vss",
 	"QUIT_ON_SYNTH_CHECKS": 0,
 	"FP_PDN_CHECK_NODES": 0,
 	"SYNTH_ELABORATE_ONLY": 1,
@@ -166,6 +184,7 @@
 	"FP_PDN_HWIDTH": 3.1,
 	"FP_PDN_VSPACING": "expr::5 * $FP_PDN_CORE_RING_VWIDTH",
 	"FP_PDN_HSPACING": 26.9,
+	"RUN_KLAYOUT_XOR": 0,
 	"VDD_NETS": [
 		"vdd"
 	],

@@ -64,7 +64,10 @@ localparam INT1 = 12;
 localparam INT2 = 13;
 localparam INT3 = 14;
 localparam INT4 = 15;
-reg [3:0] cycle;
+localparam MUL = 16;
+localparam DIV1 = 17;
+localparam DIV2 = 18;
+reg [4:0] cycle;
 reg [2:0] addr_mode;
 wire is_defered_mode = addr_mode == 3 || addr_mode == 5 || addr_mode == 7;
 reg byte_op;
@@ -259,8 +262,37 @@ wire [15:0] instr_result_AND = instr_arg_1 & instr_arg_2;
 wire [15:0] instr_result_XOR = instr_arg_1 ^ regs[special_extra_reg];
 wire [15:0] instr_result_BIC = (~instr_arg_1) & instr_arg_2;
 wire [15:0] instr_result_BIS = instr_arg_1 | instr_arg_2;
-wire [31:0] mul_res = $signed(instr_arg_1) * $signed(regs[special_extra_reg]);
-wire [31:0] div_res = $signed({regs[special_extra_reg], regs[special_extra_reg | 1]}) / $signed(instr_arg_1);
+
+wire [15:0] muli1 = instr_arg_1;
+wire [15:0] muli2 = regs[special_extra_reg];
+wire mul_s1 = muli1[15];
+wire mul_s2 = muli2[15];
+wire mul_s3 = mul_s1 ^ mul_s2;
+wire [15:0] muli1_us = mul_s1 ? (~muli1) + 1 : muli1;
+wire [15:0] muli2_us = mul_s2 ? (~muli2) + 1 : muli2;
+wire [31:0] vlsiffra_res;
+wire [31:0] mul_res = mul_s3 ? (~vlsiffra_res) + 1 : vlsiffra_res;
+multiplier_2 multiplier(
+	.clk(clk),
+	.rst(!rst_n),
+	.a(muli1_us),
+	.b(muli2_us),
+	.o(vlsiffra_res)
+);
+
+wire [31:0] divi1 = {regs[special_extra_reg], regs[special_extra_reg | 1]};
+wire [15:0] divi2 = instr_arg_1;
+wire div_s1 = divi1[31];
+wire div_s2 = divi2[15];
+wire div_s3 = div_s1 ^ div_s2;
+wire [31:0] divi1_us = div_s1 ? (~divi1) + 1 : divi1;
+wire [15:0] divi2_us = div_s2 ? (~divi2) + 1 : divi2;
+reg [63:0] div_shifter;
+reg [31:0] div_res;
+reg [4:0] div_counter;
+wire [31:0] div_res_s = div_s3 ? (~div_res) + 1 : div_res;
+reg [1:0] mul_delay;
+
 wire [5:0] shift_count = instr_arg_1[5] ? (~instr_arg_1[5:0]) + 1 : instr_arg_1[5:0];
 wire is_lshift = !instr_arg_1[5];
 wire is_rshift = instr_arg_1[5];
@@ -496,8 +528,8 @@ always @(*) begin
 		else if(is_DIV) begin
 			instr_result = instr_arg_1;
 			new_flags = {
-				div_res[31],
-				div_res == 0,
+				div_res_s[31],
+				div_res_s == 0,
 				instr_arg_1 == 0 || regs[special_extra_reg | 1][14:0] > instr_arg_1[14:0],
 				{regs[special_extra_reg + 1], regs[special_extra_reg]} == 0
 			};
@@ -758,13 +790,13 @@ always @(posedge clk) begin
 				};
 			end else PSW[3:0] <= new_flags;
 			if(is_MUL) begin
-				if(special_extra_reg[0] == 0) regs[special_extra_reg] <= mul_res[31:16];
-				regs[special_extra_reg | 1] <= mul_res[15:0];
-				cycle <= FETCH1;
+				mul_delay <= 2'b10;
+				cycle <= MUL;
 			end else if(is_DIV) begin
-				regs[special_extra_reg] <= div_res[31:16];
-				regs[special_extra_reg | 1] <= div_res[15:0];
-				cycle <= FETCH1;
+				div_counter <= 0;
+				div_shifter <= {32'h0, divi1};
+				div_res <= 0;
+				cycle <= DIV1;
 			end else if(is_ASH) begin
 				regs[special_extra_reg] <= instr_result;
 				cycle <= FETCH1;
@@ -882,6 +914,31 @@ always @(posedge clk) begin
 				PSW <= {bus_in[7:5], 1'b0, bus_in[3:0]};
 				waiting <= 1'b0;
 				is_trap <= 1'b0;
+				cycle <= FETCH1;
+			end
+		end
+		if(cycle == DIV1) begin
+			div_res <= {div_res[30:0], div_shifter[62:31] >= divi2_us};
+			if(div_shifter[62:31] >= divi2_us) begin
+				div_shifter <= {div_shifter[62:31] - divi2_us, div_shifter[30:0], 1'b0};
+			end else div_shifter <= {div_shifter[62:0], 1'b0};
+			div_counter <= div_counter + 1;
+			if(div_counter == 31) begin
+				cycle <= DIV2;
+			end
+		end
+		if(cycle == DIV2) begin
+			regs[special_extra_reg] <= div_res_s[31:16];
+			regs[special_extra_reg | 1] <= div_res_s[15:0];
+			PSW[3:0] <= new_flags;
+			cycle <= FETCH1;
+		end
+		if(cycle == MUL) begin
+			mul_delay <= mul_delay - 1;
+			if(mul_delay == 0) begin
+				if(special_extra_reg[0] == 0) regs[special_extra_reg] <= mul_res[31:16];
+				regs[special_extra_reg | 1] <= mul_res[15:0];
+				PSW[3:0] <= new_flags;
 				cycle <= FETCH1;
 			end
 		end

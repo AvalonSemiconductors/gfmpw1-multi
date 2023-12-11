@@ -25,14 +25,34 @@ module tholin_riscv(
     input rst_n
 );
 
+reg [2:0] irqs;
+reg io_int_enable;
+reg uart_int_enable;
+reg timer_int_enable;
+reg last_io_state;
+wire [1:0] highest_irq = irqs[2] ? 3 : (irqs[1] ? 2 : (irqs[0] ? 1 : 0));
+reg [1:0] current_irq;
 reg [31:0] PC;
+reg [31:0] PCE;
+
+//TIMERS
+reg [31:0] tmr0;
+reg [31:0] tmr1;
+reg [31:0] tmr0_pre;
+reg [31:0] tmr1_pre;
+reg [31:0] tmr0_top;
+reg [31:0] tmr1_top;
+reg [31:0] tmr0_pre_ctr;
+reg [31:0] tmr1_pre_ctr;
 
 reg [31:0] regs [31:0];
+reg [29:0] intr_vec;
 reg [31:0] requested_addr;
 reg is_write;
 reg [31:0] mem_io;
 reg [1:0] io_size;
 reg [2:0] ret_cycle;
+reg int_enabled;
 
 reg [3:0] cycle;
 localparam FETCH = 0;
@@ -94,6 +114,7 @@ wire [4:0] rs2Id  = instr[24:20];
 wire [4:0] rdId   = instr[11:7];
 wire [2:0] funct3 = instr[14:12];
 wire [6:0] funct7 = instr[31:25];
+wire [11:0] func12 = instr[31:20];
 wire [31:0] Uimm = {instr[31], instr[30:12], 12'h000};
 wire [31:0] Iimm = {{21{instr[31]}}, instr[30:20]};
 wire [31:0] Simm = {{21{instr[31]}}, instr[30:25], instr[11:7]};
@@ -127,7 +148,6 @@ wire [32:0] minus = {1'b1, ~aluIn2} + {1'b0, aluIn1} + 33'b1;
 wire LT = minus[32];
 wire LTS = (aluIn1[31] ^ aluIn2[31]) ? aluIn1[31] : minus[32];
 wire [4:0] shift_amount = isALUreg ? rs2[4:0] : instr[24:20];
-reg [31:0] ALUout;
 wire m1s = (funct3 == 3'b000 || funct3 == 3'b001 || funct3 == 3'b010) && rs1[31];
 wire m2s = (funct3 == 3'b000 || funct3 == 3'b001) && rs2[31];
 wire [31:0] rs1_inv = (~rs1) + 1;
@@ -167,6 +187,7 @@ aluIn1[20], aluIn1[21], aluIn1[22], aluIn1[23], aluIn1[24], aluIn1[25],
 aluIn1[26], aluIn1[27], aluIn1[28], aluIn1[29], aluIn1[30], aluIn1[31]}
  : aluIn1;
 wire [31:0] shifter = $signed({funct7[5] & aluIn1[31], shifter_in}) >>> shift_amount;
+reg [31:0] ALUout;
 always @(*) begin
     case({is_muldiv, funct3})
         0: ALUout = (funct7[5] && instr[5]) ? minus : plus;
@@ -222,7 +243,45 @@ always @(posedge clk) begin
         PORT_out <= 0;
         spi_div <= 8'h80;
         uart_div <= 16'h0101;
+        int_enabled <= 0;
+        irqs <= 0;
+        io_int_enable <= 0;
+        last_io_state <= 0;
+        current_irq <= 0;
+        uart_int_enable <= 0;
+        timer_int_enable <= 0;
+        tmr0 <= 0;
+        tmr1 <= 0;
+        tmr0_pre <= 32'h00008000;
+        tmr1_pre <= 32'h00001000;
+        tmr0_top <= 32'hFFFFFFFF;
+        tmr1_top <= 32'hFFFFFFFF;
+        tmr0_pre_ctr <= 0;
+        tmr1_pre_ctr <= 0;
     end else begin
+        last_io_state <= PORT_in[5];
+        if(!last_io_state && PORT_in[5] && io_int_enable) irqs[0] <= 1;
+        else irqs[0] <= irqs[0] & io_int_enable;
+        irqs[2] <= uart_hb & uart_int_enable;
+        
+        tmr0_pre_ctr <= tmr0_pre_ctr + 1;
+        tmr1_pre_ctr <= tmr1_pre_ctr + 1;
+        if((tmr0_pre_ctr+1) >= tmr0_pre) begin
+            tmr0_pre_ctr <= 0;
+            tmr0 <= tmr0 + 1;
+            if(tmr0 >= tmr0_top) begin
+                tmr0 <= 0;
+            end
+        end
+        irqs[1] <= (irqs[1] || tmr1 >= tmr1_top) && timer_int_enable;
+        if((tmr1_pre_ctr+1) >= tmr1_pre) begin
+            tmr1_pre_ctr <= 0;
+            tmr1 <= tmr1 + 1;
+            if(tmr1 >= tmr1_top) begin
+                tmr1 <= 0;
+            end
+        end
+        
         if(cycle == MEM1) begin
             if(requested_addr >= 32'hFFFFFF00) begin
                 case(requested_addr[7:2])
@@ -252,7 +311,58 @@ always @(posedge clk) begin
                         else mem_io <= {26'h0, PORT_out};
                     end
                     7: begin
-                        if(!is_write) mem_io <= {26'h0, PORT_in};
+                        if(is_write) irqs[0] <= 0;
+                        else mem_io <= {26'h0, PORT_in};
+                    end
+                    8: begin
+                        if(is_write) intr_vec <= mem_io[31:2];
+                        else mem_io <= {intr_vec, 2'b00};
+                    end
+                    9: begin
+                        if(!is_write) mem_io <= {30'h0, current_irq};
+                    end
+                    10: begin
+                        if(is_write) begin
+                            io_int_enable <= mem_io[0];
+                            timer_int_enable <= mem_io[1];
+                            uart_int_enable <= mem_io[2];
+                        end else mem_io <= {29'h0, uart_int_enable, timer_int_enable, io_int_enable};
+                    end
+                    11: begin
+                        if(is_write) tmr0_pre <= mem_io;
+                        else mem_io <= tmr0_pre;
+                    end
+                    12: begin
+                        if(is_write) tmr1_pre <= mem_io;
+                        else mem_io <= tmr1_pre;
+                    end
+                    13: begin
+                        if(is_write) tmr0_top <= mem_io;
+                        else mem_io <= tmr0_top;
+                    end
+                    14: begin
+                        if(is_write) tmr1_top <= mem_io;
+                        else mem_io <= tmr1_top;
+                    end
+                    15: begin
+                        if(is_write) tmr0 <= mem_io;
+                        else mem_io <= tmr0;
+                    end
+                    16: begin
+                        if(is_write) tmr1 <= mem_io;
+                        else mem_io <= tmr1;
+                    end
+                    17: begin
+                        if(is_write) irqs[1] <= 0;
+                    end
+                    18: begin
+                        if(!is_write) mem_io <= PCE;
+                    end
+                    19: begin
+                        if(!is_write) mem_io <= {8'h52, 8'h49, 8'h48, 8'h43};
+                    end
+                    20: begin
+                        if(!is_write) mem_io <= {8'h00, 8'h00, 8'h21, 8'h50};
                     end
                 endcase
                 cycle <= {1'b0, ret_cycle};
@@ -273,7 +383,12 @@ always @(posedge clk) begin
             mem_io[31:16] <= bus_in;
             cycle <= {1'b0, ret_cycle};
         end
-        else if(cycle == FETCH) begin
+        else if(cycle == FETCH && irqs != 0 && int_enabled) begin
+            PCE <= PC;
+            PC <= intr_vec;
+            int_enabled <= 0;
+            current_irq <= highest_irq;
+        end else if(cycle == FETCH) begin
             requested_addr <= PC;
             ret_cycle <= EXEC1;
             cycle <= MEM1;
@@ -284,7 +399,17 @@ always @(posedge clk) begin
             instr_l <= mem_io;
             `endif
             PC <= PC_next;
-            if(is_muldiv) begin
+            if(isSYSTEM) begin
+                if(func12 == 12'h26D) begin
+                    int_enabled <= !int_enabled;
+                    PC <= PCE;
+                end else if(func12 == 12'h007) begin
+                    int_enabled <= 1;
+                end else if(func12 == 12'h008) begin
+                    int_enabled <= 0;
+                end
+                cycle <= FETCH;
+            end else if(is_muldiv) begin
                 mul_delay <= 1'b0;
                 cycle <= is_mul ? MUL : DIV1;
                 if(is_div) begin

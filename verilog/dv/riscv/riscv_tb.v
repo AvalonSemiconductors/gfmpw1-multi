@@ -44,6 +44,11 @@ module riscv_tb;
 	wire OEb = mprj_io[24];
 	wire WEb_lo = mprj_io[25];
 	wire WEb_hi = mprj_io[26];
+	wire [5:0] PORT_out = mprj_io[37:32];
+	
+	wire SCLK = mprj_io[27];
+	assign mprj_io[28] = 1'b0;
+	wire SDO = mprj_io[29];
 	
 	//TRANSPARENT address latch
 	reg [31:0] addr_latch;
@@ -120,6 +125,8 @@ module riscv_tb;
 		@(posedge clock);
 		@(posedge clock);
 		while(!halted) @(posedge clock);
+		
+		failures += PORT_out != 6'h15;
 
 		if(!failures) begin
 			$display("%c[1;32m", 27);

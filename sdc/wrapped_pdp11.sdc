@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Sat Dec  9 14:24:32 2023
+# Mon Dec 11 11:56:00 2023
 ###############################################################################
 current_design wrapped_pdp11
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 100.0000 [get_ports {wb_clk_i}]
+create_clock -name clk -period 50.0000 [get_ports {wb_clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]

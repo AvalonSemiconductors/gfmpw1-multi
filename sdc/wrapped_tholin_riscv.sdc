@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Mon Dec 11 00:33:08 2023
+# Mon Dec 11 14:21:50 2023
 ###############################################################################
 current_design wrapped_tholin_riscv
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 38.0000 [get_ports {wb_clk_i}]
+create_clock -name clk -period 30.0000 [get_ports {wb_clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]

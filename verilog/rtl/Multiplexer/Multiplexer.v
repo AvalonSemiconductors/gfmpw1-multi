@@ -59,6 +59,13 @@ module multiplexer(
 	output rst_tholin_riscv,
 	input [32:0] tholin_riscv_do,
 	input [32:0] tholin_riscv_oeb,
+	
+	output rst_diceroll,
+	input [8:0] diceroll_do,
+	
+	output rst_ue1,
+	input ue1_oeb,
+	input [9:0] ue1_do,
 
 	output reg [31:0] custom_settings,
 	
@@ -152,6 +159,8 @@ assign rst_hellorld = design_rst_base && design_select == 7;
 assign rst_tbb1143 = design_rst_base && design_select == 8;
 assign rst_pdp11 = design_rst_base && design_select == 9;
 assign rst_tholin_riscv = design_rst_base && design_select == 10;
+assign rst_diceroll = design_rst_base && design_select == 11;
+assign rst_ue1 = design_rst_base && design_select == 12;
 
 always @(*) begin
 	case(design_select)
@@ -184,8 +193,8 @@ always @(*) begin
 			design_oeb = {5'h00, 8'h00, 3'b000, 5'h1F, custom_settings[2] ? 4'b0000 : 4'b1111, 8'hFF};
 		end
 		7: begin
-			design_out = {21'h000000, {12{hellorld_do}}};
-			design_oeb = 33'h1FFFFF000;
+			design_out = {{33{hellorld_do}}};
+			design_oeb = 33'h0;
 		end
 		8: begin
 			design_out = {11'h000, tbb1143_do[4:3], tbb1143_do[1], tbb1143_do[0], tbb1143_do[2], 3'b000, 6'h00, 8'h00};
@@ -198,6 +207,14 @@ always @(*) begin
 		10: begin
 			design_out = tholin_riscv_do;
 			design_oeb = tholin_riscv_oeb;
+		end
+		11: begin
+			design_out = {23'h000000, diceroll_do, 1'b0};
+			design_oeb = {23'h7FFFFF, 9'h00, 1'b1};
+		end
+		12: begin
+			design_out = {17'h0000, ue1_do, 4'h0, ue1_do[0], 1'b0};
+			design_oeb = {17'h1FFF, 10'h000, 4'hF, ue1_oeb, 1'b1};
 		end
 
 		default: begin

@@ -6,7 +6,7 @@ all : $(TARGETS)
 
 ARCHFLAGS:=-march=rv32im -mabi=ilp32
 
-PREFIX:=/home/tholin/riscv/bin/riscv32-unknown-elf-
+PREFIX:=/home/lucah/riscv/bin/riscv32-unknown-elf-
 CFLAGS:=-I.
 
 CFLAGS+=-fno-stack-protector

@@ -111,6 +111,13 @@ wire rst_tholin_riscv;
 wire [32:0] tholin_riscv_do;
 wire [32:0] tholin_riscv_oeb;
 
+wire rst_diceroll;
+wire [8:0] diceroll_do;
+
+wire rst_ue1;
+wire ue1_oeb;
+wire [9:0] ue1_do;
+
 wire [31:0] custom_settings;
 
 multiplexer multiplexer (
@@ -181,6 +188,13 @@ multiplexer multiplexer (
     .rst_tholin_riscv(rst_tholin_riscv),
     .tholin_riscv_do(tholin_riscv_do),
     .tholin_riscv_oeb(tholin_riscv_oeb),
+    
+    .rst_diceroll(rst_diceroll),
+    .diceroll_do(diceroll_do),
+    
+    .rst_ue1(rst_ue1),
+    .ue1_oeb(ue1_oeb),
+    .ue1_do(ue1_do),
 
     .custom_settings(custom_settings)
 );
@@ -320,6 +334,29 @@ wrapped_tholin_riscv wrapped_tholin_riscv(
     .io_out(tholin_riscv_do),
     .io_oeb(tholin_riscv_oeb),
     .custom_settings(custom_settings[1:0])
+);
+
+diceroll diceroll(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .wb_clk_i(wb_clk_i),
+    .rst_n(rst_diceroll),
+    .io_in(io_in[5]),
+    .io_out(diceroll_do)
+);
+
+ue1 ue1(
+`ifdef USE_POWER_PINS
+	.vdd(vdd),	// User area 1 1.8V power
+	.vss(vss),	// User area 1 digital ground
+`endif
+    .clk(io_in[5]),
+    .rst_n(rst_ue1),
+    .io_in(io_in[10:6]),
+    .io_oeb(ue1_oeb),
+    .io_out(ue1_do)
 );
 
 endmodule	// user_project_wrapper

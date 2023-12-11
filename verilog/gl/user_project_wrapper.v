@@ -102,6 +102,15 @@ module user_project_wrapper (user_clock2,
  wire \custom_settings[7] ;
  wire \custom_settings[8] ;
  wire \custom_settings[9] ;
+ wire \diceroll_do[0] ;
+ wire \diceroll_do[1] ;
+ wire \diceroll_do[2] ;
+ wire \diceroll_do[3] ;
+ wire \diceroll_do[4] ;
+ wire \diceroll_do[5] ;
+ wire \diceroll_do[6] ;
+ wire \diceroll_do[7] ;
+ wire \diceroll_do[8] ;
  wire hellorld_do;
  wire \mc14500_do[0] ;
  wire \mc14500_do[10] ;
@@ -306,6 +315,7 @@ module user_project_wrapper (user_clock2,
  wire \qcpu_sram_out[7] ;
  wire rst_ay8913;
  wire rst_blinker;
+ wire rst_diceroll;
  wire rst_hellorld;
  wire rst_mc14500;
  wire rst_pdp11;
@@ -314,6 +324,7 @@ module user_project_wrapper (user_clock2,
  wire rst_sn76489;
  wire rst_tbb1143;
  wire rst_tholin_riscv;
+ wire rst_ue1;
  wire \sid_do[0] ;
  wire \sid_do[10] ;
  wire \sid_do[11] ;
@@ -435,6 +446,17 @@ module user_project_wrapper (user_clock2,
  wire \tholin_riscv_oeb[7] ;
  wire \tholin_riscv_oeb[8] ;
  wire \tholin_riscv_oeb[9] ;
+ wire \ue1_do[0] ;
+ wire \ue1_do[1] ;
+ wire \ue1_do[2] ;
+ wire \ue1_do[3] ;
+ wire \ue1_do[4] ;
+ wire \ue1_do[5] ;
+ wire \ue1_do[6] ;
+ wire \ue1_do[7] ;
+ wire \ue1_do[8] ;
+ wire \ue1_do[9] ;
+ wire ue1_oeb;
 
  avali_logo avali_logo (.vss(vss),
     .vdd(vdd));
@@ -489,6 +511,20 @@ module user_project_wrapper (user_clock2,
     .io_out({\blinker_do[2] ,
     \blinker_do[1] ,
     \blinker_do[0] }));
+ diceroll diceroll (.io_in(io_in[5]),
+    .rst_n(rst_diceroll),
+    .vdd(vdd),
+    .vss(vss),
+    .wb_clk_i(wb_clk_i),
+    .io_out({\diceroll_do[8] ,
+    \diceroll_do[7] ,
+    \diceroll_do[6] ,
+    \diceroll_do[5] ,
+    \diceroll_do[4] ,
+    \diceroll_do[3] ,
+    \diceroll_do[2] ,
+    \diceroll_do[1] ,
+    \diceroll_do[0] }));
  hellorld hellorld (.io_out(hellorld_do),
     .rst_n(rst_hellorld),
     .vdd(vdd),
@@ -580,6 +616,7 @@ module user_project_wrapper (user_clock2,
     .qcpu_sram_gwe(qcpu_sram_gwe),
     .rst_ay8913(rst_ay8913),
     .rst_blinker(rst_blinker),
+    .rst_diceroll(rst_diceroll),
     .rst_hellorld(rst_hellorld),
     .rst_mc14500(rst_mc14500),
     .rst_pdp11(rst_pdp11),
@@ -588,7 +625,9 @@ module user_project_wrapper (user_clock2,
     .rst_sn76489(rst_sn76489),
     .rst_tbb1143(rst_tbb1143),
     .rst_tholin_riscv(rst_tholin_riscv),
+    .rst_ue1(rst_ue1),
     .sid_oeb(sid_oeb),
+    .ue1_oeb(ue1_oeb),
     .vdd(vdd),
     .vss(vss),
     .wb_clk_i(wb_clk_i),
@@ -660,6 +699,15 @@ module user_project_wrapper (user_clock2,
     \custom_settings[2] ,
     \custom_settings[1] ,
     \custom_settings[0] }),
+    .diceroll_do({\diceroll_do[8] ,
+    \diceroll_do[7] ,
+    \diceroll_do[6] ,
+    \diceroll_do[5] ,
+    \diceroll_do[4] ,
+    \diceroll_do[3] ,
+    \diceroll_do[2] ,
+    \diceroll_do[1] ,
+    \diceroll_do[0] }),
     .io_oeb({io_oeb[37],
     io_oeb[36],
     io_oeb[35],
@@ -1058,6 +1106,16 @@ module user_project_wrapper (user_clock2,
     \tholin_riscv_oeb[2] ,
     \tholin_riscv_oeb[1] ,
     \tholin_riscv_oeb[0] }),
+    .ue1_do({\ue1_do[9] ,
+    \ue1_do[8] ,
+    \ue1_do[7] ,
+    \ue1_do[6] ,
+    \ue1_do[5] ,
+    \ue1_do[4] ,
+    \ue1_do[3] ,
+    \ue1_do[2] ,
+    \ue1_do[1] ,
+    \ue1_do[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -1228,6 +1286,26 @@ module user_project_wrapper (user_clock2,
     \tbb1143_do[2] ,
     \tbb1143_do[1] ,
     \tbb1143_do[0] }));
+ ue1 ue1 (.clk(io_in[5]),
+    .io_oeb(ue1_oeb),
+    .rst_n(rst_ue1),
+    .vdd(vdd),
+    .vss(vss),
+    .io_in({io_in[10],
+    io_in[9],
+    io_in[8],
+    io_in[7],
+    io_in[6]}),
+    .io_out({\ue1_do[9] ,
+    \ue1_do[8] ,
+    \ue1_do[7] ,
+    \ue1_do[6] ,
+    \ue1_do[5] ,
+    \ue1_do[4] ,
+    \ue1_do[3] ,
+    \ue1_do[2] ,
+    \ue1_do[1] ,
+    \ue1_do[0] }));
  wrapped_pdp11 wrapped_pdp11 (.rst_n(rst_pdp11),
     .vdd(vdd),
     .vss(vss),
