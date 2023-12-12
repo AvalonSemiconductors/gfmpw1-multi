@@ -101,6 +101,7 @@ module mc14500_tb;
 		repeat (8) @(posedge design_clock);
 		
 		$write("Program output: ");
+		$fflush();
 		ptr = 0;
 		repeat(12) begin
 			buff = 0;
@@ -113,6 +114,7 @@ module mc14500_tb;
 			wait(SCLK == 0);
 			wait(SDO == 1);
 			$write("%c", buff);
+			$fflush();
 			received[ptr] = buff;
 			ptr = ptr + 1;
 		end

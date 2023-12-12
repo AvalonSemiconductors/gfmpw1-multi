@@ -44,3 +44,7 @@ Example program included in verification can multiply two numbers, despite the C
 ## AY8913
 
 Design contributed by [rejunity](https://github.com/rejunity). More info at the [original repo](https://github.com/rejunity/rejunity/tt05-psg-ay8913).
+
+## RV32IM Core
+
+A RISC-V Core made (relatively) performant through as fast a memory interface as possible given the IO limitations.

@@ -19,12 +19,12 @@ assign io_oeb = WRITE ? 1'b0 : 1'b1;
 assign io_out[1] = WRITE;
 
 main_ue1 main(
-	.CLK(clk),
-	.DATA(data_in),
-	.I0(io_in[1]),
-	.I1(io_in[2]),
-	.I2(io_in[3]),
-	.I3(io_in[4]),
+	.CLK(clk & rst_n),
+	.DATA(data_in & rst_n),
+	.I0(io_in[1] & rst_n),
+	.I1(io_in[2] & rst_n),
+	.I2(io_in[3] & rst_n),
+	.I3(io_in[4] & rst_n),
 	.RST(!rst_n),
 	.CAR(io_out[2]),
 	.IEN(io_out[3]),

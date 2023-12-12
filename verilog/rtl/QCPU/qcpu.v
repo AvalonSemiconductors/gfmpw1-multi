@@ -132,7 +132,13 @@ reg [7:0] orig_IO_addr_buff;
 reg needs_timer_interrupt;
 
 //ALU
-wire [15:0] mul_res = regs[1] * regs[ext_reg];
+//wire [15:0] mul_res = regs[1] * regs[ext_reg];
+wire [15:0] mul_res;
+multiplier_3 multiplier(
+	.a(regs[1]),
+	.b(regs[ext_reg]),
+	.o(mul_res)
+);
 wire [7:0] RSH = {C & ext_opc[0], regs[ext_reg][7:1]};
 wire [7:0] LSH = {regs[ext_reg][6:0], C & ext_opc[0]};
 wire [7:0] ROR = {regs[ext_reg][0], regs[ext_reg][7:1]};
@@ -140,21 +146,25 @@ wire [7:0] ROL = {regs[ext_reg][6:0], regs[ext_reg][7]};
 
 wire [7:0] rr_r1 = regs[regreg_r1];
 wire [7:0] rr_r2 = regs[regreg_r2_imm];
+wire [7:0] inv_rr2 = ~rr_r2;
+wire [8:0] adderi1 = {1'b0, rr_r1};
+wire [8:0] adderi2 = (regreg_opc[3] ? (regreg_opc[1] ? {1'b0, 4'hF, ~regreg_r2_imm} : {1'b0, 4'h0, regreg_r2_imm}) : (regreg_opc[1] ? {1'b0, inv_rr2} : {1'b0, rr_r2}));
+wire [8:0] add = adderi1 + adderi2 + (((regreg_opc[1:0] != 0) & C) | (regreg_opc[1:0] == 2));
 reg [8:0] ALU_res;
 always @(*) begin
 	case(regreg_opc)
-		0: ALU_res = {1'b0, rr_r1} + {1'b0, rr_r2};
-		1: ALU_res = {1'b0, rr_r1} + {1'b0, rr_r2} + C;
-		2: ALU_res = {1'b0, rr_r1} + {1'b0, ~rr_r2} + 1;
-		3: ALU_res = {1'b0, rr_r1} + {1'b0, ~rr_r2} + C;
+		0: ALU_res = add;
+		1: ALU_res = add;
+		2: ALU_res = add;
+		3: ALU_res = add;
 		4: ALU_res = {C, rr_r1 & rr_r2};
 		5: ALU_res = {C, rr_r1 | rr_r2};
 		6: ALU_res = {C, rr_r1 ^ rr_r2};
-		7: ALU_res = {C, ~rr_r2};
-		8: ALU_res = {1'b0, rr_r1} + {1'b0, 4'h0, regreg_r2_imm};
-		9: ALU_res = {1'b0, rr_r1} + {1'b0, 4'h0, regreg_r2_imm} + C;
-		10: ALU_res = {1'b0, rr_r1} + {1'b0, 4'hF, ~regreg_r2_imm} + 1;
-		11: ALU_res = {1'b0, rr_r1} + {1'b0, 4'hF, ~regreg_r2_imm} + C;
+		7: ALU_res = {C, inv_rr2};
+		8: ALU_res = add;
+		9: ALU_res = add;
+		10: ALU_res = add;
+		11: ALU_res = add;
 		default: ALU_res = {C, rr_r1};
 	endcase
 end
