@@ -1,3 +1,5 @@
+Note: all documentation is WiP. I will document all of these after the deadline passes.
+
 # gfmpw1-multi
 
 [![CI](https://github.com/AvalonSemiconductors/gfmpw1-multi/actions/workflows/user_project_ci.yml/badge.svg)](https://github.com/AvalonSemiconductors/gfmpw1-multi/actions/workflows/user_project_ci.yml)
