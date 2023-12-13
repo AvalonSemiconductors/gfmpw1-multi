@@ -24,6 +24,8 @@ Also posesses one 16-bit timer on-chip which can also generate interrupts.
 
 The purpose of this design is it to provide a minimal yet powerful CPU that takes up little die space.
 
+[Documentation](https://avalonsemiconductors.github.io/GFMPW-1-MULTI/qcpu.html)
+
 ## SN76489
 
 Design contributed by [rejunity](https://github.com/rejunity). More info at the [original repo](https://github.com/rejunity/tt05-psg-sn76489).
