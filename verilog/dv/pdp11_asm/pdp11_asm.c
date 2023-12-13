@@ -85,8 +85,8 @@ void main() {
 	reg_wb_enable = 1;
 	while(reg_mprj_xfer == 1);
 	reg_mprj_counter = 294817;
+	reg_mprj_settings = 0b000000101;
 	reg_mprj_proj_sel = 0b000100100;
-	reg_mprj_settings = 0b00000101;
 	reg_gpio_out = 1;
 	
 	delay(4000000);

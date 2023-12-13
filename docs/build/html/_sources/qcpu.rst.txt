@@ -13,8 +13,9 @@ This design is a general-purpose 8-bit microcontroller. On top of a RISC CPU cor
 
 The internal 64 bytes of RAM in the multiplexer are used as data memory, and an external QSPI flash is used as program memory.
 
+---------
 Registers
-=========
+---------
 
 QCPU posesses a set of 16 8-bit general-purpose scratchpad registers, designated r0 - r15. r0, however, is the "zero register" and hard-wired to 0. It will always read 0 and writes to it will be discarded.
 
@@ -26,10 +27,35 @@ Mnemonic Name
 PC       14-bit Program Counter
 IOADDR   8-bit IO Address
 IO       Interface to the I/O devices
+FLAGS    CPU flags
 ======== ============================
 
+The CPU flags register contains the following information:
+
+.. wavedrom::
+
+    { "reg": [
+        {"name": "C", "bits": 1},
+        {"name": "Z", "bits": 1},
+        {"name": "IE", "bits": 1},
+        {"name": "TIE", "bits": 1},
+        {"bits": 4, "type": 1}
+        ],
+    "config": {"hspace": 700}
+    }
+
+======== ============================
+Bit      Function
+======== ============================
+C        Carry-Flag
+Z        Zero-Flag
+IE       External Interrupt Enable
+TIE      Timer Interrupt Enable
+======== ============================
+
+-------------------
 Instruction Formats
-===================
+-------------------
 
 All instructions are a constant 16-bits wide, to allow for embedding of register addresses and immediate values. The following base encodings exist:
 
@@ -41,12 +67,12 @@ The immediate value is loaded into the specified register, unless that register 
 .. wavedrom::
 
     { "reg": [
-        {"name": "Reg", "bits": 4},
+        {"name": "Reg (!= 0)", "bits": 4},
         {"name": "0", "bits": 1},
         {"name": "0", "bits": 1},
         {"name": "1", "bits": 1},
         {"name": "0", "bits": 1},
-        {"name": "Immediate (!= 0)", "bits": 8}],
+        {"name": "Immediate", "bits": 8}],
     "config": {"hspace": 700}
     }
 
@@ -194,10 +220,10 @@ The following operations are available:
 ====== =====================
 Opcode Operation
 ====== =====================
-0      R1 = R1 >> 1
-1      R1 = R1 >> 1 | C << 7
-2      R1 = R1 << 1
-3      R1 = R1 << 1 | C
+0      R1 = R1 >> 1, C = R1[0]
+1      R1 = R1 >> 1 | C << 7, C = R1[0]
+2      R1 = R1 << 1, C = R1[7]
+3      R1 = R1 << 1 | C, C = R1[7]
 4      R1 = R1 ROR 1
 5      R1 = R1 ROL 1
 6      IOADDR = R1

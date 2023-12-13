@@ -28,13 +28,13 @@ public class PlacementPreview {
 			new Macro(1850, 250, 250, 250, new Color(32, 64, 240), "SN76489"), //wrapped_sn76489
 			new Macro(300, 2375, 400, 470, new Color(240, 128, 32), "Avali Logo"), //avali_logo
 			new Macro(2300, 250, 475, 500, new Color(240, 64, 64), "QCPU"), //wrapped_qcpu
-			new Macro(1550, 800, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
+			new Macro(1500, 800, 175, 175, new Color(166, 166, 166), "MC14500"), //wrapped_mc14500
 			new Macro(200, 1200, 240, 240, new Color(166, 32, 166), "AY8913"), //wrapped_ay8913
 			new Macro(700, 1300, 130, 130, new Color(166, 32, 255), "Hellorld"),
-			new Macro(650, 1600, 230, 230, new Color(166, 255, 86), "TBB1143"),
+			new Macro(600, 1600, 230, 230, new Color(166, 255, 86), "TBB1143"),
 			new Macro(950, 2050, 1700, 800, new Color(23, 190, 120), "AS-11"),
-			new Macro(1800, 825, 1100, 1150, new Color(19, 182, 222), "Tholin RISCV"),
-			new Macro(300, 1575, 230, 230, new Color(88, 111, 177), "Diceroll"),
+			new Macro(1775, 825, 1150, 1150, new Color(19, 182, 222), "Tholin RISCV"),
+			new Macro(250, 1575, 230, 230, new Color(88, 111, 177), "Diceroll"),
 			new Macro(300, 1950, 180, 180, new Color(1, 88, 255), "UE-1 (UE14500)"),
 		};
 

@@ -37,7 +37,7 @@ module pdp11_asm_tb;
 	assign mprj_io[0] = design_rst;
 
 	wire [15:0] bus_out = mprj_io[20:5];
-	reg [15:0] bus_in;
+	wire [15:0] bus_in;
 	wire latch_enable = mprj_io[21];
 	wire bus_dir = mprj_io[22];
 	wire OEb = mprj_io[23];
@@ -57,7 +57,6 @@ module pdp11_asm_tb;
 	initial begin
 		clock = 0;
 		design_rst = 0;
-		bus_in = 0;
 		addr_latch = 0;
 		for(integer i = 0; i < 32768; i=i+1) begin
 			memory[i] = 16'h0000;
@@ -76,11 +75,7 @@ module pdp11_asm_tb;
 		end
 	end
 	
-	always @(negedge OEb) begin
-		if(full_addr >= 16'hFE02 && full_addr <= 16'hFE12) begin
-			bus_in <= 16'h0188;
-		end else bus_in = memory[full_addr>>1];
-	end
+	assign bus_in = memory[full_addr>>1];
 
 	integer test;
 	initial begin

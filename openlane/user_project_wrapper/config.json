@@ -185,6 +185,7 @@
 	"FP_PDN_VSPACING": "expr::5 * $FP_PDN_CORE_RING_VWIDTH",
 	"FP_PDN_HSPACING": 26.9,
 	"RUN_KLAYOUT_XOR": 0,
+	"RUN_MAGIC_DRC": 0,
 	"VDD_NETS": [
 		"vdd"
 	],

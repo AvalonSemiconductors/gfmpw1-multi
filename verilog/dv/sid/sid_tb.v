@@ -54,6 +54,7 @@ module sid_tb;
 	wire DAC_le = mprj_io[23];
 	wire DAC_clk = mprj_io[24];
 	wire DAC_dat_2 = mprj_io[25];
+	wire LED = mprj_io[26];
 	
 	wire [11:0] dac_sample_1;
 	wire [11:0] dac_sample_2;

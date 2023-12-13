@@ -249,7 +249,6 @@ wire [15:0] dest_incr_reg = is_byte_instr && dest_mode != 3 && dest_reg != 7 ? r
 
 reg [15:0] instr_arg_1;
 reg [15:0] instr_arg_2;
-reg [15:0] instr_result;
 wire [15:0] instr_result_inc = instr_arg_1 + 1;
 wire [15:0] instr_result_dec = instr_arg_1 - 1;
 wire [15:0] instr_result_neg = ~instr_arg_1 + 1;
@@ -302,9 +301,9 @@ wire [31:0] long_shift_in = {regs[special_extra_reg], regs[special_extra_reg | 1
 wire [31:0] long_rshift_res = long_shift_in >> shift_count;
 wire [31:0] long_lshift_res = long_shift_in << shift_count;
 
+reg [15:0] instr_result;
 reg [3:0] new_flags;
 always @(*) begin
-	if(is_single_op) begin
 		if(is_CLR) begin
 			instr_result = 16'h0000;
 			new_flags = 4'b0100;
@@ -349,8 +348,7 @@ always @(*) begin
 			};
 		end
 		else if(is_ASR) begin
-			if(is_byte_instr) instr_result = {8'h00, instr_arg_1[7], instr_arg_1[7:1]};
-			else instr_result = {instr_arg_1[15], instr_arg_1[15:1]};
+			instr_result = is_byte_instr ? {8'h00, instr_arg_1[7], instr_arg_1[7:1]} : {instr_arg_1[15], instr_arg_1[15:1]};
 			new_flags = {
 				is_byte_instr ? instr_arg_1[7] : instr_arg_1[15],
 				is_byte_instr ? instr_arg_1[7:1] == 0 : instr_arg_1[15:1] == 0,
@@ -359,8 +357,7 @@ always @(*) begin
 			};
 		end
 		else if(is_ASL) begin
-			if(is_byte_instr) instr_result = {8'h00, instr_arg_1[6:0], 1'b0};
-			else instr_result = {instr_arg_1[14:0], 1'b0};
+			instr_result = is_byte_instr ? {8'h00, instr_arg_1[6:0], 1'b0} : {instr_arg_1[14:0], 1'b0};
 			new_flags = {
 				is_byte_instr ? instr_arg_1[6] : instr_arg_1[14],
 				is_byte_instr ? instr_arg_1[6:0] == 0 : instr_arg_1[14:0] == 0,
@@ -369,21 +366,19 @@ always @(*) begin
 			};
 		end
 		else if(is_ROR) begin
-			if(is_byte_instr) instr_result = {8'h00, PSW[0], instr_arg_1[7:1]};
-			else instr_result = {PSW[0], instr_arg_1[15:1]};
+			instr_result = is_byte_instr ? {8'h00, PSW[0], instr_arg_1[7:1]} : {PSW[0], instr_arg_1[15:1]};
 			new_flags = {
 				PSW[0],
-				PSW[0] == 0 && (is_byte_instr ? instr_arg_1[7:1] == 0 : instr_arg_1[15:1] == 0),
+				is_byte_instr ? instr_arg_1[7:1] == 0 && PSW[0] == 0 : instr_arg_1[15:1] == 0 && PSW[0] == 0,
 				PSW[0] ^ instr_arg_1[0],
 				instr_arg_1[0]
 			};
 		end
 		else if(is_ROL) begin
-			if(is_byte_instr) instr_result = {8'h00, instr_arg_1[6:0], PSW[0]};
-			else instr_result = {instr_arg_1[14:0], PSW[0]};
+			instr_result = is_byte_instr ? {8'h00, instr_arg_1[6:0], PSW[0]} : {instr_arg_1[14:0], PSW[0]};
 			new_flags = {
 				is_byte_instr ? instr_arg_1[6] : instr_arg_1[14],
-				PSW[0] == 0 && (is_byte_instr ? instr_arg_1[6:0] == 0 : instr_arg_1[14:0] == 0),
+				is_byte_instr ? instr_arg_1[6:0] == 0 && PSW[0] == 0 : instr_arg_1[14:0] == 0 && PSW[0] == 0,
 				is_byte_instr ? instr_arg_1[7] ^ instr_arg_1[6] : instr_arg_1[15] ^ instr_arg_1[14],
 				is_byte_instr ? instr_arg_1[7] : instr_arg_1[15]
 			};
@@ -435,12 +430,8 @@ always @(*) begin
 		else if(is_MTPS) begin
 			instr_result = instr_arg_1;
 			new_flags = instr_arg_1[3:0];
-		end else begin
-			instr_result = instr_arg_1;
-			new_flags = PSW[3:0];
 		end
-	end else if(is_double_op) begin
-		if(is_MOV) begin
+		else if(is_MOV) begin
 			instr_result = is_byte_instr ? {instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7], instr_arg_1[7:0]} : instr_arg_1;
 			new_flags = {
 				is_byte_instr ? instr_arg_1[7] : instr_arg_1[15],
@@ -502,12 +493,8 @@ always @(*) begin
 				1'b0,
 				PSW[0]
 			};
-		end else begin
-			instr_result = instr_arg_2;
-			new_flags = PSW[3:0];
 		end
-	end else if(is_special) begin
-		if(is_XOR) begin
+		else if(is_XOR) begin
 			instr_result = instr_result_XOR;
 			new_flags = {
 				is_byte_instr ? instr_result_XOR[7] : instr_result_XOR[15],
@@ -584,10 +571,6 @@ always @(*) begin
 			instr_result = instr_arg_1;
 			new_flags = PSW[3:0];
 		end
-	end else begin
-		instr_result = instr_arg_1;
-		new_flags = PSW[3:0];
-	end
 end
 
 always @(posedge clk) begin
@@ -632,6 +615,10 @@ always @(posedge clk) begin
 		trap_targ <= 0;
 		is_trap <= 0;
 		last_trace_trap <= 0;
+		div_shifter <= 0;
+		div_res <= 0;
+		div_counter <= 0;
+		mul_delay <= 0;
 	end else begin
 		PSW[4] <= PSW[4] & trace_trap_enable;
 		current_addr <= requested_addr;
@@ -783,18 +770,14 @@ always @(posedge clk) begin
 		end
 		if(cycle == EXEC1) begin
 			if(is_MTPS) begin
-				PSW <= {
-					instr_arg_1[7:5],
-					PSW[4],
-					instr_arg_1[3:0]
-				};
-			end else PSW[3:0] <= new_flags;
+				PSW <= instr_arg_1[7:0];
+			end else PSW <= {PSW[7:4], new_flags};
 			if(is_MUL) begin
 				mul_delay <= 2'b10;
 				cycle <= MUL;
 			end else if(is_DIV) begin
 				div_counter <= 0;
-				div_shifter <= {32'h0, divi1};
+				div_shifter <= {32'h0, divi1_us};
 				div_res <= 0;
 				cycle <= DIV1;
 			end else if(is_ASH) begin

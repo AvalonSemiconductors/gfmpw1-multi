@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 10
-timestamp 1702379971
+timestamp 1702459012
 << nwell >>
 rect 1258 19168 22710 20032
 rect 1258 17600 22710 18464
@@ -154,7 +154,7 @@ string FIXED_BBOX 0 0 24000 24000
 string LEFclass BLOCK
 string LEFview TRUE
 string GDS_END 422560
-string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/ue1/runs/23_12_12_12_11/results/signoff/ue1.magic.gds
+string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/ue1/runs/23_12_13_10_14/results/signoff/ue1.magic.gds
 string GDS_START 126424
 << end >>
 

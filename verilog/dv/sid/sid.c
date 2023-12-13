@@ -67,7 +67,7 @@ void main() {
 	reg_mprj_io_23 = GPIO_MODE_USER_STD_OUTPUT;
 	reg_mprj_io_24 = GPIO_MODE_USER_STD_OUTPUT;
 	reg_mprj_io_25 = GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_26 = GPIO_MODE_USER_STD_INPUT_PULLUP;
+	reg_mprj_io_26 = GPIO_MODE_USER_STD_OUTPUT;
 	reg_mprj_io_27 = GPIO_MODE_USER_STD_INPUT_PULLUP;
 	reg_mprj_io_28 = GPIO_MODE_USER_STD_INPUT_PULLUP;
 	reg_mprj_io_29 = GPIO_MODE_USER_STD_INPUT_PULLUP;

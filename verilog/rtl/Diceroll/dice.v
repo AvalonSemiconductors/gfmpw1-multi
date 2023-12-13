@@ -52,7 +52,7 @@ input wb_clk_i, input rst_n, input io_in, output [8:0] io_out);
 					counter <= 0;
 					dp <= 0;
 				end
-				if(clkdiv != 8'b10100000) begin
+				else if(clkdiv != 8'b10100000) begin
 					counter <= counter + 1;
 					if(counter == clkdiv) begin
 						counter <= 0;

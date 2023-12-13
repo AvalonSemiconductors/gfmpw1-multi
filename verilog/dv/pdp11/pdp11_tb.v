@@ -32,7 +32,7 @@ module pdp11_tb;
 	// simulation.  Normally this would be a slow clock and the digital PLL
 	// would be the fast clock.
 
-	always #15 clock <= (clock === 1'b0);
+	always #25 clock <= (clock === 1'b0);
 	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
 	assign mprj_io[0] = design_rst;
 
@@ -353,12 +353,12 @@ module pdp11_tb;
 		@(posedge clock);
 		#3 bus_in = 0;
 		@(posedge clock);
+		bus_in = 16'h8002;
 		#3 failures += OEb != 0 || full_addr != 16'h000E;
-		bus_in = 16'h8000;
 		@(posedge clock);
 		bus_in = 0;
 		@(posedge clock);
-		#3 failures += WEb != 0 || bus_out != 16'h0000;
+		#3 failures += WEb != 0 || bus_out != 16'h0004;
 		@(posedge clock);
 		#3 failures += latch_enable != 1;
 		@(posedge clock);

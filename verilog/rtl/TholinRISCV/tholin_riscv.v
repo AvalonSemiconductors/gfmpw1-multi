@@ -258,6 +258,16 @@ always @(posedge clk) begin
         tmr1_top <= 32'hFFFFFFFF;
         tmr0_pre_ctr <= 0;
         tmr1_pre_ctr <= 0;
+        regs[1] <= 0;
+        div_shifter <= 0;
+        div_res <= 0;
+        div_counter <= 0;
+        intr_vec <= 0;
+        requested_addr <= 0;
+        is_write <= 0;
+        mem_io <= 0;
+        io_size <= 0;
+        ret_cycle <= 0;
     end else begin
         last_io_state <= PORT_in[5];
         if(!last_io_state && PORT_in[5] && io_int_enable) irqs[0] <= 1;

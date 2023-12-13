@@ -10,7 +10,7 @@ module wrapped_ay8913(
 	input [7:0] io_in_1,
 	input [1:0] io_in_2,
 	output [27:0] io_out,
-    input [1:0] custom_settings
+    input [3:0] custom_settings
 );
 
 wire [3:0] pwms;
@@ -33,13 +33,19 @@ wire DAC_dat;
  * DAC CLK
  * raw_sample [7:0]
 */
-assign io_out = {raw_sample, DAC_clk, DAC_le, DAC_dat, 1'b0, 1'b0, 1'b0, 2'b00, pwms, 8'h00};
+wire LED;
+blink blink(
+	.clk(wb_clk_i),
+	.LED(LED)
+);
+wire [3:0] LEDs = {LED, LED, LED, LED};
+assign io_out = {raw_sample, DAC_clk, DAC_le, DAC_dat, 1'b0, 1'b0, 1'b0, 2'b00, custom_settings[3] ? LEDs : pwms, 8'h00};
 
 tt_um_rejunity_ay8913 tt_um_rejunity_ay8913(
     .clk(wb_clk_i),
     .rst_n(rst_n),
     .data(io_in_1),
-    .master_clock_control(custom_settings),
+    .master_clock_control(custom_settings[1:0]),
     .bdir(io_in_2[0]),
     .bc1(io_in_2[1]),
     .pwms(pwms),
@@ -49,4 +55,19 @@ tt_um_rejunity_ay8913 tt_um_rejunity_ay8913(
     .DAC_dat(DAC_dat)
 );
 
+endmodule
+module blink(
+    input clk,
+    output LED
+    );
+integer counter;
+reg state;
+always @ (posedge clk) begin
+    counter <= counter + 1;
+     if(counter >= 8000000 )begin
+        counter <=0;
+        state <= !state;
+     end 
+end 
+assign LED = state;        
 endmodule

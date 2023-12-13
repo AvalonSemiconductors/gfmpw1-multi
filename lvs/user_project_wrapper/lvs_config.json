@@ -34,6 +34,7 @@
         "$UPRJ_ROOT/verilog/gl/wrapped_tholin_riscv.v",
         "$UPRJ_ROOT/verilog/gl/tholin_avalonsemi_tbb1143.v",
         "$UPRJ_ROOT/verilog/gl/diceroll.v",
+        "$UPRJ_ROOT/verilog/gl/ue1.v",
         "$UPRJ_ROOT/verilog/rtl/Logo/avali_logo.v",
         "$UPRJ_ROOT/verilog/gl/$TOP_SOURCE.v"
     ],

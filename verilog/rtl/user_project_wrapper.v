@@ -285,7 +285,7 @@ wrapped_ay8913 ay8913(
 	.io_in_1(io_in[12:5]),
 	.io_in_2(io_in[20:19]),
 	.io_out(ay8913_do),
-	.custom_settings(custom_settings[1:0])
+	.custom_settings(custom_settings[3:0])
 );
 
 hellorld hellorld(
