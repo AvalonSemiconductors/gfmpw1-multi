@@ -229,7 +229,6 @@ jobs:
         run: |
              echo "chirp"
              pip3 install numpy gdspy triangle pygltflib
-             python3 gds2gltf.py gds/user_project_wrapper.gds
              python3 gds2gltf.py gds/wrapped_mc14500.gds
              python3 gds2gltf.py gds/wrapped_qcpu.gds
              python3 gds2gltf.py gds/wrapped_sn76489.gds
@@ -240,7 +239,6 @@ jobs:
         with:
           name: glTF
           path: |
-            /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/user_project_wrapper.gds.gltf
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_mc14500.gds.gltf
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_qcpu.gds.gltf
             /home/runner/work/gfmpw1-multi/gfmpw1-multi/gds/wrapped_sn76489.gds.gltf
