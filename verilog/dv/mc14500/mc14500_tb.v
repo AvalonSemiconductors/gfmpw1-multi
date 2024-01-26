@@ -40,8 +40,8 @@ module mc14500_tb;
 	assign mprj_io[37] = design_clock;
 	
 	wire [16:0] PC = mprj_io[29:13];
-	reg [7:0] ROM [4095:0];
-	wire [7:0] romval = ROM[PC[11:0]];
+	reg [7:0] ROM [16383:0];
+	wire [7:0] romval = ROM[PC[13:0]];
 	assign mprj_io[12:5] = romval;
 	reg SDI = 0;
 	assign mprj_io[36] = SDI;
@@ -53,10 +53,10 @@ module mc14500_tb;
 	wire out_2 = mprj_io[35];
 	
 	initial begin
-		for(integer i = 0; i < 4096; i = i + 1) begin
+		for(integer i = 0; i < 16384; i = i + 1) begin
 			ROM[i] = 0;
 		end
-		$readmemh("pgm.txt", ROM, 0, 3*1024-1);
+		$readmemh("pgm.txt", ROM, 0, 16*1024-1);
 		clock = 0;
 		design_clock = 0;
 		design_rst = 0;
@@ -115,8 +115,9 @@ module mc14500_tb;
 			wait(SDO == 1);
 			$write("%c", buff);
 			$fflush();
-			received[ptr] = buff;
+			if(ptr < 12) received[ptr] = buff;
 			ptr = ptr + 1;
+			test = 2048;
 		end
 		failures += received[0] != 8'h31;
 		failures += received[1] != 8'h41;

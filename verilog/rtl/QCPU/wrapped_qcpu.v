@@ -12,7 +12,6 @@ module wrapped_qcpu(
   output [32:0] io_out,
   output [32:0] io_oeb, //Output Enable Bar ; 0 = Output, 1 = Input
   input [31:0] custom_settings, //Custom settings register, settable over mgmt controller firmware,
-  //Tell me if you do not need the SRAM, then remove these. It'll help me simplify the project multiplexer
   output [5:0] sram_addr,
   output [7:0] sram_in,
   input [7:0] sram_out,
