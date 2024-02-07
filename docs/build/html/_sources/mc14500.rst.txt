@@ -1,0 +1,98 @@
+.. _mc14500:
+
+MC14500
+=======
+
+This project is a bit-serial processor. At its core is a 1-bit processor capable of simple logic operations with shift registers attached to it to allow it to bit-serially process 8-bit words. It has access to the 64-bytes RAM in the Multiplexer, but instruction data must be provided from an external ROM. The processor is a Harvard Architecture with separate instruction and data buses.
+
+Pinout
+------
+
+.. image:: _static/pinout4.png
+
+1-bit Core
+----------
+
+This design can be roughly separated into the 1-bit CPU in its core, and the shift registers and counters it uses to interface with memory. The CPU contains only three 1-bit registers.
+
+The Result Register (``RR``) is the "accumulator" for all 1-bit logic operations.
+
+Input Enable (``IEN``) and Output Enable (``OEN``) are used for predication. If both are set, the CPU operates normally. If ``IEN`` is clear, all instructions that consume Data will fetch a zero and not cause data to be shifted out of ``DIA`` or ``DIB``.
+If ``OEN`` is clear, the instructions ``STO`` and ``STOC`` will have no effect and no data is shifted into any register.
+
+The CPU has an instruction set of 16 instructions, meaning it uses 4-bit opcodes. These operations are as follows:
+
+.. list-table:: CPU Instructions
+    :name: mc14500-instrs
+    :header-rows: 1
+    
+    * - Opcode
+      - Instruction
+      - Operation
+    * - ``0``
+      - ``NOPO``
+      - No change in RR, IEN or OEN
+    * - ``1``
+      - ``LD``
+      - Load RR with Data
+    * - ``2``
+      - ``LDC``
+      - Load RR with complemented Data
+    * - ``3``
+      - ``AND``
+      - Logic AND RR with Data
+    * - ``4``
+      - ``ANDC``
+      - Logic AND RR with complemented Data
+    * - ``5``
+      - ``OR``
+      - Logic OR RR with Data
+    * - ``6``
+      - ``ORC``
+      - Logic OR RR with complemented Data
+    * - ``7``
+      - ``XNOR``
+      - Logic Exklusive NOT-OR with Data
+    * - ``8``
+      - ``STO``
+      - Store RR
+    * - ``9``
+      - ``STOC``
+      - Store complemented RR
+    * - ``A``
+      - ``IEN``
+      - Load IEN register with Data
+    * - ``B``
+      - ``OEN``
+      - Load OEN register with Data
+    * - ``C``
+      - ``JMP``
+      - Trigger Jump, PC is loaded from DR
+    * - ``D``
+      - ``RTN``
+      - Clear MAR to 0
+    * - ``E``
+      - ``SKZ``
+      - Skip next instruction if RR == 0
+    * - ``F``
+      - ``NOPF``
+      - No change in RR, IEN or OEN
+
+This opcode is taken from the least-significant 4 bits of each 8-bit instruction fed from the external ROM. The most-significant 4 bits index one of the internal machine registers. Whenever the CPU is told to load/operate on or store 'Data', this is refering to the CPU interacting with one of these internal registers.
+
+The first of these machine registers is 8 bits wide starting at address 8h named the Scratch Register, and is the only bit-addressable machine register. By accessing addresses 8h - Fh, individual bits of this register can be read or written. It is mainly meant to store temporary data during processing of 8-bit bytes, but a few of the bits are wired to pins on the chip package. These bits are still readable and writable individually like the others, but their state will be mirrored onto chip pins as such:
+
+.. list-table:: Scratch Register locations
+    :name: scratch-reg-locs
+    :header-rows: 1
+    
+    * - Bit Address
+      - Pin mapping
+    * - ``8`` - ``D``
+      - None
+    * - ``E``
+      - ``SCLK``
+    * - ``F``
+      - ``SDO``
+
+The pins ``OUT 1`` and ``OUT 2`` have dedicated registers at addresses 5h and 6h. These may only be written. The state of the input pin ``SDI`` can be read at address 7h.
