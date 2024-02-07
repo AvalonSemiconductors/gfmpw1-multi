@@ -30,6 +30,3 @@ GFMPW-1 Multi-Project Die
    multiplexer
    qcpu
    mc14500
-   sid
-   ay8913
-   sn76489

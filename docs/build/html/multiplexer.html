@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Multiplexer &mdash; GFMPW-1-Multi  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -56,6 +58,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="qcpu.html">QCPU MCU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a></li>
 </ul>
 
         </div>
@@ -88,13 +91,13 @@
 The Multiplexer can be talked to by the management controller over its wishbone interface. This is how the active project selection is changed, as well as other properties of the Multiplexer configured.</p>
 <section id="i-o-routing-and-design-selection">
 <h2>I/O Routing and design selection<a class="headerlink" href="#i-o-routing-and-design-selection" title="Link to this heading"></a></h2>
-<p>Every design has access to up to 33 bi-directional I/O lines, mapped to <cite>mprj_io[37:5]</cite>. To accomplish this, the pad io_in, io_out and io_oeb are routed to the designs as follows:</p>
+<p>Every design has access to up to 33 bi-directional I/O lines, mapped to <code class="docutils literal notranslate"><span class="pre">mprj_io[37:5]</span></code>. To accomplish this, the pad io_in, io_out and io_oeb are routed to the designs as follows:</p>
 <ul class="simple">
-<li><p>All designs can directly read from <cite>io_in[37:5]</cite></p></li>
-<li><p>Two sets of wires, <cite>io_out[32:0]</cite> and <cite>io_oeb[32:0]</cite>, leave each design and are routed into the Multiplexer</p></li>
+<li><p>All designs can directly read from <code class="docutils literal notranslate"><span class="pre">io_in[37:5]</span></code></p></li>
+<li><p>Two sets of wires, <code class="docutils literal notranslate"><span class="pre">io_out[32:0]</span></code> and <code class="docutils literal notranslate"><span class="pre">io_oeb[32:0]</span></code>, leave each design and are routed into the Multiplexer</p></li>
 <li><p>As the name implies, the Multiplexer only passes one set of io outs and output enables to the chip pads</p></li>
 </ul>
-<p>Additionally, <cite>mprj_io[0]</cite> is used as a dedicated reset line for the current design. The reset is a separate input into each design, thus allowing the Multiplexer to hold all non-selected designs in reset.</p>
+<p>Additionally, <code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code> is used as a dedicated reset line for the current design. The reset is a separate input into each design, thus allowing the Multiplexer to hold all non-selected designs in reset.</p>
 </section>
 <section id="custom-settings-register">
 <h2>Custom Settings Register<a class="headerlink" href="#custom-settings-register" title="Link to this heading"></a></h2>
@@ -128,10 +131,15 @@ The Multiplexer can be talked to by the management controller over its wishbone 
 </tr>
 <tr class="row-odd"><td><p>0x30100000</p></td>
 <td><p>reg_mprj_sram</p></td>
-<td><p>64-byte RAM Start Address</p></td>
+<td><p>64-byte RAM start</p></td>
+</tr>
+<tr class="row-even"><td><p>0x301000FC</p></td>
+<td><p>reg_mprj_sram + 252</p></td>
+<td><p>64-byte RAM end</p></td>
 </tr>
 </tbody>
 </table>
+<p><strong>Note:</strong> for implementation convenience, the SRAM is addressed by the wishbone bus as 64 32-bit words of which only the first 8 bits are used.</p>
 </section>
 <section id="design-address-map">
 <h2>Design address map<a class="headerlink" href="#design-address-map" title="Link to this heading"></a></h2>
@@ -166,12 +174,28 @@ The Multiplexer can be talked to by the management controller over its wishbone 
 <tr class="row-odd"><td><p>7</p></td>
 <td><p>Hellorld!</p></td>
 </tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>TBB1143</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>AS-11</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>Tholin RISCV (RV32IM)</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>Diceroll</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>UE14500 / UE-1</p></td>
+</tr>
 </tbody>
 </table>
+<p>The default state after power-up is design address == 0, with all design IO in high-impedance. This is to not potentially damage any project-specific hardware connected to the chip pins through wrong signals from a different design, no matter how brief.</p>
 </section>
 <section id="project-selection-register">
 <h2>Project Selection Register<a class="headerlink" href="#project-selection-register" title="Link to this heading"></a></h2>
-<p>The project selection register contains some additional options besides project selection. It is lay out as such:</p>
+<p>The project selection register contains some additional options besides project selection. It is layed out as such:</p>
 
 <div style="overflow-x:auto">
 <script type="WaveDrom">
@@ -184,7 +208,7 @@ The Multiplexer can be talked to by the management controller over its wishbone 
 }
 </script>
 </div>
-<p>OE is the “Override Enable”. When set, some internal signals can be overriden through the wishbone bus. Currently, this only consists of “RST” which, when set together with “OE”, forces the selected design into reset, no matter the state of ´mprj_io[0]´.</p>
+<p>OE is the “Override Enable”. When set, some internal signals can be overriden through the wishbone bus. Currently, this only consists of “RST” which, when set together with “OE”, forces the selected design into reset, no matter the state of <code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code>.</p>
 </section>
 </section>
 
