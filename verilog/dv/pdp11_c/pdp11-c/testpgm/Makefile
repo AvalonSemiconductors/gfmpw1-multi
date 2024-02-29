@@ -1,10 +1,10 @@
-TOOLCHAIN_ROOT = $(PWD)/../cross/bin
+TOOLCHAIN_ROOT = /home/lucah/pdp11/cross/bin
 CC = $(TOOLCHAIN_ROOT)/pdp11-aout-gcc
 LD = $(TOOLCHAIN_ROOT)/pdp11-aout-ld
 AS = $(TOOLCHAIN_ROOT)/pdp11-aout-as
-DUMPER = $(TOOLCHAIN_ROOT)/objdump
+DUMPER = $(TOOLCHAIN_ROOT)/pdp11-aout-objdump
 
-CCFLAGS += -O0 -g -std=gnu99 -m40 -Wall -c -nostdlib -ffreestanding
+CCFLAGS += -O2 -g -std=gnu99 -m40 -Wall -c -nostdlib -ffreestanding
 LDFLAGS += -nostdlib --strip-all -q -Ttext 0x00 --entry 0x00 -M
 
 all: test

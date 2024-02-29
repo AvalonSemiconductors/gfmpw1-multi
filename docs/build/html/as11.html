@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AS-11 &mdash; GFMPW-1-Multi  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="SID" href="sid.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GFMPW-1-Multi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="multiplexer.html">Multiplexer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qcpu.html">QCPU MCU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rejs_designs.html">Rejunity’s Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AS-11</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memory-bus">Memory Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-model">Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#addressing-modes">Addressing modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#register">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-deferred">Register Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autoincrement">Autoincrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autoincrement-deferred">Autoincrement Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autodecrement">Autodecrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autodecrement-deferred">Autodecrement Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexed">Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexed-deferred">Indexed Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stack-pointer">Stack Pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pc-as-rn"><code class="docutils literal notranslate"><span class="pre">PC</span></code> as <code class="docutils literal notranslate"><span class="pre">Rn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#byte-and-word-addressing">Byte- and Word-addressing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#instruction-formats">Instruction Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-operand">Single Operand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#double-operand">Double Operand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-source-or-destination">Register- Source or Destination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#branch">Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implied">Implied</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#instruction-set">Instruction Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clr-clrb-clear">CLR / CLRB - Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#com-comb-complement">COM / COMB - Complement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inc-incb-increment">INC / INCB - Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dec-decb-decrement">DEC / DECB - Decrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neg-negb-negate">NEG / NEGB - Negate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tst-tstb-test">TST / TSTB - Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asr-asrb-arithmetic-shift-right">ASR / ASRB - Arithmetic Shift Right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asl-aslb-arithmetic-shift-left">ASL / ASLB - Arithmetic Shift Left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ror-rorb-rotate-right">ROR / RORB - Rotate Right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rol-rolb-rotate-left">ROL / ROLB - Rotate Left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#swab-swap-bytes">SWAB - Swap Bytes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adc-adcb-add-carry">ADC / ADCB - Add Carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sbc-sbcb-subtract-carry">SBC / SBCB - Subtract Carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sxt-sign-extend">SXT - Sign Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mov-movb-move">MOV / MOVB - Move</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cmp-cmpb-compare">CMP / CMPB - Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-add">ADD - Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sub-subtract">SUB - Subtract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bit-bitb-bit-test">BIT / BITB - Bit Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bic-bicb-bit-clear">BIC / BICB - Bit Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bis-bisb-bit-set">BIS / BISB - Bit Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mul-multiply">MUL - Multiply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#div-divide">DIV - Divide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ash-shift-arithmetically">ASH - Shift Arithmetically</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ashc-arithmetic-shift-combined">ASHC - Arithmetic Shift Combined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xor-exclusive-or">XOR - Exclusive OR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#br-branch">BR - Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bne-branch-if-not-equal">BNE - Branch if Not Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beq-branch-if-equal">BEQ - Branch if Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bpl-branch-if-plus">BPL - Branch if Plus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bmi-branch-if-minus">BMI - Branch if Minus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bvc-branch-if-overflow-is-clear">BVC - Branch if Overflow is Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bvs-branch-if-overflow-is-set">BVS - Branch if Overflow is Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bcc-branch-if-carry-is-clear">BCC - Branch if Carry is Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bcs-branch-if-carry-is-set">BCS - Branch if Carry is Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bge-branch-if-greater-than-or-equal">BGE - Branch if Greater Than or Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#blt-branch-if-less-than">BLT - Branch if Less Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgt-branch-if-greater-than">BGT - Branch if Greater Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">BLT - Branch if Less Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bhi-branch-if-higher">BHI - Branch if Higher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#blos-branch-if-lower-or-same">BLOS - Branch if Lower or Same</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jmp-jump">JMP - Jump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jsr-jump-to-subroutine">JSR - Jump to Subroutine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rts-return-from-subroutine">RTS - Return from Subroutine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mark-mark">MARK - Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sob-subtract-one-and-branch-if-not-zero">SOB - Subtract One and Branch if not Zero</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#emt-emulator-trap">EMT - Emulator Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trap-trap">TRAP - Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bpt-breakpoint-trap">BPT - Breakpoint Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iot-input-output-trap">IOT - Input/Output Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rti-return-from-interrupt">RTI - Return from Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtt-return-from-interrupt-not-traced">RTT - Return from Interrupt Not Traced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#halt-halt">HALT - Halt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wait-wait-for-interrupt">WAIT - Wait for interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset-reset-external-bus">RESET - Reset external bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#svb-set-vector-base">SVB - Set Vector Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trace-enable-tracing">TRACE - Enable Tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mfps-move-byte-from-processor-status">MFPS - Move byte from Processor Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mtps-move-byte-to-processor-status">MTPS - Move byte to Processor Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mftp-move-from-processor-type-word">MFTP - Move from Processor Type Word</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ior-internal-io-read">IOR - Internal IO Read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iow-internal-io-write">IOW - Internal IO Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#condition-code-operators">Condition Code Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interrupt-model">Interrupt Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peripherals">Peripherals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gpio">GPIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timers">Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spi-master-port">SPI Master Port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uart">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-settings">Custom Settings</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GFMPW-1-Multi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AS-11</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/as11.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="as-11">
+<span id="as11"></span><h1>AS-11<a class="headerlink" href="#as-11" title="Link to this heading"></a></h1>
+<p>This project is a 16-bit processor intended to be bytecode compatible with the PDP11/40. It implements the complete base integer instruction set, including the EIS instructions. The FPU is not implemented.</p>
+<section id="pinout">
+<h2>Pinout<a class="headerlink" href="#pinout" title="Link to this heading"></a></h2>
+<img alt="_images/pinout5.png" src="_images/pinout5.png" />
+<table class="docutils align-default" id="as-11-pin-description">
+<caption><span class="caption-number">Table 18 </span><span class="caption-text">Pin description</span><a class="headerlink" href="#as-11-pin-description" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin #</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code></p></td>
+<td><p>RSTD</p></td>
+<td><p>I</p></td>
+<td><p>Active low design reset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[20:5]</span></code></p></td>
+<td><p>DB[15:0]</p></td>
+<td><p>IO</p></td>
+<td><p>Address/Data Bus</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[21]</span></code></p></td>
+<td><p>ALE</p></td>
+<td><p>O</p></td>
+<td><p>Address Latch Enable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[22]</span></code></p></td>
+<td><p>BDIR</p></td>
+<td><p>O</p></td>
+<td><p>Indicates current direction of DB[15:0] pins, low = outputs, high = inputs</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[23]</span></code></p></td>
+<td><p>OE</p></td>
+<td><p>O</p></td>
+<td><p>Active low memory Output Enable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[24]</span></code></p></td>
+<td><p>WE</p></td>
+<td><p>O</p></td>
+<td><p>Active low memory Write Enable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[25]</span></code></p></td>
+<td><p>HALTD</p></td>
+<td><p>O</p></td>
+<td><p>Output indicating if a HALT or WAIT instruction has been executed and the CPU halted</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[26]</span></code></p></td>
+<td><p>SCLK</p></td>
+<td><p>O</p></td>
+<td><p>SPI master port Serial Clock</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[27]</span></code></p></td>
+<td><p>DO</p></td>
+<td><p>O</p></td>
+<td><p>SPI master port Serial Data Out</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[28]</span></code></p></td>
+<td><p>DI</p></td>
+<td><p>I</p></td>
+<td><p>SPI master port Serial Data In</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[29]</span></code></p></td>
+<td><p>TX</p></td>
+<td><p>O</p></td>
+<td><p>UART serial transmit data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[30]</span></code></p></td>
+<td><p>RX</p></td>
+<td><p>I</p></td>
+<td><p>UART serial receive data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[37:31]</span></code></p></td>
+<td><p>PA[6:0]</p></td>
+<td><p>IO</p></td>
+<td><p>General-purpose IO port</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="memory-bus">
+<h2>Memory Bus<a class="headerlink" href="#memory-bus" title="Link to this heading"></a></h2>
+<p>The AS-11 multiplexes address and data information on the same 16 pins and addresses memory as 32,768 words of 16 bits each. Though the CPU architecture addresses memory as 8-bit bytes, the bus implementation is simplified into only 16-bit memory accesses.</p>
+<p>The chip indicates that it is presenting address information via a high level on <code class="docutils literal notranslate"><span class="pre">ALE</span></code>, which can be used to trigger transparent latches (i.e. 74HC573) to pass through, then latch the address. Only pins <code class="docutils literal notranslate"><span class="pre">DB[15:1]</span></code> contain valid address information, with the value on <code class="docutils literal notranslate"><span class="pre">DB0</span></code> being meaningless. This means that <code class="docutils literal notranslate"><span class="pre">address[14:0]</span> <span class="pre">==</span> <span class="pre">DB[15:1]</span></code>. If the CPU executes an instruction that neccesitates an 8-bit write, the bus interface will execute a read-modify-write cycle to change only the required byte.</p>
+<p>Example timing diagram of an instruction fetch and execution resulting in a memory write:</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{signal: [
+{name: 'CLK', wave: 'n.......', period: 2},
+{name: 'ALE', wave: '010..10....10...'},
+{name: 'OE', wave: '1..0.1.0.1......'},
+{name: 'WE', wave: '1............01.'},
+{name: 'DB', wave: 'x5.7.5.7.x.5.8.x', data: 'addr[14:0] data[15:0] addr[14:0] data[15:0] addr[14:0] data[15:0]'},
+{name: 'BDIR', wave: '10.1.0.1...0...1'}
+],config: { hscale: 1 }}
+</script>
+</div>
+<p>Note: this example uses <code class="docutils literal notranslate"><span class="pre">WEB</span></code> in <code class="docutils literal notranslate"><span class="pre">reg_mprj_settings</span></code> set to <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+</section>
+<section id="programming-model">
+<h2>Programming Model<a class="headerlink" href="#programming-model" title="Link to this heading"></a></h2>
+<p>The AS-11 contains 8, 16-bit scratch registers labeled <code class="docutils literal notranslate"><span class="pre">R0</span></code> through <code class="docutils literal notranslate"><span class="pre">R7</span></code>. However, traditionally, <code class="docutils literal notranslate"><span class="pre">R6</span></code> is used as the stack pointer and thus also labeled as <code class="docutils literal notranslate"><span class="pre">SP</span></code> and <code class="docutils literal notranslate"><span class="pre">R7</span></code> doubles as the Program Counter, labeled <code class="docutils literal notranslate"><span class="pre">PC</span></code>, and always points to the word following the current instruction.</p>
+<p>There is also a 8-bit wide Processor Status Word (<code class="docutils literal notranslate"><span class="pre">PSW</span></code>) register containing the following information:</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "C", "bits": 1},{"name": "V", "bits": 1},{"name": "Z", "bits": 1},{"name": "N", "bits": 1},{"name": "T", "bits": 1},{"name": "prio[2:0]", "bits": 3}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The first four bits all update depending on the result of the last logical or arithmetic operation as follows:</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> Carry: Set if the result of an addition or subtraction resulted in a carry out of the most-significant bit</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> Overflow: Set if the result of the operation could not be contained within a signed 16-bit integer</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> Zero: Set if the result of the operation equals to zero</p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> Negative: Set if the result of the operation is negative (most significant bit is set)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">T</span></code> bit is the Trace enable, a software debugging tool. When set, a Trace Trap interrupt is triggered after the completion of every instruction, which can be used to single-step programs inside a software debugger.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">prio</span></code> field has to do with the interrupt model of the processor and is described in detail in the Interrupts section below.</p>
+<p>All scratch registers and the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> register clear to zero on reset.</p>
+<p>Lastly, there is <code class="docutils literal notranslate"><span class="pre">IVB</span></code>, which determines the starting address of the table of interrupt vectors.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"type": "1", "bits": 5},{"name": "IVB[15:5]", "bits": 11}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note that the least-significant 5 bits are hard-wired to zero and cannot be written.</p>
+</section>
+<section id="addressing-modes">
+<h2>Addressing modes<a class="headerlink" href="#addressing-modes" title="Link to this heading"></a></h2>
+<p>Unless otherwise specified, every instruction follows the same method of using a 3-bit wide field to encode the particular addressing mode used for an operand, which will be labeled <code class="docutils literal notranslate"><span class="pre">MODE</span></code> from here on out, followed by a 3-bit register index to be used in that mode, labeled <code class="docutils literal notranslate"><span class="pre">Rn</span></code>.</p>
+<p>The possible modes are:</p>
+<section id="register">
+<h3>Register<a class="headerlink" href="#register" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">Rn</span></code></p>
+<p>Register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the operand.</p>
+</section>
+<section id="register-deferred">
+<h3>Register Deferred<a class="headerlink" href="#register-deferred" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">(Rn)</span></code></p>
+<p>Register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the address of the operand (effectively a pointer).</p>
+</section>
+<section id="autoincrement">
+<h3>Autoincrement<a class="headerlink" href="#autoincrement" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">(Rn)+</span></code></p>
+<p>Register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the address of the operand. After the operation, <code class="docutils literal notranslate"><span class="pre">Rn</span></code> is incremented. The increment is by one if a 8-bit byte was addressed and by two if a 16-bit word was addressed.</p>
+</section>
+<section id="autoincrement-deferred">
+<h3>Autoincrement Deferred<a class="headerlink" href="#autoincrement-deferred" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">&#64;(Rn)+</span></code></p>
+<p>Register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the address of the address of the operand (a pointer to a pointer in memory). After the operation, <code class="docutils literal notranslate"><span class="pre">Rn</span></code> is incremented by two.</p>
+</section>
+<section id="autodecrement">
+<h3>Autodecrement<a class="headerlink" href="#autodecrement" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">-(Rn)</span></code></p>
+<p>First, <code class="docutils literal notranslate"><span class="pre">Rn</span></code> is decremented. The decrement is by one if a 8-bit byte is addressed and by two if a 16-bit word is addressed. Then, register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the address of the operand.</p>
+</section>
+<section id="autodecrement-deferred">
+<h3>Autodecrement Deferred<a class="headerlink" href="#autodecrement-deferred" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">&#64;-(Rn)</span></code></p>
+<p>First, <code class="docutils literal notranslate"><span class="pre">Rn</span></code> is decremented by two. Then, register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> contains the address of the address of the operand (a pointer to a pointer in memory).</p>
+</section>
+<section id="indexed">
+<h3>Indexed<a class="headerlink" href="#indexed" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">X(Rn)</span></code></p>
+<p>The value of register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> plus X is the address of the operand. X is a signed 16-bit word appended after the opcode. The length of the instruction increases by one word for each time this mode is used.</p>
+</section>
+<section id="indexed-deferred">
+<h3>Indexed Deferred<a class="headerlink" href="#indexed-deferred" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MODE</span></code> value: <code class="docutils literal notranslate"><span class="pre">7</span></code></p>
+<p>Assembler syntax: <code class="docutils literal notranslate"><span class="pre">&#64;X(Rn)</span></code></p>
+<p>The value of register <code class="docutils literal notranslate"><span class="pre">Rn</span></code> plus X is the address of the address of the operand. X is a signed 16-bit word appended after the opcode. The length of the instruction increases by one word for each time this mode is used.</p>
+</section>
+<section id="stack-pointer">
+<h3>Stack Pointer<a class="headerlink" href="#stack-pointer" title="Link to this heading"></a></h3>
+<p>Register <code class="docutils literal notranslate"><span class="pre">R6</span></code> is used as the Stack Pointer mostly just by convention. Any register except <code class="docutils literal notranslate"><span class="pre">R7</span></code> can be used as a stack pointer through the Autoincrement and Autodecrement modes.</p>
+</section>
+<section id="pc-as-rn">
+<h3><code class="docutils literal notranslate"><span class="pre">PC</span></code> as <code class="docutils literal notranslate"><span class="pre">Rn</span></code><a class="headerlink" href="#pc-as-rn" title="Link to this heading"></a></h3>
+<p>Since register <code class="docutils literal notranslate"><span class="pre">R7</span></code> is the Program Counter, several additional addressing modes can be realized by specifying it as <code class="docutils literal notranslate"><span class="pre">Rn</span></code>. The most common are:</p>
+<table class="docutils align-default" id="as-11-using-r7-as-rn">
+<caption><span class="caption-number">Table 19 </span><span class="caption-text">Additional addressing modes</span><a class="headerlink" href="#as-11-using-r7-as-rn" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">MODE</span></code></p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Assembler Syntax</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Immediate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">#n</span></code></p></td>
+<td><p>Operand follows instruction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Absolute</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&#64;#A</span></code></p></td>
+<td><p>Absolute Address follows instruction</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>Relative</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p>Relative Address (index value) follows instruction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">7</span></code></p></td>
+<td><p>Relative Deferred</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&#64;A</span></code></p></td>
+<td><p>As above, but Relative Address contains address of operand</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="byte-and-word-addressing">
+<h3>Byte- and Word-addressing<a class="headerlink" href="#byte-and-word-addressing" title="Link to this heading"></a></h3>
+<p>Instructions may address either 8-bit bytes or 16-bit words. In the former case, any address in memory is valid. In the latter case, the address must be even (word-aligned).</p>
+<p>There are only a few non-branch instructions that only support one of these two and unless otherwise specified, the most-significant bit of the instruction (labeled <code class="docutils literal notranslate"><span class="pre">B</span></code> in documentation below) is set to indicate byte-addressing. If it is clear, word-addressing is specified.</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">MODE</span></code> being <code class="docutils literal notranslate"><span class="pre">0</span></code>, byte-addressing will only source the least-significant 8 bits of the register and only modify those bits. The most-significant 8 bits will remain unaltered.</p>
+</section>
+</section>
+<section id="instruction-formats">
+<h2>Instruction Formats<a class="headerlink" href="#instruction-formats" title="Link to this heading"></a></h2>
+<section id="single-operand">
+<h3>Single Operand<a class="headerlink" href="#single-operand" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": "OP CODE", "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Instructions operating on a single operand in-place use this formating.</p>
+</section>
+<section id="double-operand">
+<h3>Double Operand<a class="headerlink" href="#double-operand" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "OP CODE", "bits": 4}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Instructions combining two operands. The exact way the operands are used depends on the exact instruction.</p>
+</section>
+<section id="register-source-or-destination">
+<h3>Register- Source or Destination<a class="headerlink" href="#register-source-or-destination" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src/dest MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": "OP CODE", "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Instructions that always use a register as one operand, the other being defined by <code class="docutils literal notranslate"><span class="pre">MODE</span></code> and <code class="docutils literal notranslate"><span class="pre">Rn</span></code>. Which of these is the source and which is the destination depends on the exact instruction.</p>
+</section>
+<section id="branch">
+<h3>Branch<a class="headerlink" href="#branch" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": "OP CODE", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Instructions that affect a relative branch. The offset is a signed 8-bit value encoded in the instruction, which is additionally multiplied by two before being added to the Program Counter, so the offset is always even.</p>
+</section>
+<section id="implied">
+<h3>Implied<a class="headerlink" href="#implied" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OP CODE", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>All aspects of the instruction operation are fixed and all addressing modes (if any) implied by the operation.</p>
+</section>
+</section>
+<section id="instruction-set">
+<h2>Instruction Set<a class="headerlink" href="#instruction-set" title="Link to this heading"></a></h2>
+<section id="clr-clrb-clear">
+<h3>CLR / CLRB - Clear<a class="headerlink" href="#clr-clrb-clear" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101000, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The contents of the specified destination are replaced with zeroes.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is set</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is cleared</p>
+</section>
+<section id="com-comb-complement">
+<h3>COM / COMB - Complement<a class="headerlink" href="#com-comb-complement" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101001, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Replaces the contents of the destination with their logical complement.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is set</p>
+</section>
+<section id="inc-incb-increment">
+<h3>INC / INCB - Increment<a class="headerlink" href="#inc-incb-increment" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101010, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Adds one to the contents of the destination.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if destination held 0x7F (byte) or 0x7FFF (word), cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="dec-decb-decrement">
+<h3>DEC / DECB - Decrement<a class="headerlink" href="#dec-decb-decrement" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101011, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Subtracts one from the contents of the destination.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if destination held 0x80 (byte) or 0x8000 (word), cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="neg-negb-negate">
+<h3>NEG / NEGB - Negate<a class="headerlink" href="#neg-negb-negate" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101100, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Replaces the contents of the destination by their two’s complement.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if result equals 0x80 (byte) or 0x8000 (word), cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is cleared if the result is zero, set otherwise</p>
+</section>
+<section id="tst-tstb-test">
+<h3>TST / TSTB - Test<a class="headerlink" href="#tst-tstb-test" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101111, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Sets the condition codes <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code> according to the contents of the destination, but does not modify contents.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is set if the destination contents are negative, cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is set if the destination contents are zeroes, cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is cleared</p>
+</section>
+<section id="asr-asrb-arithmetic-shift-right">
+<h3>ASR / ASRB - Arithmetic Shift Right<a class="headerlink" href="#asr-asrb-arithmetic-shift-right" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000110010, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Shifts all bits of the destination right by one place. The previous most-significant bit is copied into the result’s most-significant bit. The previous least-significant bit is copied into the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is loaded from the exclusive OR of the new <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> bits</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the least-significant bit of the destination before the shift</p>
+</section>
+<section id="asl-aslb-arithmetic-shift-left">
+<h3>ASL / ASLB - Arithmetic Shift Left<a class="headerlink" href="#asl-aslb-arithmetic-shift-left" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000110011, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Shifts all bits of the destination left by one place. The previous most-significant bit is copied into the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code and a zero is inserted into the result’s least-significant bit.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is loaded from the exclusive OR of the new <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> bits</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the most-significant bit of the destination before the shift</p>
+</section>
+<section id="ror-rorb-rotate-right">
+<h3>ROR / RORB - Rotate Right<a class="headerlink" href="#ror-rorb-rotate-right" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000110000, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Rotates all bits of the destination right by one place. The least-significant bit of the destination is loaded into the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code and the previous content of <code class="docutils literal notranslate"><span class="pre">C</span></code> is copied into the most-significant bit of the destination.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is loaded from the exclusive OR of the new <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> bits</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the least-significant bit of the destination before the rotate</p>
+</section>
+<section id="rol-rolb-rotate-left">
+<h3>ROL / ROLB - Rotate Left<a class="headerlink" href="#rol-rolb-rotate-left" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000110001, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Rotates all bits of the destination left by one place. The most-significant bit of the destination is loaded into the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code and the previous content of <code class="docutils literal notranslate"><span class="pre">C</span></code> is copied into the least-significant bit of the destination.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is loaded from the exclusive OR of the new <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> bits</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the most-significant bit of the destination before the rotate</p>
+</section>
+<section id="swab-swap-bytes">
+<h3>SWAB - Swap Bytes<a class="headerlink" href="#swab-swap-bytes" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b0000000011, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>Exchanges the two 8-bit bytes comprising the 16-bit destination contents.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is cleared</p>
+</section>
+<section id="adc-adcb-add-carry">
+<h3>ADC / ADCB - Add Carry<a class="headerlink" href="#adc-adcb-add-carry" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101101, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Adds the content of the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code to the destination contents.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is affected as defined</p>
+</section>
+<section id="sbc-sbcb-subtract-carry">
+<h3>SBC / SBCB - Subtract Carry<a class="headerlink" href="#sbc-sbcb-subtract-carry" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b000101110, "bits": 9},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Subtracts the content of the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code from the destination contents.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is affected as defined</p>
+</section>
+<section id="sxt-sign-extend">
+<h3>SXT - Sign Extend<a class="headerlink" href="#sxt-sign-extend" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b0000110111, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>If the condition code <code class="docutils literal notranslate"><span class="pre">N</span></code> is set a -1 (<code class="docutils literal notranslate"><span class="pre">0xFFFF</span></code>) is placed in the destination. If <code class="docutils literal notranslate"><span class="pre">N</span></code> is clear, a 0 is placed in the destination.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is unchanged</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is unchanged</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="mov-movb-move">
+<h3>MOV / MOVB - Move<a class="headerlink" href="#mov-movb-move" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b001, "bits": 3},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Moves (copies) contents of src to dest. This instruction behaves differently than others when byte-addressing on a register is used for dest. Instead of only modifying the least-significant 8-bits of the register value, the 8-bit contents of src are sign-extended to 16-bits and the whole register is overwritten with this value.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="cmp-cmpb-compare">
+<h3>CMP / CMPB - Compare<a class="headerlink" href="#cmp-cmpb-compare" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b010, "bits": 3},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Compares the contents of src and dest without modifying either by performing a subtraction of <code class="docutils literal notranslate"><span class="pre">src</span> <span class="pre">-</span> <span class="pre">dst</span></code> (in detail, <code class="docutils literal notranslate"><span class="pre">src</span> <span class="pre">+</span> <span class="pre">~dst</span> <span class="pre">+</span> <span class="pre">1</span></code>), but discarding the result. The only action is to set the condition codes as if a subtraction operation was performed.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is affected as defined</p>
+</section>
+<section id="add-add">
+<h3>ADD - Add<a class="headerlink" href="#add-add" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b0110, "bits": 4}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>Adds the contents of src to the contents of dest.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is affected as defined</p>
+</section>
+<section id="sub-subtract">
+<h3>SUB - Subtract<a class="headerlink" href="#sub-subtract" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b1110, "bits": 4}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>Subtracts the contents of src from the contents of dest. Specifically, the operation performed is <code class="docutils literal notranslate"><span class="pre">dst</span> <span class="pre">=</span> <span class="pre">dst</span> <span class="pre">+</span> <span class="pre">~src</span> <span class="pre">+</span> <span class="pre">1</span></code>.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is affected as defined</p>
+</section>
+<section id="bit-bitb-bit-test">
+<h3>BIT / BITB - Bit Test<a class="headerlink" href="#bit-bitb-bit-test" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b011, "bits": 3},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a logical “AND” comparison between the contents of src and dest but only modifies the condition codes based on the result. Neither src or dest are modified.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="bic-bicb-bit-clear">
+<h3>BIC / BICB - Bit Clear<a class="headerlink" href="#bic-bicb-bit-clear" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b100, "bits": 3},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Clears each bit in the dest contents that corresponds to a set bit in the src contents.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="bis-bisb-bit-set">
+<h3>BIS / BISB - Bit Set<a class="headerlink" href="#bis-bisb-bit-set" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": 0b101, "bits": 3},{"name": "B", "bits": 1}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a “inclusive-OR” operation between the contents of src and dest and stores the result in dest, effectivelly setting all bits in dest which correspond to a set bit in src.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="mul-multiply">
+<h3>MUL - Multiply<a class="headerlink" href="#mul-multiply" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111000, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>The contents of the destination register REG and src interpreted as 16-bit signed integers are multiplied and the 32-bit result split up and stored in the destination register and the succeeding register (if REG is even). If REG is odd, only the least-significant 16-bits of the product is stored.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is set if the result is less than -32,768 or greater than or equal to 32,767, cleared otherwise</p>
+</section>
+<section id="div-divide">
+<h3>DIV - Divide<a class="headerlink" href="#div-divide" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111001, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p><strong>WARNING:</strong> due to an implementation error, this instruction does not behave identically to its implementation on the PDP-11/40. The erroneous implementation is described here.</p>
+<p>The combined contents of the destination register REG, which must be even, and the following register are interpreted as a 32-bit signed integer and divided by the contents of src sign-extended to 32-bits. The resulting 32-bit wide integer is split and stored in REG and the following register.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if the contents of src equal to zero or if the absolute value of the destination registers is larger than the absolute value of the src contents</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is set if a divide by 0 is attempted, cleared otherwise</p>
+</section>
+<section id="ash-shift-arithmetically">
+<h3>ASH - Shift Arithmetically<a class="headerlink" href="#ash-shift-arithmetically" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111010, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>The contents of register REG are shifted right or left the number of times specified by the shift count. The shift count is the least-significant 6 bits of src contents, interpreted as a signed integer from -32 to +31. Negative numbers specify a right-shift and positive numbers a left-shift.</p>
+<p>In the case of a right-shift, the previous most-significant bit is copied into the vacant bit locations left after the shift. In the case of a left-shift, these bits are cleared to zero. Lastly, the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code is loaded from the last bit to be shifted out.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if the sign of the register changed during the shift, cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the last bit shifted out of the register</p>
+</section>
+<section id="ashc-arithmetic-shift-combined">
+<h3>ASHC - Arithmetic Shift Combined<a class="headerlink" href="#ashc-arithmetic-shift-combined" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111011, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>The contents of the register REG, which must be even, and the succeeding register are combined into a 32-bit word, which is then shifted right or left the number of times specified by the shift count, and the result split and stored back into the two registers. The shift count is the least-significant 6 bits of src contents, interpreted as a signed integer from -32 to +31. Negative numbers specify a right-shift and positive numbers a left-shift.</p>
+<p>In the case of a right-shift, the previous most-significant bit is copied into the vacant bit locations left after the shift. In the case of a left-shift, these bits are cleared to zero. Lastly, the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code is loaded from the last bit to be shifted out.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is set if the sign of the register changed during the shift, cleared otherwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is loaded from the last bit shifted out of the register</p>
+</section>
+<section id="xor-exclusive-or">
+<h3>XOR - Exclusive OR<a class="headerlink" href="#xor-exclusive-or" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111100, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>The exclusive OR of the contents of REG and dest is stored in dest. Contents of REG are unaffected.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="br-branch">
+<h3>BR - Branch<a class="headerlink" href="#br-branch" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000001, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a unconditional branch.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bne-branch-if-not-equal">
+<h3>BNE - Branch if Not Equal<a class="headerlink" href="#bne-branch-if-not-equal" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000010, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition code is <strong>clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="beq-branch-if-equal">
+<h3>BEQ - Branch if Equal<a class="headerlink" href="#beq-branch-if-equal" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000011, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition code is <strong>set</strong>. Continue with following instruction otherwise.</p>
+</section>
+<section id="bpl-branch-if-plus">
+<h3>BPL - Branch if Plus<a class="headerlink" href="#bpl-branch-if-plus" title="Link to this heading"></a></h3>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000000, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> condition code is <strong>clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bmi-branch-if-minus">
+<h3>BMI - Branch if Minus<a class="headerlink" href="#bmi-branch-if-minus" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000001, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> condition code is <strong>set</strong>. Continue with following instruction otherwise.</p>
+</section>
+<section id="bvc-branch-if-overflow-is-clear">
+<h3>BVC - Branch if Overflow is Clear<a class="headerlink" href="#bvc-branch-if-overflow-is-clear" title="Link to this heading"></a></h3>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000100, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">V</span></code> condition code is <strong>clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bvs-branch-if-overflow-is-set">
+<h3>BVS - Branch if Overflow is Set<a class="headerlink" href="#bvs-branch-if-overflow-is-set" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000101, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">V</span></code> condition code is <strong>set</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bcc-branch-if-carry-is-clear">
+<h3>BCC - Branch if Carry is Clear<a class="headerlink" href="#bcc-branch-if-carry-is-clear" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000110, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code is <strong>clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bcs-branch-if-carry-is-set">
+<h3>BCS - Branch if Carry is Set<a class="headerlink" href="#bcs-branch-if-carry-is-set" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000111, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code is <strong>set</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bge-branch-if-greater-than-or-equal">
+<h3>BGE - Branch if Greater Than or Equal<a class="headerlink" href="#bge-branch-if-greater-than-or-equal" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000100, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">V</span></code> condition codes are <strong>both set *or* both clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="blt-branch-if-less-than">
+<h3>BLT - Branch if Less Than<a class="headerlink" href="#blt-branch-if-less-than" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000101, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> condition code is set or the <code class="docutils literal notranslate"><span class="pre">V</span></code> condition code is set, but <strong>not</strong> if <strong>both are set</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bgt-branch-if-greater-than">
+<h3>BGT - Branch if Greater Than<a class="headerlink" href="#bgt-branch-if-greater-than" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000110, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">V</span></code> condition codes are <strong>both set *or* both clear</strong>, unless the <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition code is set, in which case no branch is performed no matter the states of <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">V</span></code>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="id1">
+<h3>BLT - Branch if Less Than<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b00000111, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch only if the <code class="docutils literal notranslate"><span class="pre">N</span></code> condition code is set or the <code class="docutils literal notranslate"><span class="pre">V</span></code> condition code is set, but <strong>not</strong> if <strong>both are set</strong>. Also performs a branch if the <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition code is set, regardless of the states of <code class="docutils literal notranslate"><span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">V</span></code>. Continue with following instruction if neither condition is met.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="bhi-branch-if-higher">
+<h3>BHI - Branch if Higher<a class="headerlink" href="#bhi-branch-if-higher" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000010, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch if <strong>both</strong> the <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition codes are <strong>clear</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="blos-branch-if-lower-or-same">
+<h3>BLOS - Branch if Lower or Same<a class="headerlink" href="#blos-branch-if-lower-or-same" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 8},{"name": 0b10000011, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs a branch if the <code class="docutils literal notranslate"><span class="pre">C</span></code> condition code is <strong>set</strong>, <strong>or</strong> if the <code class="docutils literal notranslate"><span class="pre">Z</span></code> condition code is <strong>set</strong>. Continue with following instruction otherwise.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="jmp-jump">
+<h3>JMP - Jump<a class="headerlink" href="#jmp-jump" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b0000000001, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Jumps to any location in memory by using the target address of the specified addressing mode as the new location for the Program Counter, unless <code class="docutils literal notranslate"><span class="pre">MODE</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, in which case the value of the specified register becomes the new Program Counter. In any case, the resulting address must be even.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="jsr-jump-to-subroutine">
+<h3>JSR - Jump to Subroutine<a class="headerlink" href="#jsr-jump-to-subroutine" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0000100, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Performs the same operation as JMP, but additionally, the old contents of the specified register REG are automatically pushed onto the stack and the address of the instruction following this one stored in REG.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="rts-return-from-subroutine">
+<h3>RTS - Return from Subroutine<a class="headerlink" href="#rts-return-from-subroutine" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": 0b0000000010000, "bits": 13}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Copies the contents of Rn into the Program Counter and pops the top element of the stack into Rn.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="mark-mark">
+<h3>MARK - Mark<a class="headerlink" href="#mark-mark" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "n", "bits": 6},{"name": 0b0000110100, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Adds the unsigned 6-bit value in n to <code class="docutils literal notranslate"><span class="pre">SP</span></code>, then copies the value of <code class="docutils literal notranslate"><span class="pre">R5</span></code> into the Program Counter and pops the top element of the stack into <code class="docutils literal notranslate"><span class="pre">R5</span></code>.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="sob-subtract-one-and-branch-if-not-zero">
+<h3>SOB - Subtract One and Branch if not Zero<a class="headerlink" href="#sob-subtract-one-and-branch-if-not-zero" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "OFFSET", "bits": 6},{"name": "REG", "bits": 3},{"name": 0b0111111, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The contents of the specified register REG are decremented. If the new contents are not equal to zero, twice the offset is subtracted from the Program Counter. This does mean that SOB can only cause a branch backwards.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="emt-emulator-trap">
+<h3>EMT - Emulator Trap<a class="headerlink" href="#emt-emulator-trap" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "", "bits": 8},{"name": 0b10001000, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>All opcodes from 0x8800 to 0x88FF are EMT instructions. The exact function of traps is described in detail in its own section below.</p>
+<p><strong>Condition Codes:</strong> Loaded from trap vector</p>
+</section>
+<section id="trap-trap">
+<h3>TRAP - Trap<a class="headerlink" href="#trap-trap" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "", "bits": 8},{"name": 0b10001001, "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>All opcodes from 0x8900 to 0x89FF are TRAP instructions. The exact function of traps is described in detail in its own section below.</p>
+<p><strong>Condition Codes:</strong> Loaded from trap vector</p>
+</section>
+<section id="bpt-breakpoint-trap">
+<h3>BPT - Breakpoint Trap<a class="headerlink" href="#bpt-breakpoint-trap" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000011, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The exact function of traps is described in detail in its own section below.</p>
+<p><strong>Condition Codes:</strong> Loaded from trap vector</p>
+</section>
+<section id="iot-input-output-trap">
+<h3>IOT - Input/Output Trap<a class="headerlink" href="#iot-input-output-trap" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000100, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The exact function of traps is described in detail in its own section below.</p>
+<p><strong>Condition Codes:</strong> Loaded from trap vector</p>
+</section>
+<section id="rti-return-from-interrupt">
+<h3>RTI - Return from Interrupt<a class="headerlink" href="#rti-return-from-interrupt" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000010, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>First the Program Counter, then the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> are loaded with a value popped from the stack.</p>
+<p><strong>Condition Codes:</strong> Loaded from stack</p>
+</section>
+<section id="rtt-return-from-interrupt-not-traced">
+<h3>RTT - Return from Interrupt Not Traced<a class="headerlink" href="#rtt-return-from-interrupt-not-traced" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000110, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>First the Program Counter, then the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> are loaded with a value popped from the stack.</p>
+<p>It differs from RTI in that it inhibits the trace trap (if enabled) and the trap will not trigger again until the completion of the first instruction following the return.</p>
+<p><strong>Condition Codes:</strong> Loaded from stack</p>
+</section>
+<section id="halt-halt">
+<h3>HALT - Halt<a class="headerlink" href="#halt-halt" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000000, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The processor is halted forever. The <code class="docutils literal notranslate"><span class="pre">HALTD</span></code> pin goes high and no further operation takes place. Interrupt requests and traps will be ignored.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="wait-wait-for-interrupt">
+<h3>WAIT - Wait for interrupt<a class="headerlink" href="#wait-wait-for-interrupt" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000001, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The processor is halted, but operation is resumed by any incoming interrupt request or trap, which will cause the processor to serve that interrupt as usual. Once the interrupt is returned from using RTI or RTT, the WAIT is cancelled and program execution resumes with the instruction following the WAIT.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">HALTD</span></code> pin goes high while the processor is in this wait state.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="reset-reset-external-bus">
+<h3>RESET - Reset external bus<a class="headerlink" href="#reset-reset-external-bus" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000101, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Unimplemented on the AS-11 as it does not implement a UNIBUS equivalent. For compatibility reasons, this opcode will not cause an illegal operation trap and execution resumes at the next instruction. It is effectively a NOP.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="svb-set-vector-base">
+<h3>SVB - Set Vector Base<a class="headerlink" href="#svb-set-vector-base" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b1111000000000100, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Copies the value of <code class="docutils literal notranslate"><span class="pre">R0</span></code> into <code class="docutils literal notranslate"><span class="pre">IVB</span></code>. Note that because the least significant 5 bits of <code class="docutils literal notranslate"><span class="pre">IVB</span></code> are hard-wired to zero, these bits will be discarded when copying from <code class="docutils literal notranslate"><span class="pre">R0</span></code>.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="trace-enable-tracing">
+<h3>TRACE - Enable Tracing<a class="headerlink" href="#trace-enable-tracing" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b1111000000001010, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Sets the <code class="docutils literal notranslate"><span class="pre">T</span></code> bit in the <code class="docutils literal notranslate"><span class="pre">PSW</span></code>, enabling the trace trap after every instruction.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="mfps-move-byte-from-processor-status">
+<h3>MFPS - Move byte from Processor Status<a class="headerlink" href="#mfps-move-byte-from-processor-status" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b1000110111, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: only byte-addressing may be specified for this instruction.</p>
+<p>Copies the current value of <code class="docutils literal notranslate"><span class="pre">PSW</span></code> into memory or a register.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="mtps-move-byte-to-processor-status">
+<h3>MTPS - Move byte to Processor Status<a class="headerlink" href="#mtps-move-byte-to-processor-status" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "MODE", "bits": 3},{"name": 0b1000110100, "bits": 10}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: only byte-addressing may be specified for this instruction.</p>
+<p>Copies a byte of data from a register or memory into <code class="docutils literal notranslate"><span class="pre">PSW</span></code>.</p>
+<p><strong>Condition Codes:</strong> Set from loaded byte</p>
+</section>
+<section id="mftp-move-from-processor-type-word">
+<h3>MFTP - Move from Processor Type Word<a class="headerlink" href="#mftp-move-from-processor-type-word" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": 0b0000000000000111, "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Loads a constant value into <code class="docutils literal notranslate"><span class="pre">R0</span></code>  which is unique for every type of PDP-11 compatible processor. The AS-11’s constant is <code class="docutils literal notranslate"><span class="pre">0x026D</span></code>.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="ior-internal-io-read">
+<h3>IOR - Internal IO Read<a class="headerlink" href="#ior-internal-io-read" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3D, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>Reads from one of the integrated peripheral registers into the contents of dest using the least-significant 8 bits of the value in register REG as the peripheral register address.</p>
+<p><strong>Condition Codes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">Z</span></code> is affected as defined</p>
+<p><code class="docutils literal notranslate"><span class="pre">V</span></code> is cleared</p>
+<p><code class="docutils literal notranslate"><span class="pre">C</span></code> is unchanged</p>
+</section>
+<section id="iow-internal-io-write">
+<h3>IOW - Internal IO Write<a class="headerlink" href="#iow-internal-io-write" title="Link to this heading"></a></h3>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3E, "bits": 7}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Note: this instruction is always word-addressed.</p>
+<p>Writes the contents of src to one of the integrated peripheral registers using the least-significant 8 bits of the value in register REG as the peripheral register address.</p>
+<p><strong>Condition Codes:</strong> All unchanged</p>
+</section>
+<section id="condition-code-operators">
+<h3>Condition Code Operators<a class="headerlink" href="#condition-code-operators" title="Link to this heading"></a></h3>
+<p>This is a blanket term for all instructions that either set or clear one or more of the condition code bits. All of these instructions are encoded as such:</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "C", "bits": 1},{"name": "V", "bits": 1},{"name": "Z", "bits": 1},{"name": "N", "bits": 1},{"name": "SET", "bits": 1},{"name": 0b00000000101, "bits": 11}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The first four bits of the opcode correspond to one or more condition code bits. For each of these bits that is set, the corresponding condition code bit is modified. If the SET bit is zero, they are cleared and if SET is one, they are set.</p>
+<p>Although any combination of these settings is possible, most assemblers only have mnemonics for these operations:</p>
+<table class="docutils align-default" id="as-11-cc-instrs">
+<caption><span class="caption-number">Table 20 </span><span class="caption-text">Condition Code Instructions</span><a class="headerlink" href="#as-11-cc-instrs" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mnemonic</p></th>
+<th class="head"><p>Operation</p></th>
+<th class="head"><p>Opcode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CLC</p></td>
+<td><p>Clear <code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00A1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>CLV</p></td>
+<td><p>Clear <code class="docutils literal notranslate"><span class="pre">V</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00A2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>CLZ</p></td>
+<td><p>Clear <code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00A4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>CLN</p></td>
+<td><p>Clear <code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00A8</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SEC</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00B1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SEV</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">V</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00B2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SEZ</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00B4</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SEN</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00B8</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SCC</p></td>
+<td><p>Set all condition codes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00BF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>CCC</p></td>
+<td><p>Clear all condition codes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00AF</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>NOP</p></td>
+<td><p>No Operation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00A0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="interrupt-model">
+<h2>Interrupt Model<a class="headerlink" href="#interrupt-model" title="Link to this heading"></a></h2>
+<p>There are two kinds of interrupts implemented on the AS-11: interrupt requests (IRQs), which come from peripheral devices, and traps, which are either triggered intentionally by software or are the result of processor faults.</p>
+<p>There are 7 interrupt request lines buffered by latches, <code class="docutils literal notranslate"><span class="pre">IRQ1</span></code> through <code class="docutils literal notranslate"><span class="pre">IRQ7</span></code>, which are also prioritized with <code class="docutils literal notranslate"><span class="pre">IRQ1</span></code> being of the lowest priority and <code class="docutils literal notranslate"><span class="pre">IRQ7</span></code> of the highest. Once an interrupt is triggered by its respective source, the corresponding IRQ latch is set. However, interrupts may not be immediately served depending on the CPU’s current priority level.</p>
+<p>The priority level is determined by the <code class="docutils literal notranslate"><span class="pre">prio</span></code> field in the <code class="docutils literal notranslate"><span class="pre">PSW</span></code>. Only interrupts that are of a higher priority than the current priority level are served. If an interrupt is not of a high enough priority to interrupt the CPU at this point, its IRQ latch will simply remain set until the CPU lowers its priority level enough for that interrupt to be served.</p>
+<p>An interrupt service begins if there are pending interrupts at the completion of the current instruction or if the CPU is in a wait state after executing WAIT. The processor then first pushes <code class="docutils literal notranslate"><span class="pre">PSW</span></code> then <code class="docutils literal notranslate"><span class="pre">PC</span></code> onto the stack before fetching the new values for these registers (the interrupt vector) from memory. The IRQ latch that triggered this interrupt service is then cleared automatically.</p>
+<p><code class="docutils literal notranslate"><span class="pre">IVB</span></code> (as set by the SVB instruction) is used to determine which memory locations interrupt vectors are to be loaded from. The address for a particular interrupt is calculated as <code class="docutils literal notranslate"><span class="pre">IVB</span> <span class="pre">+</span> <span class="pre">IRQ#</span> <span class="pre">*</span> <span class="pre">2</span></code>. The two words at this location and the one immediately following it form the interrupt vector, with the <code class="docutils literal notranslate"><span class="pre">PC</span></code> value being loaded from the former and the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> value being loaded from the latter. Since there is no IRQ0, this does mean the actual table starts two words after the address in <code class="docutils literal notranslate"><span class="pre">IVB</span></code>, but those first addresses are considered reserved and should not be used as general-purpose memory.</p>
+<p>Of note is that because the new <code class="docutils literal notranslate"><span class="pre">PSW</span></code> value, including <code class="docutils literal notranslate"><span class="pre">prio</span></code> is loaded from user-defined memory, interrupts may set the new priority level to something other than that interrupt’s own priority. Additionally, the <code class="docutils literal notranslate"><span class="pre">T</span></code> bit in the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> is forced to a zero at the beginning of an interrupt, no matter the value in the interrupt vector.</p>
+<p>Traps behave similarly, with the only difference being that the memory locations for the interrupt vector is not determined by the <code class="docutils literal notranslate"><span class="pre">IVB</span></code>, but constant memory addresses are used depending on the type of trap.</p>
+<table class="docutils align-default" id="as-11-all-traps">
+<caption><span class="caption-number">Table 21 </span><span class="caption-text">List of processor traps</span><a class="headerlink" href="#as-11-all-traps" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Vector Location</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Emulator Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x0018</span></code></p></td>
+<td><p>EMT instruction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Software Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x001C</span></code></p></td>
+<td><p>TRAP instruction</p></td>
+</tr>
+<tr class="row-even"><td><p>Breakpoint Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x000C</span></code></p></td>
+<td><p>BPT instruction</p></td>
+</tr>
+<tr class="row-odd"><td><p>Input/Output Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x0010</span></code></p></td>
+<td><p>IOT instruction</p></td>
+</tr>
+<tr class="row-even"><td><p>Trace Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x0002</span></code></p></td>
+<td><p>Triggered after every instruction while <code class="docutils literal notranslate"><span class="pre">T</span></code> in <code class="docutils literal notranslate"><span class="pre">PSW</span></code> is set</p></td>
+</tr>
+<tr class="row-odd"><td><p>Illegal Operation Trap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x0004</span></code></p></td>
+<td><p>Triggered if current instruction does not encode a valid opcode</p></td>
+</tr>
+</tbody>
+</table>
+<p>Both traps and interrupts can be returned from with either the RTI or the RTT instruction. This returns program execution to where it was before the interrupt and restores the previous processor priority level.</p>
+</section>
+<section id="peripherals">
+<h2>Peripherals<a class="headerlink" href="#peripherals" title="Link to this heading"></a></h2>
+<p>The AS-11 integrates several peripheral devices: a GPIO port, two 16-bit timers, a SPI master port and a UART. These are controlled using special registers exposed via the IOR and IOW instructions, in their own address space. Attempts to read from unconnected addresses will always return <code class="docutils literal notranslate"><span class="pre">0xFFFF</span></code>.</p>
+<section id="gpio">
+<h3>GPIO<a class="headerlink" href="#gpio" title="Link to this heading"></a></h3>
+<p>PORTA is a 7-bit wide general-purpose input/output port with individually programmable direction and data for each pin on <code class="docutils literal notranslate"><span class="pre">PA0</span></code> through <code class="docutils literal notranslate"><span class="pre">PA6</span></code>. Additionally, most of these pins can optionally be used to trigger processor interrupts when in input mode.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DDRA</span></code> - Data Direction Register A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x00</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "DDRA[6:0]", "bits": 7},{"type": "1", "bits": 9}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register allows individually changing each port pin between an input and output port. A logic one equals an output port while a logic zero equals an input port. This register resets to a value of 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PORTA</span></code> - Port Data Register A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x01</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PORTA[6:0]", "bits": 7},{"type": "1", "bits": 9}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register allows individually setting the state of every port bit configured as an output port. This register resets to a value of 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PINA</span></code> - Port Input A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x02</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PINA[6:0]", "bits": 7},{"type": "1", "bits": 9}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This address returns the states of all port bits configured as inputs. It is read-only.</p>
+<p><code class="docutils literal notranslate"><span class="pre">INTA</span></code> - Interrupt Enables A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x03</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"type": "1", "bits": 1},{"name": "INTA[4:1]", "bits": 4},{"type": "1", "bits": 11}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Pins <code class="docutils literal notranslate"><span class="pre">PA1</span></code> through <code class="docutils literal notranslate"><span class="pre">PA4</span></code> may trigger interrupts if the corresponding bit in this register is set to a one and that pin is also configured as an input in <code class="docutils literal notranslate"><span class="pre">DDRA</span></code>. A low-to-high transition on an interrupt enabled pin will then set its corresponding IRQ. Interrupt enabled inputs can still be read as usual in <code class="docutils literal notranslate"><span class="pre">PINA</span></code>. This register clears to zero on reset.</p>
+<table class="docutils align-default" id="as-11-porta-irqs">
+<caption><span class="caption-number">Table 22 </span><span class="caption-text">PORTA IRQ mappings</span><a class="headerlink" href="#as-11-porta-irqs" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin</p></th>
+<th class="head"><p>IRQ#</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PA1</span></code></p></td>
+<td><p>IRQ2</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PA2</span></code></p></td>
+<td><p>IRQ4</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PA3</span></code></p></td>
+<td><p>IRQ6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PA4</span></code></p></td>
+<td><p>IRQ7</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="timers">
+<h3>Timers<a class="headerlink" href="#timers" title="Link to this heading"></a></h3>
+<p>The AS-11 contains two 16-bit timers with customizable prescalers, capable of generating interupts when expiring. The timer counts can also be read and set by the processor.</p>
+<p>Each timer works by counting up from 0 at its defined rate until its value equals (or is greater than) the value in its respective TTOP register. It then resets back to zero and continues counting up again. Optionally, the timer may set an IRQ when it resets in this manner.</p>
+<p><code class="docutils literal notranslate"><span class="pre">T0PRE</span></code> - Timer 0 Prescaler</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x04</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "T0PRE[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the timer count rate for Timer 0. The rate will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">max(T0PRE,</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">T1PRE</span></code> - Timer 1 Prescaler</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x05</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "T1PRE[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the timer count rate for Timer 1. The rate will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">max(T1PRE,</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TTOP0</span></code> - Timer Top 0</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x06</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TTOP0[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The maximum value Timer 0 will count up to before reseting to 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TTOP1</span></code> - Timer Top 1</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x07</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TTOP1[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The maximum value Timer 1 will count up to before reseting to 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TMR0</span></code> - Timer 0</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x08</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TMR0[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register holds the actual value of Timer 0. Reading it will get the current timer count. Writing it will set it, with the timer continuing to count up from the new value unless said value is greater than or equal to <code class="docutils literal notranslate"><span class="pre">TTOP0</span></code>, in which case it will immediately reset to 0 the next time the prescaler expires and the timer is updated.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TMR1</span></code> - Timer 1</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x09</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TMR1[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register holds the actual value of Timer 1. Reading it will get the current timer count. Writing it will set it, with the timer continuing to count up from the new value unless said value is greater than or equal to <code class="docutils literal notranslate"><span class="pre">TTOP1</span></code>, in which case it will immediately reset to 0 the next time the prescaler expires and the timer is updated.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TINT</span></code> - Timer Interrupt Enables</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0A</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TINT0", "bits": 1},{"name": "TINT1", "bits": 1},{"type": "1", "bits": 14}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>The two bits in this register determine what timer interrupts are enabled. If a timer’s respective TINT bit is set, that timer will set an IRQ each time it reaches TTOP and resets. Timer 0 will set IRQ1 and Timer 1 will set IRQ5. This register clears to zero on reset.</p>
+</section>
+<section id="spi-master-port">
+<h3>SPI Master Port<a class="headerlink" href="#spi-master-port" title="Link to this heading"></a></h3>
+<p>The AS-11 contains a SPI master port exposed through the pins <code class="docutils literal notranslate"><span class="pre">DO</span></code>, <code class="docutils literal notranslate"><span class="pre">DI</span></code> and <code class="docutils literal notranslate"><span class="pre">SCLK</span></code>. The bitclock can be customized and the port is capable of full-duplex operation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SDIV</span></code> - SPI Clock Divider</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0B</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "SDIV[7:0]", "bits": 8},{"type": "1", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the SPI serial clock. The SPI serial clock will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(SDIV</span> <span class="pre">*</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SDR</span></code> - SPI Data Register</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0C</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "SDR[7:0]", "bits": 8},{"type": "1", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register is used to transfer bytes in and out of the SPI port. Writing this register immediately begins a SPI full-duplex transfer. The SPI busy flag is set and the written data byte is serially transmitted at the same time as a data byte is received. No further writes to this location should be made while the busy flag is set.</p>
+<p>Once the transfer is complete as indicated by the busy flag becoming clear, the received data byte can be obtained by reading from this location.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SBYS</span></code> - SPI Busy Flag</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0D</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "SBSY", "bits": 1},{"type": "1", "bits": 15}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register contains the busy flag for the SPI master port. It normally returns zero when read, but will equal one if the SPI port is active and transfering data. Once the SPI port is idle again, it will become zero again.</p>
+</section>
+<section id="uart">
+<h3>UART<a class="headerlink" href="#uart" title="Link to this heading"></a></h3>
+<p>The UART, exposed through pins <code class="docutils literal notranslate"><span class="pre">RX</span></code> and <code class="docutils literal notranslate"><span class="pre">TX</span></code>, is a full-duplex asynchronous serial port that can send and receive 8-N-1 data frames at a custom baudrate.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UDIV</span></code> - UART Clock Divider</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0E</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UDIV[15:0]", "bits": 16}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the UART bitclock. The UART bitclock will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(UDIV</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UDR</span></code> - UART Data Register</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x0F</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UDR[7:0]", "bits": 8},{"type": "1", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register address is used to provide the UART data to transmit as well as read received data. When written to, the UART will immediatly activate, set its busy flag and begin serially transmitting the provided data byte. No further writes to this location should be made while the busy flag is set.</p>
+<p>When read, the UDR will contain the latest data byte received by the UART.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UBSY</span></code> - UART Busy Flag</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0x10</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UBSY", "bits": 1},{"type": "1", "bits": 15}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register contains the busy flag for the UART transmitter. It normally returns zero when read, but will equal one if the UART is active and transmitting data after writing <code class="docutils literal notranslate"><span class="pre">UDR</span></code>. Once the UART transmitter is idle again, it will become zero again.</p>
+</section>
+</section>
+<section id="custom-settings">
+<h2>Custom Settings<a class="headerlink" href="#custom-settings" title="Link to this heading"></a></h2>
+<p>This design makes use of the <code class="docutils literal notranslate"><span class="pre">reg_mprj_settings</span></code> wishbone register in multiple ways. Note that this register is cleared to zero on reset.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "MPSW", "bits": 1},{"name": "WEB[1:0]", "bits": 2},{"name": "ILE", "bits": 1},{"name": "SADDR[14:0]", "bits": 15},{"name": "TEN", "bits": 1},{"type": "1", "bits": 12}],
+ "config": {"hspace": 1450}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MPSW</span></code> determines if the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> is also memory-mapped. If set, accessing memory location <code class="docutils literal notranslate"><span class="pre">0xFFFE</span></code> with byte-addressing bypasses the memory bus and instead reads or writes the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> contents. This may be required for software compatibility as the MFPS and MTPS instructions are the intended way of accessing the <code class="docutils literal notranslate"><span class="pre">PSW</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">WEB</span></code> changes the behavior of the <code class="docutils literal notranslate"><span class="pre">WE</span></code> pin, which may be required depending on the timing requirements of the memories connected to the chip. The following options are valid:</p>
+<p><code class="docutils literal notranslate"><span class="pre">0</span></code>: <code class="docutils literal notranslate"><span class="pre">WE</span></code> is active for a full clock cycle.</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code>: <code class="docutils literal notranslate"><span class="pre">WE</span></code> is only active when the clock is low.</p>
+<p><code class="docutils literal notranslate"><span class="pre">2</span></code>: <code class="docutils literal notranslate"><span class="pre">WE</span></code> is only active when the clock is high.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ILE</span></code> needs to be set to enable generation of Illegal Operation traps. If it is clear, illegal opcodes will simply be skipped, acting as NOPs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SADDR</span></code> determines the address the processor starts executing from after reset. The Program Counter will be loaded with <code class="docutils literal notranslate"><span class="pre">SADDR</span> <span class="pre">*</span> <span class="pre">2</span></code> on reset and the first instruction executed will be taken from this memory location.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TEN</span></code> needs to be set to enable use of the Tracepoint Trap. If it is clear, the <code class="docutils literal notranslate"><span class="pre">T</span></code> bit in the <code class="docutils literal notranslate"><span class="pre">PSW</span></code> will always be forced to a zero, no matter what.</p>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sid.html" class="btn btn-neutral float-left" title="SID" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Tholin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

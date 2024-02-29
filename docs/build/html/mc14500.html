@@ -23,6 +23,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="UE14500" href="ue14500.html" />
     <link rel="prev" title="QCPU MCU" href="qcpu.html" /> 
 </head>
 
@@ -52,8 +53,18 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">MC14500</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pinout">Pinout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bit-core">1-bit Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registers">Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programming">Programming</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rejs_designs.html">Rejunity’s Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as11.html">AS-11</a></li>
 </ul>
 
         </div>
@@ -86,6 +97,74 @@
 <section id="pinout">
 <h2>Pinout<a class="headerlink" href="#pinout" title="Link to this heading"></a></h2>
 <img alt="_images/pinout4.png" src="_images/pinout4.png" />
+<table class="docutils align-default" id="pin-description">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">Pin description</span><a class="headerlink" href="#pin-description" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin #</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code></p></td>
+<td><p>RSTD</p></td>
+<td><p>I</p></td>
+<td><p>Active low design reset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[12:5]</span></code></p></td>
+<td><p>I[7:0]</p></td>
+<td><p>I</p></td>
+<td><p>CPU Instruction Input</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[29:13]</span></code></p></td>
+<td><p>PC[16:0]</p></td>
+<td><p>O</p></td>
+<td><p>Program Counter</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[30]</span></code></p></td>
+<td><p>FLAG_O</p></td>
+<td><p>O</p></td>
+<td><p>High if current instruction is <code class="docutils literal notranslate"><span class="pre">NOPO</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[31]</span></code></p></td>
+<td><p>RR</p></td>
+<td><p>O</p></td>
+<td><p>Mirrors Result Register value</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[32]</span></code></p></td>
+<td><p>SCLK</p></td>
+<td><p>O</p></td>
+<td><p>Serial Port clock signal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[33]</span></code></p></td>
+<td><p>SDO</p></td>
+<td><p>O</p></td>
+<td><p>Serial Port data output</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[34]</span></code></p></td>
+<td><p>OUT1</p></td>
+<td><p>O</p></td>
+<td><p>General-Purpose output port</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[35]</span></code></p></td>
+<td><p>OUT2</p></td>
+<td><p>O</p></td>
+<td><p>General-Purpose output port</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[36]</span></code></p></td>
+<td><p>SDI</p></td>
+<td><p>I</p></td>
+<td><p>Serial Port data input</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[37]</span></code></p></td>
+<td><p>CLK</p></td>
+<td><p>I</p></td>
+<td><p>Design clock input</p></td>
+</tr>
+</tbody>
+</table>
+<p>Please note that this design has a separate clock input at <code class="docutils literal notranslate"><span class="pre">mprj_io[37]</span></code>.</p>
 </section>
 <section id="bit-core">
 <h2>1-bit Core<a class="headerlink" href="#bit-core" title="Link to this heading"></a></h2>
@@ -95,7 +174,7 @@
 If <code class="docutils literal notranslate"><span class="pre">OEN</span></code> is clear, the instructions <code class="docutils literal notranslate"><span class="pre">STO</span></code> and <code class="docutils literal notranslate"><span class="pre">STOC</span></code> will have no effect and no data is shifted into any register.</p>
 <p>The CPU has an instruction set of 16 instructions, meaning it uses 4-bit opcodes. These operations are as follows:</p>
 <table class="docutils align-default" id="mc14500-instrs">
-<caption><span class="caption-number">Table 1 </span><span class="caption-text">CPU Instructions</span><a class="headerlink" href="#mc14500-instrs" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 3 </span><span class="caption-text">CPU Instructions</span><a class="headerlink" href="#mc14500-instrs" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Opcode</p></th>
 <th class="head"><p>Instruction</p></th>
@@ -105,7 +184,7 @@ If <code class="docutils literal notranslate"><span class="pre">OEN</span></code
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NOPO</span></code></p></td>
-<td><p>No change in RR, IEN or OEN</p></td>
+<td><p>No change in RR, IEN or OEN, trigger memory read</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">LD</span></code></p></td>
@@ -165,14 +244,17 @@ If <code class="docutils literal notranslate"><span class="pre">OEN</span></code
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">F</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NOPF</span></code></p></td>
-<td><p>No change in RR, IEN or OEN</p></td>
+<td><p>No change in RR, IEN or OEN, trigger memory write</p></td>
 </tr>
 </tbody>
 </table>
-<p>This opcode is taken from the least-significant 4 bits of each 8-bit instruction fed from the external ROM. The most-significant 4 bits index one of the internal machine registers. Whenever the CPU is told to load/operate on or store ‘Data’, this is refering to the CPU interacting with one of these internal registers.</p>
+<p>This opcode is taken from the least-significant 4 bits of each 8-bit instruction fed from the external ROM. The most-significant 4 bits index one of the internal machine registers. Whenever the CPU is told to load/operate on or store ‘Data’, this is refering to the CPU interacting with one of these internal registers, unless the address is <code class="docutils literal notranslate"><span class="pre">0</span></code> and the instruction reads Data, in which case a constant <code class="docutils literal notranslate"><span class="pre">1</span></code> is fetched.</p>
+</section>
+<section id="registers">
+<h2>Registers<a class="headerlink" href="#registers" title="Link to this heading"></a></h2>
 <p>The first of these machine registers is 8 bits wide starting at address 8h named the Scratch Register, and is the only bit-addressable machine register. By accessing addresses 8h - Fh, individual bits of this register can be read or written. It is mainly meant to store temporary data during processing of 8-bit bytes, but a few of the bits are wired to pins on the chip package. These bits are still readable and writable individually like the others, but their state will be mirrored onto chip pins as such:</p>
 <table class="docutils align-default" id="scratch-reg-locs">
-<caption><span class="caption-text">Scratch Register locations</span><a class="headerlink" href="#scratch-reg-locs" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 4 </span><span class="caption-text">Scratch Register locations</span><a class="headerlink" href="#scratch-reg-locs" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Bit Address</p></th>
 <th class="head"><p>Pin mapping</p></th>
@@ -190,7 +272,53 @@ If <code class="docutils literal notranslate"><span class="pre">OEN</span></code
 </tr>
 </tbody>
 </table>
-<p>The pins <code class="docutils literal notranslate"><span class="pre">OUT</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">OUT</span> <span class="pre">2</span></code> have dedicated registers at addresses 5h and 6h. These may only be written. The state of the input pin <code class="docutils literal notranslate"><span class="pre">SDI</span></code> can be read at address 7h.</p>
+<p>The pins <code class="docutils literal notranslate"><span class="pre">OUT</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">OUT</span> <span class="pre">2</span></code> have dedicated registers at addresses 5h and 6h. These may only be written. The state of the input pin <code class="docutils literal notranslate"><span class="pre">SDI</span></code> can be read at address 7h.
+Additionally, the <code class="docutils literal notranslate"><span class="pre">RR</span></code> is also output to a chip pin, and the <code class="docutils literal notranslate"><span class="pre">FLAG_O</span></code> pin indicates if the current instruction is a <code class="docutils literal notranslate"><span class="pre">NOPO</span></code>. These pins are meant for testing purposes or to monitor CPU activity.</p>
+<p>There is also a 17-bit wide Program Counter register that points to the current instruction. It is output on the <code class="docutils literal notranslate"><span class="pre">PC0</span></code> - <code class="docutils literal notranslate"><span class="pre">PC16</span></code> pins and increments after each instruction has executed, unless the instruction is a <code class="docutils literal notranslate"><span class="pre">JMP</span></code>.</p>
+<p>The remaining registers are all shift registers to facilitate processing of 8-bit words. These are:</p>
+<table class="docutils align-default" id="machine-shift-regs">
+<caption><span class="caption-number">Table 5 </span><span class="caption-text">Machine Shift Registers</span><a class="headerlink" href="#machine-shift-regs" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mnemonic</p></th>
+<th class="head"><p>Bit Address</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Destination Register for branches, write-only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Memory Address Register to RAM, write-only</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DOB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Data Out Buffer to RAM, write-only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DIA</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Data In Buffer A from RAM, read-only</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DIB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>Data In Buffer B from RAM, read-only</p></td>
+</tr>
+</tbody>
+</table>
+<p>All of these registers are 8 bits wide except <code class="docutils literal notranslate"><span class="pre">DR</span></code>, which is 17 bits wide.</p>
+<p>The Idea is that data from RAM is loaded into <code class="docutils literal notranslate"><span class="pre">DIA</span></code> and <code class="docutils literal notranslate"><span class="pre">DIB</span></code> where it can then by shited out and processed one bit at a time with the results shifted into <code class="docutils literal notranslate"><span class="pre">DOB</span></code> as they are completed before being written back into RAM.
+Therefore, these three registers plus <code class="docutils literal notranslate"><span class="pre">MAR</span></code> shift least-significant bit first.</p>
+<p>To actually load and store values from RAM, <code class="docutils literal notranslate"><span class="pre">MAR</span></code> can be loaded with a memory address before execution of <code class="docutils literal notranslate"><span class="pre">NOPO</span></code> or <code class="docutils literal notranslate"><span class="pre">NOPF</span></code> triggers a value to be loaded or stored at the memory location pointed to by <code class="docutils literal notranslate"><span class="pre">MAR</span></code>.
+Note that because there are two input registers, <code class="docutils literal notranslate"><span class="pre">NOPO</span></code> needs to be provided with an address argument to select a specific one and this address differs from the regular register address. <code class="docutils literal notranslate"><span class="pre">1</span></code> will select <code class="docutils literal notranslate"><span class="pre">DIA</span></code> while <code class="docutils literal notranslate"><span class="pre">2</span></code> will select <code class="docutils literal notranslate"><span class="pre">DIB</span></code>. Any other address will have no effect.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DR</span></code> facilitates branching. It is the only register which is loaded most-significant bit first and buffers a new value for the Program Counter. When the CPU hits a <code class="docutils literal notranslate"><span class="pre">JMP</span></code> instruction, the value of <code class="docutils literal notranslate"><span class="pre">DR</span></code> simply becomes the new Program Counter and the next instruction is fetched from this location.
+<code class="docutils literal notranslate"><span class="pre">JMP</span></code> is always unconditional, but can be combined with <code class="docutils literal notranslate"><span class="pre">SKZ</span></code> to affect a conditional branch.</p>
+</section>
+<section id="programming">
+<h2>Programming<a class="headerlink" href="#programming" title="Link to this heading"></a></h2>
+<p>Writing programs for the MC14500 is accomplished with the help of a special assembler which assembles purely macro instructions. These macros give the outward appearance of a regular 8-bit instruction set and abstract away the bit-serial processing of data entirely.</p>
+<p>It is the assembler’s job to translate these macro instructions into a series of CPU instructions operating bit-serially. This makes programming for the MC14500 relatively easy by not forcing the software developer to program in instructions operating on 1-bit data.</p>
 </section>
 </section>
 
@@ -205,6 +333,7 @@ If <code class="docutils literal notranslate"><span class="pre">OEN</span></code
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="qcpu.html" class="btn btn-neutral float-left" title="QCPU MCU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ue14500.html" class="btn btn-neutral float-right" title="UE14500" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

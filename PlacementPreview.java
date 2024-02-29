@@ -32,8 +32,8 @@ public class PlacementPreview {
 			new Macro(200, 1200, 240, 240, new Color(166, 32, 166), "AY8913"), //wrapped_ay8913
 			new Macro(700, 1300, 130, 130, new Color(166, 32, 255), "Hellorld"),
 			new Macro(600, 1600, 230, 230, new Color(166, 255, 86), "TBB1143"),
-			new Macro(950, 2050, 1700, 800, new Color(23, 190, 120), "AS-11"),
-			new Macro(1775, 825, 1150, 1150, new Color(19, 182, 222), "Tholin RISCV"),
+			new Macro(950, 2050, 1700, 800, new Color(23, 190, 120), "AS-11 (PDP-11)"),
+			new Macro(1775, 825, 1150, 1150, new Color(19, 182, 222), "Tholin RISCV (RV32IM)"),
 			new Macro(250, 1575, 230, 230, new Color(88, 111, 177), "Diceroll"),
 			new Macro(300, 1950, 180, 180, new Color(1, 88, 255), "UE-1 (UE14500)"),
 		};

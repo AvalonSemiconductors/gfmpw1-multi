@@ -1,0 +1,62 @@
+.. _tbb1143:
+
+TBB1143
+=======
+
+This is yet another one of my Tiny Tapeout 2 designs, but this one is here because the original did not work (I messed up the ring oscillator). So I put it onto this die just out of frustration and just wanting to see this design work.
+
+Additionally, this design was put together almost entirely in Logisim Evolution, which should make it a first for GFMPW.
+
+For more information, see the original repo: `tt2-avalonsemi-TBB1143 <https://github.com/AvalonSemiconductors/tt2-avalonsemi-TBB1143>`__
+
+Pinout
+------
+
+.. image:: _static/pinouttbb1143.drawio.png
+
+.. list-table:: Pin description
+    :name: pin-description-tbb1143
+    :header-rows: 1
+    
+    * - Pin #
+      - Name
+      - Type
+      - Summary
+    * - ``mprj_io[0]``
+      - RSTD
+      - I
+      - Active low design reset
+    * - ``mprj_io[5]``
+      - A0
+      - I
+      - Selects between address latch and register access for data writes
+    * - ``mprj_io[6]``
+      - WR
+      - I
+      - Active high Write Enable
+    * - ``mprj_io[10:7]``
+      - D[3:0]
+      - I
+      - Data Input
+    * - ``mprj_io[11]``
+      - DCLK
+      - I
+      - Independent Design Clock
+    * - ``mprj_io[22]``
+      - DAC DAT
+      - O
+      - Serial Data for external DAC (DAC7611 or similar)
+    * - ``mprj_io[23]``
+      - DAC LE
+      - O
+      - Active low Latch Enable for external DAC
+    * - ``mprj_io[24]``
+      - DAC CLK
+      - O
+      - Serial Clock for external DAC
+    * - ``mprj_io[26:25]``
+      - LED [1:0]
+      - O
+      - LED Blinkenlights
+
+Note: unlike the original TBB1143, no ring oscillator is here. DCLK is used to generate both the fast and slow clocks. DCLK rate must be equal to 256 times the desired sample clock and is also what is used when calculating channel frequencies.

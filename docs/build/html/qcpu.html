@@ -50,7 +50,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="multiplexer.html">Multiplexer</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">QCPU MCU</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#registers">Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#program-rom">Program ROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scratch-registers">Scratch Registers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#instruction-formats">Instruction Formats</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#immediate">Immediate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reg-reg">Reg/Reg</a></li>
@@ -62,9 +64,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#immediate-load-ioaddr">Immediate Load IOADDR</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#io-devices">IO Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#interfacing">Interfacing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpio-ports">GPIO Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uart-spi">UART &amp; SPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timer">Timer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwm">PWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frequency-generator">Frequency Generator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interrupts">Interrupts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rejs_designs.html">Rejunity’s Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as11.html">AS-11</a></li>
 </ul>
 
         </div>
@@ -102,8 +122,119 @@
 <li><p>1 programmable frequency generator</p></li>
 </ul>
 <p>The internal 64 bytes of RAM in the multiplexer are used as data memory, and an external QSPI flash is used as program memory.</p>
-<section id="registers">
-<h2>Registers<a class="headerlink" href="#registers" title="Link to this heading"></a></h2>
+<section id="pinout">
+<h2>Pinout<a class="headerlink" href="#pinout" title="Link to this heading"></a></h2>
+<img alt="_images/pinout6.png" src="_images/pinout6.png" />
+<table class="docutils align-default" id="pin-description-qcpu">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Pin description</span><a class="headerlink" href="#pin-description-qcpu" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin #</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code></p></td>
+<td><p>RSTD</p></td>
+<td><p>I</p></td>
+<td><p>Active low design reset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[8:5]</span></code></p></td>
+<td><p>ROM D[3:0]</p></td>
+<td><p>IO</p></td>
+<td><p>Bi-directional QSPI data lines to spiflash</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[9]</span></code></p></td>
+<td><p>ROM CS</p></td>
+<td><p>O</p></td>
+<td><p>Chip Select line to spiflash</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[10]</span></code></p></td>
+<td><p>ROM CLK</p></td>
+<td><p>O</p></td>
+<td><p>Serial Clock line to spiflash</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[18:11]</span></code></p></td>
+<td><p>PA[7:0]</p></td>
+<td><p>IO</p></td>
+<td><p>GPIO PORTA</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[26:19]</span></code></p></td>
+<td><p>PB[7:0]</p></td>
+<td><p>IO</p></td>
+<td><p>GPIO PORTB</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[27]</span></code></p></td>
+<td><p>TXD</p></td>
+<td><p>O</p></td>
+<td><p>UART Serial Data Out</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[28]</span></code></p></td>
+<td><p>RXD</p></td>
+<td><p>I</p></td>
+<td><p>UART Serial Data In</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[29]</span></code></p></td>
+<td><p>SCLK</p></td>
+<td><p>O</p></td>
+<td><p>SPI Master Port Serial Clock</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[30]</span></code></p></td>
+<td><p>SDO</p></td>
+<td><p>O</p></td>
+<td><p>SPI Master Port Serial Data Out</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[31]</span></code></p></td>
+<td><p>SDI</p></td>
+<td><p>I</p></td>
+<td><p>SPI Master Port Serial Data In</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[32]</span></code></p></td>
+<td><p>M1</p></td>
+<td><p>O</p></td>
+<td><p>Machine Cycle 1, pulses high at every instruction fetch</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[33]</span></code></p></td>
+<td><p>INT</p></td>
+<td><p>I</p></td>
+<td><p>External interrupt request, negative edge triggered</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[34]</span></code></p></td>
+<td><p>PAUSE</p></td>
+<td><p>I</p></td>
+<td><p>Pauses CPU instruction execution while high</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[35]</span></code></p></td>
+<td><p>PWM</p></td>
+<td><p>O</p></td>
+<td><p>PWM signal output</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[36]</span></code></p></td>
+<td><p>FREQ</p></td>
+<td><p>O</p></td>
+<td><p>Frequency generator signal output</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[37]</span></code></p></td>
+<td><p>BDIR</p></td>
+<td><p>O</p></td>
+<td><p>Indicates direction of ROM D[3:0] lines, low = output, high = input</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="program-rom">
+<h2>Program ROM<a class="headerlink" href="#program-rom" title="Link to this heading"></a></h2>
+<p>The program ROM is connected externally and must be either a Winbond 25Q32 or similar IC that accepts the same command set. In particular, verify that this command sequence puts the chip into QSPI mode and starts a quad read:</p>
+<p><code class="docutils literal notranslate"><span class="pre">0xFF</span></code> (ignore if device does not have this command)</p>
+<p><code class="docutils literal notranslate"><span class="pre">0xAB</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">0x06</span> <span class="pre">0x01</span> <span class="pre">0x02</span> <span class="pre">0x02</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">0xEB</span> <span class="pre">[now</span> <span class="pre">in</span> <span class="pre">quad</span> <span class="pre">mode]</span> <span class="pre">0x00</span> <span class="pre">0x00</span> <span class="pre">0x00</span> <span class="pre">0x00</span> <span class="pre">0x00</span> <span class="pre">0x00</span> <span class="pre">0xA5</span></code></p>
+<p>Additionally, because these ROMs are all 3.3V devices, QCPU is a 5V device and the QSPI bus is bi-directional, a bi-directional level shifter needs to be used on the 4 QSPI data lines. The <code class="docutils literal notranslate"><span class="pre">BDIR</span></code> output can be used to set the direction on the level shifter.</p>
+<p>Resistors (ideally 1000 ohm) must be placed on all data lines on both sides of the shifter as bus shorts will briefly be created while the flash is still in SPI mode. These will not damage either device provided these current-limiting resistors are in place. Additionally, a pull-up resistor to 3.3V needs to be placed on whichever pin of the flash acts as HOLD in SPI mode.</p>
+</section>
+<section id="scratch-registers">
+<h2>Scratch Registers<a class="headerlink" href="#scratch-registers" title="Link to this heading"></a></h2>
 <p>QCPU posesses a set of 16 8-bit general-purpose scratchpad registers, designated r0 - r15. r0, however, is the “zero register” and hard-wired to 0. It will always read 0 and writes to it will be discarded.</p>
 <p>There are also several special-purpose registers (not including IO device registers, which are accessed in a special way and described later):</p>
 <table class="docutils align-default">
@@ -113,16 +244,16 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>PC</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PC</span></code></p></td>
 <td><p>14-bit Program Counter</p></td>
 </tr>
-<tr class="row-odd"><td><p>IOADDR</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IOADDR</span></code></p></td>
 <td><p>8-bit IO Address</p></td>
 </tr>
-<tr class="row-even"><td><p>IO</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IO</span></code></p></td>
 <td><p>Interface to the I/O devices</p></td>
 </tr>
-<tr class="row-odd"><td><p>FLAGS</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FLAGS</span></code></p></td>
 <td><p>CPU flags</p></td>
 </tr>
 </tbody>
@@ -142,6 +273,7 @@
 }
 </script>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">PC</span></code>, <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> and <code class="docutils literal notranslate"><span class="pre">FLAGS</span></code> are all cleared to zero on reset.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Bit</p></th>
@@ -149,16 +281,16 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>C</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
 <td><p>Carry-Flag</p></td>
 </tr>
-<tr class="row-odd"><td><p>Z</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
 <td><p>Zero-Flag</p></td>
 </tr>
-<tr class="row-even"><td><p>IE</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IE</span></code></p></td>
 <td><p>External Interrupt Enable</p></td>
 </tr>
-<tr class="row-odd"><td><p>TIE</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIE</span></code></p></td>
 <td><p>Timer Interrupt Enable</p></td>
 </tr>
 </tbody>
@@ -166,7 +298,8 @@
 </section>
 <section id="instruction-formats">
 <h2>Instruction Formats<a class="headerlink" href="#instruction-formats" title="Link to this heading"></a></h2>
-<p>All instructions are a constant 16-bits wide, to allow for embedding of register addresses and immediate values. The following base encodings exist:</p>
+<p>All instructions are a constant 16-bits wide, to allow for embedding of register addresses and immediate values. As a result, ROM memory is addressed as an array of 16-bit wide words by the <code class="docutils literal notranslate"><span class="pre">PC</span></code>. The traditional byte address of the beginning of an instruction is determined by multiplying the <code class="docutils literal notranslate"><span class="pre">PC</span></code> value by two.</p>
+<p>For the instructions, the following formats exist:</p>
 <section id="immediate">
 <h3>Immediate<a class="headerlink" href="#immediate" title="Link to this heading"></a></h3>
 <p>The immediate value is loaded into the specified register, unless that register is r0. The opcode for this is instead used for another instruction.</p>
@@ -431,10 +564,12 @@ For some opcodes, the R2 slot is used not as a register index, but a small immed
 </tbody>
 </table>
 <p>Note that “R1” refers to the register index provided with the instruction code, while “r1” and “r2” refer to the literal register indexes 1 and 2.</p>
+<p>Operation 10, WAIT, halts program execution until an interrupt occurs, at which point the interrupt is handled. When the interrupt returns, program execution resumes from the instruction following the WAIT. Note that if both <code class="docutils literal notranslate"><span class="pre">IE</span></code> and <code class="docutils literal notranslate"><span class="pre">TIE</span></code> are clear, this condition cannot occur and the CPU halts forever.</p>
+<p>Operation 15 loads data from ROM into registers R1 and R2 from an addressed formed by R3 and R2. As the ROM is addressed as an array of 16-bit values, two registers are needed to contain the result.</p>
 </section>
 <section id="immediate-load-ioaddr">
 <h3>Immediate Load IOADDR<a class="headerlink" href="#immediate-load-ioaddr" title="Link to this heading"></a></h3>
-<p>There is one final instruction that results from forming the opcode of Immediate, but with a target register of r0. This opcode will instead load the immediate value into the IOADDR register.</p>
+<p>There is one final instruction that results from forming the opcode of Immediate, but with a target register of r0. This opcode will instead load the immediate value into the <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> register.</p>
 
 <div style="overflow-x:auto">
 <script type="WaveDrom">
@@ -453,6 +588,279 @@ For some opcodes, the R2 slot is used not as a register index, but a small immed
 </script>
 </div>
 </section>
+</section>
+<section id="io-devices">
+<h2>IO Devices<a class="headerlink" href="#io-devices" title="Link to this heading"></a></h2>
+<section id="interfacing">
+<h3>Interfacing<a class="headerlink" href="#interfacing" title="Link to this heading"></a></h3>
+<p>IO devices are controlled via registers which are mapped into their own address space of 256 possible addresses via the <code class="docutils literal notranslate"><span class="pre">IO</span></code> and <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> registers. The IO address is set by writing <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> and the addressed register can be read or written via <code class="docutils literal notranslate"><span class="pre">IO</span></code>, which effectively becomes the addressed register.</p>
+</section>
+<section id="gpio-ports">
+<h3>GPIO Ports<a class="headerlink" href="#gpio-ports" title="Link to this heading"></a></h3>
+<p>PORTA and PORTB are each 8-bit-wide individually programmable GPIO ports, on pins <code class="docutils literal notranslate"><span class="pre">PA[7:0]</span></code> and <code class="docutils literal notranslate"><span class="pre">PB[7:0]</span></code> respectively. The direction and data on these ports can be read and written for every pin individually.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DDRA</span></code> - Data Direction Register A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">00h</span></code></p>
+<p>This register allows individually changing each pin of PORTA between an input and output port. A logic one equals an output port while a logic zero equals an input port. This register resets to a value of 0.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "DDRA[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DDRB</span></code> - Data Direction Register B</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">02h</span></code></p>
+<p>This register allows individually changing each pin of PORTB between an input and output port. A logic one equals an output port while a logic zero equals an input port. This register resets to a value of 0.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "DDRB[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PORTA</span></code> - Port Data Register A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">01h</span></code></p>
+<p>This register allows individually setting the state of every bit in PORTA configured as an output port. This register resets to a value of 0.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PORTA[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PORTB</span></code> - Port Data Register B</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">03h</span></code></p>
+<p>This register allows individually setting the state of every bit in PORTB configured as an output port. This register resets to a value of 0.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PORTB[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PINA</span></code> - Port Input A</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">04h</span></code></p>
+<p>This address returns the states of all bits in PORTA configured as inputs. It is read-only.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PINA[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">PINB</span></code> - Port Input B</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">05h</span></code></p>
+<p>This address returns the states of all bits in PORTB configured as inputs. It is read-only.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PINB[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+</section>
+<section id="uart-spi">
+<h3>UART &amp; SPI<a class="headerlink" href="#uart-spi" title="Link to this heading"></a></h3>
+<p>QCPU contains two serial ports:</p>
+<p>The UART, exposed through pins <code class="docutils literal notranslate"><span class="pre">RXD</span></code> and <code class="docutils literal notranslate"><span class="pre">TXD</span></code>, a full-duplex asynchronous serial port that can send and receive 8-N-1 data frames at a custom baudrate.</p>
+<p>A SPI master port, exposed through pins <code class="docutils literal notranslate"><span class="pre">SDI</span></code>, <code class="docutils literal notranslate"><span class="pre">SDO</span></code> and <code class="docutils literal notranslate"><span class="pre">SCLK</span></code> also with a custom bitclock.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UDIV</span></code> - UART Clock Divider</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">06h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UDIV[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">07h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UDIV[15:8]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the UART bitclock. The UART bitclock will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(UDIV</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UDR</span></code> - UART Data Register</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">08h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UDR[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register address is used to provide the UART data to transmit as well as read received data. When written to, the UART will immediatly activate, set its busy flag and begin serially transmitting the provided data byte. No further writes to this location should be made while the busy flag is set.</p>
+<p>When read, the UDR will contain the latest data byte received by the UART. Accessing this location with a read will also clear the <code class="docutils literal notranslate"><span class="pre">UHB</span></code> flag.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SDIV</span></code> - SPI Clock Divider</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0Ah</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "SDIV[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the SPI serial clock. The SPI serial clock will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(SDIV</span> <span class="pre">*</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SDR</span></code> - SPI Data Register</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0Bh</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "SDR[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register is used to transfer bytes in and out of the SPI port. Writing this register immediately begins a SPI full-duplex transfer. The SPI busy flag is set and the written data byte is serially transmitted at the same time as a data byte is received. No further writes to this location should be made while the busy flag is set.</p>
+<p>Once the transfer is complete as indicated by the busy flag becoming clear, the received data byte can be obtained by reading from this location.</p>
+<p><code class="docutils literal notranslate"><span class="pre">STAT</span></code> - Serial Status Register</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">09h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "UART BUSY", "bits": 1},{"name": "UHB", "bits": 1},{"name": "SPI BUSY", "bits": 1},{"type": "1", "bits": 5}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This read-only register contains status information for both the UART and SPI master ports. Besides their respective busy flags, the STAT also contains <code class="docutils literal notranslate"><span class="pre">UHB</span></code>, a flag which indicates that the UART has received a data byte which has not yet been read out of the <code class="docutils literal notranslate"><span class="pre">UDR</span></code>.</p>
+</section>
+<section id="timer">
+<h3>Timer<a class="headerlink" href="#timer" title="Link to this heading"></a></h3>
+<p>QCPU contains a single 16-bit timer driven by the CPU clock and a customizable prescaler that is capable of generating an interrupt when expiring.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TDIV</span></code> - Timer Clock Div (prescaler)</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0Ch</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TDIV[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register defines the amount by which the processor clock is divided to arrive at the timer count rate. The rate will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(TDIV</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TCAPT</span></code> - Timer Capture Value</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0Eh</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TCAPT[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">0Fh</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TCAPT[15:8]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register is used to either hold a captured timer value or to buffer a value to be written into the timer.</p>
+<p>Address <code class="docutils literal notranslate"><span class="pre">0Dh</span></code> is a special location that, when written to, discards the written value and instead causes the current timer value to be “captured”, meaning copied into the <code class="docutils literal notranslate"><span class="pre">TCAPT</span></code> register pair.</p>
+<p>Address <code class="docutils literal notranslate"><span class="pre">10h</span></code> is a special location that, when written to, discards the written value and instead causes the timer to be loaded from the value stored in the <code class="docutils literal notranslate"><span class="pre">TCAPT</span></code> register pair.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TTOP</span></code> - Timer Top</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">11h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TTOP[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">12h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "TTOP[15:8]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register holds the maximum value the timer can take. The timer will count up at its specified rate until reaching this value, at which point it resets to 0 and optionally generates an interrupt if <code class="docutils literal notranslate"><span class="pre">TIE</span></code> in the CPU flags register is set. The timer also resets to 0 if it is larger than the value in <code class="docutils literal notranslate"><span class="pre">TTOP</span></code>, which may happen when <code class="docutils literal notranslate"><span class="pre">TTOP</span></code> is changed by the CPU.</p>
+</section>
+<section id="pwm">
+<h3>PWM<a class="headerlink" href="#pwm" title="Link to this heading"></a></h3>
+<p>QCPU contains a PWM generator with a fixed frequency of <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">256</span></code> and adjustable pulse width. This signal is always generated on the <code class="docutils literal notranslate"><span class="pre">PWM</span></code> pin.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PW</span></code> - Pulse Width</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">13h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "PW[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>This register inversely adjusts the pulse width from 0 (longest) to 254 (shortest). Setting a value of 255 will cause the output to be always on. It resets to <code class="docutils literal notranslate"><span class="pre">80h</span></code>.</p>
+</section>
+<section id="frequency-generator">
+<h3>Frequency Generator<a class="headerlink" href="#frequency-generator" title="Link to this heading"></a></h3>
+<p>QCPU contains a frequency generator which continuously generates a clock signal of a custom frequency on the <code class="docutils literal notranslate"><span class="pre">FREQ</span></code> pin by dividing the CPU clock by the value in <code class="docutils literal notranslate"><span class="pre">FDIV</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">FDIV</span></code> - Frequency Divider</p>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">14h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "FDIV[7:0]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>Address: <code class="docutils literal notranslate"><span class="pre">15h</span></code></p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{ "reg": [
+  {"name": "FDIV[15:8]", "bits": 8}],
+ "config": {"hspace": 700}
+}
+</script>
+</div>
+<p>These registers are used to set the rate of the clock on the <code class="docutils literal notranslate"><span class="pre">FREQ</span></code> pin. It will be equal to <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">/</span> <span class="pre">(FDIV</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</section>
+</section>
+<section id="interrupts">
+<h2>Interrupts<a class="headerlink" href="#interrupts" title="Link to this heading"></a></h2>
+<p>QCPU has two sources for interrupts: the timer, as described above, and a negative edge on the <code class="docutils literal notranslate"><span class="pre">INT</span></code> pin can each trigger an interrupt, as long as the corresponding interrupt is enabled in the CPU flags register. Bit <code class="docutils literal notranslate"><span class="pre">IE</span></code> enables the external interrupt if set and bit <code class="docutils literal notranslate"><span class="pre">TIE</span></code> enables the timer interrupt if set.</p>
+<p>When an interrupt is triggered and enabled, the CPU will finish processing the current instruction, then begin handling that interrupt. If both an external and timer interrupt occur at the same time, the timer interrupt will be handled first. The external interrupt will be handled upon conclusion of the timer interrupt handler.</p>
+<p>Handling an interrupt first involves copying <code class="docutils literal notranslate"><span class="pre">PC</span></code>, <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> and <code class="docutils literal notranslate"><span class="pre">FLAGS</span></code> into hidden internal registers, backing up their states from before the interrupt. Then, the <code class="docutils literal notranslate"><span class="pre">PC</span></code> is loaded with either <code class="docutils literal notranslate"><span class="pre">0001h</span></code> for a external interrupt and <code class="docutils literal notranslate"><span class="pre">0002h</span></code> for a timer interrupt and both <code class="docutils literal notranslate"><span class="pre">IE</span></code> and <code class="docutils literal notranslate"><span class="pre">TIE</span></code> are cleared to prevent further interrupts. Interrupts may not stack and neither <code class="docutils literal notranslate"><span class="pre">IE</span></code> or <code class="docutils literal notranslate"><span class="pre">TIE</span></code> should be set again during an interrupt.</p>
+<p>As QCPU clears the <code class="docutils literal notranslate"><span class="pre">PC</span></code> to <code class="docutils literal notranslate"><span class="pre">0000h</span></code> during reset, the Idea is that the first three ROM locations are filled with Jump-Format instructions to lead to the reset and interrupt entry points.</p>
+<p>To return from an interrupt, an EXT-Format instruction with the “Return from interrupt” opcode is used, which restores <code class="docutils literal notranslate"><span class="pre">PC</span></code>, <code class="docutils literal notranslate"><span class="pre">IOADDR</span></code> and <code class="docutils literal notranslate"><span class="pre">FLAGS</span></code> to their previous states by loading them from the hidden backup registers.</p>
 </section>
 </section>
 

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rejunity’s Designs &mdash; GFMPW-1-Multi  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="https://wavedrom.com/skins/default.js"></script>
+        <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diceroll" href="diceroll.html" />
+    <link rel="prev" title="Tholin’s RISC-V" href="tholin_riscv.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GFMPW-1-Multi
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="multiplexer.html">Multiplexer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qcpu.html">QCPU MCU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rejunity’s Designs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pinouts">Pinouts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sn76489">SN76489</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ay8913">AY8913</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-settings">Custom Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">SN76489</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">AY8913</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as11.html">AS-11</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GFMPW-1-Multi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Rejunity’s Designs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/rejs_designs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rejunitys-designs">
+<span id="rejs-designs"></span><h1>Rejunity’s Designs<a class="headerlink" href="#rejunitys-designs" title="Link to this heading"></a></h1>
+<p>Two designs on this GFMPW-1 submission were contributed by Rejunity. More information on these can be found at these links:</p>
+<p><a class="reference external" href="https://github.com/rejunity/tt05-psg-sn76489">SN76489</a></p>
+<p><a class="reference external" href="https://github.com/rejunity/tt05-psg-ay8913">AY8913</a></p>
+<section id="pinouts">
+<h2>Pinouts<a class="headerlink" href="#pinouts" title="Link to this heading"></a></h2>
+<p>The pinouts of these projects on this particular chip are:</p>
+<section id="sn76489">
+<h3>SN76489<a class="headerlink" href="#sn76489" title="Link to this heading"></a></h3>
+<img alt="_images/pinoutsn.drawio.png" src="_images/pinoutsn.drawio.png" />
+<table class="docutils align-default" id="pin-description-sn76489">
+<caption><span class="caption-number">Table 10 </span><span class="caption-text">Pin description</span><a class="headerlink" href="#pin-description-sn76489" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin #</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code></p></td>
+<td><p>RSTD</p></td>
+<td><p>I</p></td>
+<td><p>Active low design reset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[12:5]</span></code></p></td>
+<td><p>D[7:0]</p></td>
+<td><p>I</p></td>
+<td><p>Data Inputs</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[16:13]</span></code></p></td>
+<td><p>PWM[3:0]</p></td>
+<td><p>O</p></td>
+<td><p>Individual PWM audio output for each channel</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[17]</span></code></p></td>
+<td><p>PWM4</p></td>
+<td><p>O</p></td>
+<td><p>PWM audio output for mixed audio from all channels</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[19]</span></code></p></td>
+<td><p>WE</p></td>
+<td><p>I</p></td>
+<td><p>Active low Write Enable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[22]</span></code></p></td>
+<td><p>DAC DAT</p></td>
+<td><p>O</p></td>
+<td><p>Serial Data for external DAC (DAC7611 or similar)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[23]</span></code></p></td>
+<td><p>DAC LE</p></td>
+<td><p>O</p></td>
+<td><p>Active low Latch Enable for external DAC</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[24]</span></code></p></td>
+<td><p>DAC CLK</p></td>
+<td><p>O</p></td>
+<td><p>Serial Clock for external DAC</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[32:25]</span></code></p></td>
+<td><p>RAW[7:0]</p></td>
+<td><p>O</p></td>
+<td><p>Raw digital audio sample output with 8-bit resolution</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ay8913">
+<h3>AY8913<a class="headerlink" href="#ay8913" title="Link to this heading"></a></h3>
+<img alt="_images/pinoutay.drawio.png" src="_images/pinoutay.drawio.png" />
+<table class="docutils align-default" id="pin-description-ay8913">
+<caption><span class="caption-number">Table 11 </span><span class="caption-text">Pin description</span><a class="headerlink" href="#pin-description-ay8913" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin #</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Summary</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[0]</span></code></p></td>
+<td><p>RSTD</p></td>
+<td><p>I</p></td>
+<td><p>Active low design reset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[12:5]</span></code></p></td>
+<td><p>D[7:0]</p></td>
+<td><p>I</p></td>
+<td><p>Data Inputs</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[15:13]</span></code></p></td>
+<td><p>PWM[2:0]</p></td>
+<td><p>O</p></td>
+<td><p>Individual PWM audio output for each channel</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[16]</span></code></p></td>
+<td><p>PWM4</p></td>
+<td><p>O</p></td>
+<td><p>PWM audio output for mixed audio from all channels</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[19]</span></code></p></td>
+<td><p>BDIR</p></td>
+<td><p>I</p></td>
+<td><p>Bus control signal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[20]</span></code></p></td>
+<td><p>BC1</p></td>
+<td><p>I</p></td>
+<td><p>Bus control signal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[22]</span></code></p></td>
+<td><p>DAC DAT</p></td>
+<td><p>O</p></td>
+<td><p>Serial Data for external DAC (DAC7611 or similar)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[23]</span></code></p></td>
+<td><p>DAC LE</p></td>
+<td><p>O</p></td>
+<td><p>Active low Latch Enable for external DAC</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[24]</span></code></p></td>
+<td><p>DAC CLK</p></td>
+<td><p>O</p></td>
+<td><p>Serial Clock for external DAC</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mprj_io[32:25]</span></code></p></td>
+<td><p>RAW[7:0]</p></td>
+<td><p>O</p></td>
+<td><p>Raw digital audio sample output with 8-bit resolution</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="custom-settings">
+<h2>Custom Settings<a class="headerlink" href="#custom-settings" title="Link to this heading"></a></h2>
+<p>Both designs use the first two bits of reg_mprj_settings to set a clock divider for the whole design.</p>
+<section id="id1">
+<h3>SN76489<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<table class="docutils align-default" id="clkdiv-opts-sn76489">
+<caption><span class="caption-number">Table 12 </span><span class="caption-text">Clock divider options</span><a class="headerlink" href="#clkdiv-opts-sn76489" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>reg_mprj_settings value</p></th>
+<th class="head"><p>Setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Div by 16</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Div by 1</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Div by 128</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h3>AY8913<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<table class="docutils align-default" id="clkdiv-opts-ay8913">
+<caption><span class="caption-number">Table 13 </span><span class="caption-text">Clock divider options</span><a class="headerlink" href="#clkdiv-opts-ay8913" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>reg_mprj_settings value</p></th>
+<th class="head"><p>Setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Div by 8</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Div by 1</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Div by 128</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tholin_riscv.html" class="btn btn-neutral float-left" title="Tholin’s RISC-V" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diceroll.html" class="btn btn-neutral float-right" title="Diceroll" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Tholin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -26,7 +26,14 @@ GFMPW-1 Multi-Project Die
    :maxdepth: 3
    :caption: Overview
    
-   overview
    multiplexer
    qcpu
    mc14500
+   ue14500
+   tholin_riscv
+   rejs_designs
+   diceroll
+   blinker
+   tbb1143
+   sid
+   as11

@@ -1,0 +1,129 @@
+.. _ue14500:
+
+UE14500
+=======
+
+This project is related to the MC14500 one. It is just a 1-bit CPU core that is under consideration as an alternative to the one used in the MC14500 bit-serial processor. It only adds a single register, the carry flag ``CAR``, and replaces the 16 instructions with this alternative set:
+
+.. list-table:: CPU Instructions
+    :name: ue14500-instrs
+    :header-rows: 1
+    
+    * - Opcode
+      - Instruction
+      - Operation
+    * - ``0``
+      - ``NOPO``
+      - No change in RR, C, IEN or OEN
+    * - ``1``
+      - ``LD``
+      - Load RR with Data
+    * - ``2``
+      - ``ADD``
+      - Add Data to RR, CAR
+    * - ``3``
+      - ``SUB``
+      - Subtract by adding complemented Data to RR, CAR
+    * - ``4``
+      - ``ONE``
+      - Force a logic one into the RR and logic zero into CAR
+    * - ``5``
+      - ``NAND``
+      - Logic NOT-AND RR with Data
+    * - ``6``
+      - ``OR``
+      - Logic OR RR with Data
+    * - ``7``
+      - ``XOR``
+      - Logic Exklusive OR RR with Data
+    * - ``8``
+      - ``STO``
+      - Store RR
+    * - ``9``
+      - ``STOC``
+      - Store complemented RR
+    * - ``A``
+      - ``IEN``
+      - Load IEN register with Data
+    * - ``B``
+      - ``OEN``
+      - Load OEN register with Data
+    * - ``C``
+      - ``JMP``
+      - Trigger Jump
+    * - ``D``
+      - ``RTN``
+      - N/A
+    * - ``E``
+      - ``SKZ``
+      - Skip next instruction if RR == 0
+    * - ``F``
+      - ``NOPF``
+      - No change in RR, C, IEN or OEN
+
+------
+Pinout
+------
+
+.. image:: _static/pinoutue1.png
+
+.. list-table:: Pin description
+    :name: pin-description-ue1
+    :header-rows: 1
+    
+    * - Pin #
+      - Name
+      - Type
+      - Summary
+    * - ``mprj_io[0]``
+      - RSTD
+      - I
+      - Active low design reset
+    * - ``mprj_io[5]``
+      - DCLK
+      - I
+      - Separate design clock input
+    * - ``mprj_io[6]``
+      - ROM CS
+      - IO
+      - 1-bit Data Bus
+    * - ``mprj_io[10:7]``
+      - I[3:0]
+      - I
+      - Instruction Input
+    * - ``mprj_io[11]``
+      - WRITE
+      - O
+      - Output indicating a STO/STOC instruction (Data Write)
+    * - ``mprj_io[12]``
+      - CAR
+      - O
+      - Value of CAR register
+    * - ``mprj_io[13]``
+      - IEN
+      - O
+      - Value of IEN register
+    * - ``mprj_io[14]``
+      - JMP
+      - O
+      - Output indicating a JMP instruction
+    * - ``mprj_io[15]``
+      - NOPF
+      - O
+      - Output indicating a NOPF instruction
+    * - ``mprj_io[16]``
+      - NOPO
+      - O
+      - Output indicating a NOPO instruction
+    * - ``mprj_io[17]``
+      - OEN
+      - O
+      - Value of OEN register
+    * - ``mprj_io[18]``
+      - RTN
+      - O
+      - Output indicating a RTN instruction
+    * - ``mprj_io[19]``
+      - SKIP
+      - O
+      - Output indicating current instruction is being skipped by a preceding SKP instruction

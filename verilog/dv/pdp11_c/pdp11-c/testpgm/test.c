@@ -40,6 +40,56 @@ signed long fixed_div_16(signed long x, signed long y) {
 	#endif
 }
 
+int softdiv(int a, int b) {
+	int res;
+	asm("mov %1, r3;"
+		"mov %2, r4;"
+		"clr r2;"
+		"div r4, r2;"
+		"mov r3, %2;"
+		: "=r" (res)
+		: "r" (a), "0" (b)
+		: "r2", "r3", "r4");
+	return res;
+}
+
+void softmoddiv(int a, int b, int* res_o, int* mod_o) {
+	char sign_a = a < 0;
+	char sign_b = b < 0;
+	char sign = sign_a ^ sign_b;
+	if(a < 0) a = -a;
+	if(b < 0) b = -b;
+	unsigned int res = softdiv(a, b);
+	
+	if(res_o) *res_o = sign ? -res : res;
+	if(mod_o) {
+		*mod_o = a - res * b;
+		if(sign_a) *mod_o = -*mod_o;
+	}
+}
+
+const int tens[] = {10000, 1000, 100, 10, 1};
+void printDecimal(int x) {
+	int n;
+	if(x < 0) {
+		n = -x;
+		*serial_out = '-';
+	}else n = x;
+	int r;
+	char flag = 0;
+	for(int i = 0; i < 5; i++) {
+		//r = n / tens[i];
+		//softmoddiv(n, tens[i], &r, 0);
+		r = softdiv(n, tens[i]);
+		//for(r=0;tens[i] <= n;r++,n-=tens[i]);
+		if(flag || i == 4 || r != 0) {
+			*serial_out = '0' + r;
+			flag = 't';
+		}
+		n -= r * tens[i];
+	}
+}
+
 void main(void) {
 	unsigned short ptr = 0;
 	while(str[ptr]) {
@@ -107,20 +157,21 @@ void main(void) {
 		unsigned char sieve[256];
 		int i,j,k;
 		for(i = 0; i < count; i++) sieve[i] = 0;
-		puts("0002,");
+		puts("2,");
 		for(i = 0; i < count; i++){
 			if(sieve[i] == 0){
 				j = i * 2 + 3;
-				printHex(j);
+				printDecimal(j);
 				*serial_out = ',';
 				k = i;
 				while(1){
-					if(k > count) break;
+					if(k >= count) break;
 					sieve[k] = 1;
 					k += j;
 				}
 			}
 		}
+		puts("END");
 		newl();
 	}
 	asm volatile("halt");
@@ -142,6 +193,6 @@ void newl() {
 void printHex(unsigned short a) {
 	for(char i = 0; i < 4; i++) {
 		*serial_out = hex_chars[(a & 0xF000) >> 12];
-		a <<= 4;	
-	}	
+		a <<= 4;
+	}
 }

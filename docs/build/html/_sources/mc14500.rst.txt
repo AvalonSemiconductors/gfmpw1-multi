@@ -10,6 +10,61 @@ Pinout
 
 .. image:: _static/pinout4.png
 
+.. list-table:: Pin description
+    :name: pin-description
+    :header-rows: 1
+    
+    * - Pin #
+      - Name
+      - Type
+      - Summary
+    * - ``mprj_io[0]``
+      - RSTD
+      - I
+      - Active low design reset
+    * - ``mprj_io[12:5]``
+      - I[7:0]
+      - I
+      - CPU Instruction Input
+    * - ``mprj_io[29:13]``
+      - PC[16:0]
+      - O
+      - Program Counter
+    * - ``mprj_io[30]``
+      - FLAG_O
+      - O
+      - High if current instruction is ``NOPO``
+    * - ``mprj_io[31]``
+      - RR
+      - O
+      - Mirrors Result Register value
+    * - ``mprj_io[32]``
+      - SCLK
+      - O
+      - Serial Port clock signal
+    * - ``mprj_io[33]``
+      - SDO
+      - O
+      - Serial Port data output
+    * - ``mprj_io[34]``
+      - OUT1
+      - O
+      - General-Purpose output port
+    * - ``mprj_io[35]``
+      - OUT2
+      - O
+      - General-Purpose output port
+    * - ``mprj_io[36]``
+      - SDI
+      - I
+      - Serial Port data input
+    * - ``mprj_io[37]``
+      - CLK
+      - I
+      - Design clock input
+
+Please note that this design has a separate clock input at ``mprj_io[37]``.
+
 1-bit Core
 ----------
 
@@ -31,7 +86,7 @@ The CPU has an instruction set of 16 instructions, meaning it uses 4-bit opcodes
       - Operation
     * - ``0``
       - ``NOPO``
-      - No change in RR, IEN or OEN
+      - No change in RR, IEN or OEN, trigger memory read
     * - ``1``
       - ``LD``
       - Load RR with Data
@@ -76,9 +131,12 @@ The CPU has an instruction set of 16 instructions, meaning it uses 4-bit opcodes
       - Skip next instruction if RR == 0
     * - ``F``
       - ``NOPF``
-      - No change in RR, IEN or OEN
+      - No change in RR, IEN or OEN, trigger memory write
 
-This opcode is taken from the least-significant 4 bits of each 8-bit instruction fed from the external ROM. The most-significant 4 bits index one of the internal machine registers. Whenever the CPU is told to load/operate on or store 'Data', this is refering to the CPU interacting with one of these internal registers.
+This opcode is taken from the least-significant 4 bits of each 8-bit instruction fed from the external ROM. The most-significant 4 bits index one of the internal machine registers. Whenever the CPU is told to load/operate on or store 'Data', this is refering to the CPU interacting with one of these internal registers, unless the address is ``0`` and the instruction reads Data, in which case a constant ``1`` is fetched.
+
+Registers
+---------
 
 The first of these machine registers is 8 bits wide starting at address 8h named the Scratch Register, and is the only bit-addressable machine register. By accessing addresses 8h - Fh, individual bits of this register can be read or written. It is mainly meant to store temporary data during processing of 8-bit bytes, but a few of the bits are wired to pins on the chip package. These bits are still readable and writable individually like the others, but their state will be mirrored onto chip pins as such:
 
@@ -96,3 +154,49 @@ The first of these machine registers is 8 bits wide starting at address 8h named
       - ``SDO``
 
 The pins ``OUT 1`` and ``OUT 2`` have dedicated registers at addresses 5h and 6h. These may only be written. The state of the input pin ``SDI`` can be read at address 7h.
+Additionally, the ``RR`` is also output to a chip pin, and the ``FLAG_O`` pin indicates if the current instruction is a ``NOPO``. These pins are meant for testing purposes or to monitor CPU activity.
+
+There is also a 17-bit wide Program Counter register that points to the current instruction. It is output on the ``PC0`` - ``PC16`` pins and increments after each instruction has executed, unless the instruction is a ``JMP``.
+
+The remaining registers are all shift registers to facilitate processing of 8-bit words. These are:
+
+.. list-table:: Machine Shift Registers
+    :name: machine-shift-regs
+    :header-rows: 1
+
+    * - Mnemonic
+      - Bit Address
+      - Meaning
+    * - ``DR``
+      - ``0``
+      - Destination Register for branches, write-only
+    * - ``MAR``
+      - ``1``
+      - Memory Address Register to RAM, write-only
+    * - ``DOB``
+      - ``2``
+      - Data Out Buffer to RAM, write-only
+    * - ``DIA``
+      - ``3``
+      - Data In Buffer A from RAM, read-only
+    * - ``DIB``
+      - ``4``
+      - Data In Buffer B from RAM, read-only
+
+All of these registers are 8 bits wide except ``DR``, which is 17 bits wide.
+
+The Idea is that data from RAM is loaded into ``DIA`` and ``DIB`` where it can then by shited out and processed one bit at a time with the results shifted into ``DOB`` as they are completed before being written back into RAM.
+Therefore, these three registers plus ``MAR`` shift least-significant bit first.
+
+To actually load and store values from RAM, ``MAR`` can be loaded with a memory address before execution of ``NOPO`` or ``NOPF`` triggers a value to be loaded or stored at the memory location pointed to by ``MAR``.
+Note that because there are two input registers, ``NOPO`` needs to be provided with an address argument to select a specific one and this address differs from the regular register address. ``1`` will select ``DIA`` while ``2`` will select ``DIB``. Any other address will have no effect.
+
+``DR`` facilitates branching. It is the only register which is loaded most-significant bit first and buffers a new value for the Program Counter. When the CPU hits a ``JMP`` instruction, the value of ``DR`` simply becomes the new Program Counter and the next instruction is fetched from this location.
+``JMP`` is always unconditional, but can be combined with ``SKZ`` to affect a conditional branch.
+
+Programming
+-----------
+
+Writing programs for the MC14500 is accomplished with the help of a special assembler which assembles purely macro instructions. These macros give the outward appearance of a regular 8-bit instruction set and abstract away the bit-serial processing of data entirely.
+
+It is the assembler’s job to translate these macro instructions into a series of CPU instructions operating bit-serially. This makes programming for the MC14500 relatively easy by not forcing the software developer to program in instructions operating on 1-bit data.

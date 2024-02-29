@@ -727,6 +727,12 @@ always @(posedge clk) begin
 					PSW[3:0] <= PSW[3:0] | instruction[3:0];
 					cycle <= FETCH1;
 				end else if(is_SETD || is_SETI) cycle <= FETCH1;
+				
+				/*if(is_SETD) begin
+					$display("setd: pc = %04, r0 = %04x\n", regs[7], regs[0]);
+				end else if(is_SETI) begin
+					$display("seti: pc = %04x, r0 = %04x\n", regs[7], regs[0]);
+				end*/
 			end
 		end
 		if(cycle == FETCH2) begin
@@ -915,6 +921,7 @@ always @(posedge clk) begin
 			regs[special_extra_reg | 1] <= div_res_s[15:0];
 			PSW[3:0] <= new_flags;
 			cycle <= FETCH1;
+			//$display("Div instr %02x / %02x = %02x\n", divi1_us, divi2_us, div_res_s);
 		end
 		if(cycle == MUL) begin
 			mul_delay <= mul_delay - 1;

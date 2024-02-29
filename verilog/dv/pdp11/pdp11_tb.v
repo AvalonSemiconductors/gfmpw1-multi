@@ -351,12 +351,10 @@ module pdp11_tb;
 		#3 failures += OEb != 0 || full_addr != 16'h0034;
 		bus_in = 16'h0C4A; //ROL (R2)
 		@(posedge clock);
-		#3 bus_in = 0;
 		@(posedge clock);
 		bus_in = 16'h8002;
 		#3 failures += OEb != 0 || full_addr != 16'h000E;
 		@(posedge clock);
-		bus_in = 0;
 		@(posedge clock);
 		#3 failures += WEb != 0 || bus_out != 16'h0004;
 		@(posedge clock);
@@ -523,13 +521,11 @@ module pdp11_tb;
 		bus_in = 16'hf003; //MFTP
 		@(posedge clock);
 		#3 failures += WEb != 1 || OEb != 1 || latch_enable != 1;
-		bus_in = 0;
 		@(posedge clock);
 		#3 failures += OEb != 0 || full_addr != 16'h004E;
 		bus_in = 16'hf004; //SVB
 		@(posedge clock);
 		#3 failures += WEb != 1 || OEb != 1 || latch_enable != 1;
-		bus_in = 0;
 		@(posedge clock);
 		#3 failures += OEb != 0 || full_addr != 16'h0050;
 		bus_in = 16'h0A03; //CLR R3
@@ -650,6 +646,7 @@ module pdp11_tb;
 		#3 failures += latch_enable != 0 || full_addr != 16'h006E;
 		bus_in = 16'h0A81; //INC R1
 		@(posedge clock);
+		#10;
 		bus_in = 0;
 		PORTA_in = 4;
 		@(posedge clock);

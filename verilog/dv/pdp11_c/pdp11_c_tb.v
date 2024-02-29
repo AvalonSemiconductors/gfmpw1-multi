@@ -79,7 +79,10 @@ module pdp11_c_tb;
 	always @(negedge OEb) begin
 		if(full_addr >= 16'hFE02 && full_addr <= 16'hFE12) begin
 			bus_in <= 16'h0188;
-		end else bus_in = memory[full_addr>>1];
+		end else begin
+			bus_in = memory[full_addr>>1];
+			//$write("Memory read %04x val %02x\n", full_addr, bus_in);
+		end
 	end
 
 	integer test;

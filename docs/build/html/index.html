@@ -50,6 +50,14 @@
 <li class="toctree-l1"><a class="reference internal" href="multiplexer.html">Multiplexer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qcpu.html">QCPU MCU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rejs_designs.html">Rejunity’s Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="as11.html">AS-11</a></li>
 </ul>
 
         </div>
@@ -107,7 +115,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="qcpu.html">QCPU MCU</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="qcpu.html#registers">Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qcpu.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qcpu.html#program-rom">Program ROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qcpu.html#scratch-registers">Scratch Registers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qcpu.html#instruction-formats">Instruction Formats</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="qcpu.html#immediate">Immediate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="qcpu.html#reg-reg">Reg/Reg</a></li>
@@ -119,11 +129,181 @@
 <li class="toctree-l3"><a class="reference internal" href="qcpu.html#immediate-load-ioaddr">Immediate Load IOADDR</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="qcpu.html#io-devices">IO Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#interfacing">Interfacing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#gpio-ports">GPIO Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#uart-spi">UART &amp; SPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#timer">Timer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#pwm">PWM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qcpu.html#frequency-generator">Frequency Generator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qcpu.html#interrupts">Interrupts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mc14500.html">MC14500</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="mc14500.html#pinout">Pinout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mc14500.html#bit-core">1-bit Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mc14500.html#registers">Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mc14500.html#programming">Programming</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ue14500.html">UE14500</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ue14500.html#pinout">Pinout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tholin_riscv.html">Tholin’s RISC-V</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tholin_riscv.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tholin_riscv.html#memory-bus">Memory Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tholin_riscv.html#peripherals">Peripherals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#serial-ports">Serial ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#gpio-port">GPIO Port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#timers">Timers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tholin_riscv.html#interrupts">Interrupts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#external-interrupt">External Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#timer-1-interrupt">Timer 1 Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#uart-interrupt">UART Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#registers">Registers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#the-iret-instruction">The <code class="docutils literal notranslate"><span class="pre">iret</span></code> instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#the-sei-instruction">The <code class="docutils literal notranslate"><span class="pre">sei</span></code> instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tholin_riscv.html#the-cli-instruction">The <code class="docutils literal notranslate"><span class="pre">cli</span></code> instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tholin_riscv.html#custom-settings">Custom Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rejs_designs.html">Rejunity’s Designs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rejs_designs.html#pinouts">Pinouts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rejs_designs.html#sn76489">SN76489</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rejs_designs.html#ay8913">AY8913</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rejs_designs.html#custom-settings">Custom Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rejs_designs.html#id1">SN76489</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rejs_designs.html#id2">AY8913</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diceroll.html">Diceroll</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diceroll.html#pinout">Pinout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blinker.html">LED Blinker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blinker.html#pinout">Pinout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tbb1143.html">TBB1143</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tbb1143.html#pinout">Pinout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sid.html">SID</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sid.html#pinout">Pinout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="as11.html">AS-11</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#memory-bus">Memory Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#programming-model">Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#addressing-modes">Addressing modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#register">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#register-deferred">Register Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#autoincrement">Autoincrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#autoincrement-deferred">Autoincrement Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#autodecrement">Autodecrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#autodecrement-deferred">Autodecrement Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#indexed">Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#indexed-deferred">Indexed Deferred</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#stack-pointer">Stack Pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#pc-as-rn"><code class="docutils literal notranslate"><span class="pre">PC</span></code> as <code class="docutils literal notranslate"><span class="pre">Rn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#byte-and-word-addressing">Byte- and Word-addressing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#instruction-formats">Instruction Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#single-operand">Single Operand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#double-operand">Double Operand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#register-source-or-destination">Register- Source or Destination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#branch">Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#implied">Implied</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#instruction-set">Instruction Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#clr-clrb-clear">CLR / CLRB - Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#com-comb-complement">COM / COMB - Complement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#inc-incb-increment">INC / INCB - Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#dec-decb-decrement">DEC / DECB - Decrement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#neg-negb-negate">NEG / NEGB - Negate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#tst-tstb-test">TST / TSTB - Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#asr-asrb-arithmetic-shift-right">ASR / ASRB - Arithmetic Shift Right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#asl-aslb-arithmetic-shift-left">ASL / ASLB - Arithmetic Shift Left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#ror-rorb-rotate-right">ROR / RORB - Rotate Right</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#rol-rolb-rotate-left">ROL / ROLB - Rotate Left</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#swab-swap-bytes">SWAB - Swap Bytes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#adc-adcb-add-carry">ADC / ADCB - Add Carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#sbc-sbcb-subtract-carry">SBC / SBCB - Subtract Carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#sxt-sign-extend">SXT - Sign Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mov-movb-move">MOV / MOVB - Move</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#cmp-cmpb-compare">CMP / CMPB - Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#add-add">ADD - Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#sub-subtract">SUB - Subtract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bit-bitb-bit-test">BIT / BITB - Bit Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bic-bicb-bit-clear">BIC / BICB - Bit Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bis-bisb-bit-set">BIS / BISB - Bit Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mul-multiply">MUL - Multiply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#div-divide">DIV - Divide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#ash-shift-arithmetically">ASH - Shift Arithmetically</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#ashc-arithmetic-shift-combined">ASHC - Arithmetic Shift Combined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#xor-exclusive-or">XOR - Exclusive OR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#br-branch">BR - Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bne-branch-if-not-equal">BNE - Branch if Not Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#beq-branch-if-equal">BEQ - Branch if Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bpl-branch-if-plus">BPL - Branch if Plus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bmi-branch-if-minus">BMI - Branch if Minus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bvc-branch-if-overflow-is-clear">BVC - Branch if Overflow is Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bvs-branch-if-overflow-is-set">BVS - Branch if Overflow is Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bcc-branch-if-carry-is-clear">BCC - Branch if Carry is Clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bcs-branch-if-carry-is-set">BCS - Branch if Carry is Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bge-branch-if-greater-than-or-equal">BGE - Branch if Greater Than or Equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#blt-branch-if-less-than">BLT - Branch if Less Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bgt-branch-if-greater-than">BGT - Branch if Greater Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#id1">BLT - Branch if Less Than</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bhi-branch-if-higher">BHI - Branch if Higher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#blos-branch-if-lower-or-same">BLOS - Branch if Lower or Same</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#jmp-jump">JMP - Jump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#jsr-jump-to-subroutine">JSR - Jump to Subroutine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#rts-return-from-subroutine">RTS - Return from Subroutine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mark-mark">MARK - Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#sob-subtract-one-and-branch-if-not-zero">SOB - Subtract One and Branch if not Zero</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#emt-emulator-trap">EMT - Emulator Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#trap-trap">TRAP - Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#bpt-breakpoint-trap">BPT - Breakpoint Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#iot-input-output-trap">IOT - Input/Output Trap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#rti-return-from-interrupt">RTI - Return from Interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#rtt-return-from-interrupt-not-traced">RTT - Return from Interrupt Not Traced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#halt-halt">HALT - Halt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#wait-wait-for-interrupt">WAIT - Wait for interrupt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#reset-reset-external-bus">RESET - Reset external bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#svb-set-vector-base">SVB - Set Vector Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#trace-enable-tracing">TRACE - Enable Tracing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mfps-move-byte-from-processor-status">MFPS - Move byte from Processor Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mtps-move-byte-to-processor-status">MTPS - Move byte to Processor Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#mftp-move-from-processor-type-word">MFTP - Move from Processor Type Word</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#ior-internal-io-read">IOR - Internal IO Read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#iow-internal-io-write">IOW - Internal IO Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#condition-code-operators">Condition Code Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#interrupt-model">Interrupt Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#peripherals">Peripherals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#gpio">GPIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#timers">Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#spi-master-port">SPI Master Port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="as11.html#uart">UART</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="as11.html#custom-settings">Custom Settings</a></li>
 </ul>
 </li>
 </ul>

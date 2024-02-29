@@ -5,7 +5,7 @@ public class ToVerilog {
 		try {
 			FileInputStream fis = new FileInputStream(new File(args[0]));
 			int ctr = 0;
-			if(fis.read() != 0x08 || fis.read() != 0x01) { fis.close(); throw new Exception("Invalid header"); }
+			if(fis.read() != 0x07 || fis.read() != 0x01) { fis.close(); throw new Exception("Invalid header"); }
 			int text_size = fis.read() | (fis.read() << 8);
 			int data_size = fis.read() | (fis.read() << 8);
 			int bss_size = fis.read() | (fis.read() << 8);
@@ -21,7 +21,7 @@ public class ToVerilog {
 				ctr+=2;
 				if(ctr % 16 == 0) System.out.println();
 				else System.out.print(" ");
-				if(ctr == text_size && (ctr & 255) != 0) {
+				/*if(ctr == text_size && (ctr & 255) != 0) {
 					//Pad to nearest 256-byte boundary
 					while((ctr & 255) != 0) {
 						System.out.print("0000");
@@ -31,7 +31,7 @@ public class ToVerilog {
 						fos.write(0);
 						fos.write(0);
 					}
-				}
+				}*/
 			}
 			fos.close();
 			fis.close();
