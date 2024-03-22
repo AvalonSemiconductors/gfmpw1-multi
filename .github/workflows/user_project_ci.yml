@@ -129,6 +129,8 @@ jobs:
           make install_mcw
           make openlane
           make simenv
+          rm -rf /home/runner/work/pdk/volare/gf180mcu/versions/*/gf180mcuA
+          rm -rf /home/runner/work/pdk/volare/gf180mcu/versions/*/gf180mcuB
 
       - name: Harden using Openlane
         run: |

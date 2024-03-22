@@ -3,6 +3,7 @@ import java.io.*;
 public class SamplesFixer {
 	public static void main(String[] args) {
 		try {
+			boolean mono = args.length > 0 && args[0].equals("M");
 			FileInputStream fis = new FileInputStream("obj_dir/samples.bin");
 			fis.skip(4);
 			FileOutputStream fos = new FileOutputStream("samples_8.bin");
@@ -16,6 +17,12 @@ public class SamplesFixer {
 				fos.write(usample & 0xFF);
 				fis.read();
 				fis.read();
+				if(mono) {
+					fis.read();
+					fis.read();
+					fis.read();
+					fis.read();
+				}
 			}
 			fos.close();
 			fis.close();

@@ -6,7 +6,7 @@
 static Vtb top;
 
 void clocks(int c) {
-	for(int i = 0; i < c*2; i++) {
+	for(int i = 0; i < c * 2; i++) {
 		Verilated::timeInc(1);
 		top.clk = !top.clk;
 		top.eval();
@@ -51,13 +51,15 @@ int main(int argc, char** argv, char** env) {
 	sid_reg_write(4, 16);
 	wait_secs(2);*/
 	
-	std::ifstream infile("../regs4.txt");
+	std::ifstream infile("../gloria_regs.txt");
 	
 	long lastClocks = 555;
 	long diff;
 	std::string token;
 	std::string line;
 	int args[3];
+	double lastPrintTime = 0;
+	double currTime = 0;
 	while(std::getline(infile, line)) {
 		size_t pos = 0;
 		for(int i = 0; i < 3; i++) {
@@ -69,7 +71,17 @@ int main(int argc, char** argv, char** env) {
 		if(lastClocks == 555) diff = 0;
 		else diff = args[0] - lastClocks;
 		sid_reg_write(args[1], args[2]);
-		if(diff > 0) clocks(diff * 4 * 2);
+		if(diff > 0) {
+			clocks(diff * 8);
+			currTime += (double)(diff * 8) / 8000000.0;
+		}
+		if(currTime - lastPrintTime >= 10) {
+			lastPrintTime = currTime;
+			int secs = (int)lastPrintTime;
+			int mins = secs / 60;
+			secs -= mins * 60;
+			printf("%d:%02d\r\n", mins, secs);
+		}
 		lastClocks = args[0];
 	}
 	
