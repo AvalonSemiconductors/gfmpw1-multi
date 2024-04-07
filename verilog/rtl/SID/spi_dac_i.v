@@ -20,8 +20,8 @@ module spi_dac_i(
 	input sample_ready
 );
 
-reg [11:0] spi_dat_buff_0;
-reg [11:0] spi_dat_buff_1;
+reg [15:0] spi_dat_buff_0;
+reg [15:0] spi_dat_buff_1;
 reg [5:0] counter;
 
 always @(posedge clk) begin
@@ -35,10 +35,10 @@ always @(posedge clk) begin
 		spi_dat_buff_1 <= 0;
 	end else begin
 		//DAC7611 mode
-		if(counter[4] && counter[3]) begin
+		if(counter[5]) begin
 			//Load next sample & reset counter
-			spi_dat_buff_0 <= sample_in_1;
-			spi_dat_buff_1 <= sample_in_2;
+			spi_dat_buff_0 <= {4'b0011, sample_in_1};
+			spi_dat_buff_1 <= {4'b0011, sample_in_2};
 			if(sample_ready) counter <= 0;
 			spi_clk <= 0;
 			//Pulse LEb
@@ -51,10 +51,10 @@ always @(posedge clk) begin
 				spi_clk <= 1;
 			end else begin
 				//Shift out next bit
-				spi_dat_1 <= spi_dat_buff_0[11];
-				spi_dat_2 <= spi_dat_buff_1[11];
-				spi_dat_buff_0 <= {spi_dat_buff_0[10:0], 1'b0};
-				spi_dat_buff_1 <= {spi_dat_buff_1[10:0], 1'b0};
+				spi_dat_1 <= spi_dat_buff_0[15];
+				spi_dat_2 <= spi_dat_buff_1[15];
+				spi_dat_buff_0 <= {spi_dat_buff_0[14:0], 1'b0};
+				spi_dat_buff_1 <= {spi_dat_buff_1[14:0], 1'b0};
 				spi_clk <= 0;
 			end
 		end

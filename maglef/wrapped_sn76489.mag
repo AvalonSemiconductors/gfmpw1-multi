@@ -1,7 +1,7 @@
 magic
 tech gf180mcuD
 magscale 1 5
-timestamp 1702459378
+timestamp 1712517671
 << obsm1 >>
 rect 672 1538 24304 23158
 << metal2 >>
@@ -209,7 +209,7 @@ string FIXED_BBOX 0 0 25000 25000
 string LEFclass BLOCK
 string LEFview TRUE
 string GDS_END 2773388
-string GDS_FILE /media/lucah/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/wrapped_sn76489/runs/23_12_13_10_17/results/signoff/wrapped_sn76489.magic.gds
+string GDS_FILE /run/media/tholin/fbc90f8f-67e9-406d-9872-54f02ad6a2d8/gfmpw1-multi/openlane/wrapped_sn76489/runs/24_04_07_21_17/results/signoff/wrapped_sn76489.magic.gds
 string GDS_START 389470
 << end >>
 
