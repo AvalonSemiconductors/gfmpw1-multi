@@ -14,7 +14,7 @@ input wb_clk_i, input rst_n, input io_in, output [8:0] io_out);
 			3: segments = 7'b1001111;
 			4: segments = 7'b1100110;
 			5: segments = 7'b1101101;
-			6: segments = 7'b1111100;
+			6: segments = 7'b1111101;
 			7: segments = 7'b0000111;
 		endcase
 	end
