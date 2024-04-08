@@ -1,4 +1,4 @@
-TOOLCHAIN_ROOT = /home/lucah/pdp11/cross/bin
+TOOLCHAIN_ROOT = /home/tholin/pdp11/toolchain/bin
 CC = $(TOOLCHAIN_ROOT)/pdp11-aout-gcc
 LD = $(TOOLCHAIN_ROOT)/pdp11-aout-ld
 AS = $(TOOLCHAIN_ROOT)/pdp11-aout-as

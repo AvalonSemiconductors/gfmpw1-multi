@@ -289,7 +289,7 @@ wire [15:0] divi2_us = div_s2 ? (~divi2) + 1 : divi2;
 reg [63:0] div_shifter;
 reg [31:0] div_res;
 reg [4:0] div_counter;
-wire [31:0] div_res_s = div_s3 ? (~div_res) + 1 : div_res;
+wire [15:0] div_res_s = div_s3 ? (~div_res) + 1 : div_res;
 reg [1:0] mul_delay;
 
 wire [5:0] shift_count = instr_arg_1[5] ? (~instr_arg_1[5:0]) + 1 : instr_arg_1[5:0];
@@ -515,7 +515,7 @@ always @(*) begin
 		else if(is_DIV) begin
 			instr_result = instr_arg_1;
 			new_flags = {
-				div_res_s[31],
+				div_res_s[15],
 				div_res_s == 0,
 				instr_arg_1 == 0 || regs[special_extra_reg | 1][14:0] > instr_arg_1[14:0],
 				{regs[special_extra_reg + 1], regs[special_extra_reg]} == 0
@@ -917,8 +917,8 @@ always @(posedge clk) begin
 			end
 		end
 		if(cycle == DIV2) begin
-			regs[special_extra_reg] <= div_res_s[31:16];
-			regs[special_extra_reg | 1] <= div_res_s[15:0];
+			regs[special_extra_reg] <= div_res_s[15:0];
+			regs[special_extra_reg | 1] <= divi1[31] ? (~div_shifter[31:16] + 1) : div_shifter[31:16];
 			PSW[3:0] <= new_flags;
 			cycle <= FETCH1;
 			//$display("Div instr %02x / %02x = %02x\n", divi1_us, divi2_us, div_res_s);

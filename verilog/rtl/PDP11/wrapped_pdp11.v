@@ -195,7 +195,12 @@ always @(posedge wb_clk_i) begin
         if(!gpio_wen) gpio_in_buff <= {8'h00, uart_dout};
       end
       16: begin
-        if(!gpio_wen) gpio_in_buff <= {8'h00, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy};
+        if(!gpio_wen) gpio_in_buff <= {uart_has_byte, uart_has_byte, uart_has_byte, uart_has_byte, uart_has_byte, uart_has_byte, uart_has_byte, uart_has_byte, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy, uart_busy};
+      end
+      17: begin
+		if(gpio_wen) begin
+			uart_int_en <= gpio_out[0];
+		end
       end
     endcase
   end

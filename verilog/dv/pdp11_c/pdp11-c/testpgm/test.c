@@ -39,7 +39,7 @@ signed long fixed_div_16(signed long x, signed long y) {
 	return ((signed long long)x * (1LL << 16LL)) / (signed long long)y;
 	#endif
 }
-
+#ifdef BUGGED
 int softdiv(int a, int b) {
 	int res;
 	asm("mov %1, r3;"
@@ -67,6 +67,7 @@ void softmoddiv(int a, int b, int* res_o, int* mod_o) {
 		if(sign_a) *mod_o = -*mod_o;
 	}
 }
+#endif
 
 const int tens[] = {10000, 1000, 100, 10, 1};
 void printDecimal(int x) {
@@ -78,9 +79,12 @@ void printDecimal(int x) {
 	int r;
 	char flag = 0;
 	for(int i = 0; i < 5; i++) {
-		//r = n / tens[i];
-		//softmoddiv(n, tens[i], &r, 0);
+		#ifdef BUGGED
 		r = softdiv(n, tens[i]);
+		#else
+		r = n / tens[i];
+		#endif
+		//softmoddiv(n, tens[i], &r, 0);
 		//for(r=0;tens[i] <= n;r++,n-=tens[i]);
 		if(flag || i == 4 || r != 0) {
 			*serial_out = '0' + r;
