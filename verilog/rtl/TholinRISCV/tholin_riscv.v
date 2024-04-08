@@ -366,7 +366,8 @@ always @(posedge clk) begin
                         if(is_write) irqs[1] <= 0;
                     end
                     18: begin
-                        if(!is_write) mem_io <= PCE;
+                        if(is_write) PCE <= mem_io;
+                        else mem_io <= PCE;
                     end
                     19: begin
                         if(!is_write) mem_io <= {8'h52, 8'h49, 8'h48, 8'h43};
