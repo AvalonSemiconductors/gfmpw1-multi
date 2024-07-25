@@ -20,10 +20,10 @@ index 14c4c37..d419d91 100644
      code29k_init();
 diff --git a/codeqcpu.c b/codeqcpu.c
 new file mode 100644
-index 0000000..349a256
+index 0000000..66de3ad
 --- /dev/null
 +++ b/codeqcpu.c
-@@ -0,0 +1,307 @@
+@@ -0,0 +1,337 @@
 +#include "stdinc.h"
 +#include <ctype.h>
 +#include <string.h>
@@ -74,12 +74,16 @@ index 0000000..349a256
 +		if(ArgStr[1].Str[0] == 'r') {
 +			DecodeSingleReg(0x605F);
 +		}else {
-+			Boolean OK;
-+			WAsmCode[0] = EvalStrIntExpression(&ArgStr[1], UInt8, &OK);
-+			if(OK) {
-+				WAsmCode[0] <<= 8;
-+				WAsmCode[0] |= Code;
-+				CodeLen = 1;
++			if(ArgStr[1].Str[0] != '#') WrError(ErrNum_InvFormat);
++			else {
++				StrCompCutLeft(&ArgStr[1], 1);
++				Boolean OK;
++				WAsmCode[0] = EvalStrIntExpression(&ArgStr[1], UInt8, &OK);
++				if(OK) {
++					WAsmCode[0] <<= 8;
++					WAsmCode[0] |= Code;
++					CodeLen = 1;
++				}
 +			}
 +		}
 +	}
@@ -145,8 +149,8 @@ index 0000000..349a256
 +				}
 +			}else {
 +				Code &= 0x7FFF;
-+				StrCompCutLeft(&ArgStr[2], 1);
 +			}
++			StrCompCutLeft(&ArgStr[2], 1);
 +			Word s2 = EvalStrIntExpression(&ArgStr[2], UInt4, &OK);
 +			if(!OK) return;
 +			WAsmCode[0] |= s2 << 8;
@@ -158,8 +162,9 @@ index 0000000..349a256
 +
 +static void DecodeCmp(Word Code) {
 +	if(ChkArgCnt(2, 2)) {
-+		if(strcasecmp(ArgStr[1].Str, "r1") == 0) {
++		if(strcasecmp(ArgStr[1].Str, "r1") == 0 && ArgStr[2].Str[0] == '#') {
 +			Boolean OK;
++			StrCompCutLeft(&ArgStr[2], 1);
 +			WAsmCode[0] = EvalStrIntExpression(&ArgStr[2], UInt4, &OK);
 +			if(OK) {
 +				WAsmCode[0] <<= 8;
@@ -206,6 +211,29 @@ index 0000000..349a256
 +	}
 +}
 +
++static void DecodeLdi(Word Code) {
++	if(ChkArgCnt(2, 2)) {
++		if(ArgStr[1].Str[0] != 'r') WrError(ErrNum_InvFormat);
++		else if(ArgStr[2].Str[0] != '#') WrError(ErrNum_InvFormat);
++		else {
++			StrCompCutLeft(&ArgStr[1], 1);
++			StrCompCutLeft(&ArgStr[2], 1);
++			Boolean OK;
++			WAsmCode[0] = EvalStrIntExpression(&ArgStr[1], UInt4, &OK);
++			if(!OK) return;
++			if(WAsmCode[0] == 0) {
++				WrError(ErrNum_InvFormat);
++				return;
++			}
++			Word imm = EvalStrIntExpression(&ArgStr[2], UInt8, &OK);
++			if(!OK) return;
++			WAsmCode[0] |= imm << 8;
++			WAsmCode[0] |= Code;
++			CodeLen = 1;
++		}
++	}
++}
++
 +static void DecodeCall(Word Code) {
 +	if(ChkArgCnt(1, 1)) {
 +		Boolean OK;
@@ -241,12 +269,13 @@ index 0000000..349a256
 +}
 +
 +static void InitFields(void) {
-+	InstTable = CreateInstTable(33);
++	InstTable = CreateInstTable(36);
 +	
 +	AddFixed("WAIT", 0xA05F);
 +	AddFixed("RTI", 0xB05F);
 +	AddFixed("LDC", 0xF05F);
 +	AddFixed("RETURN", 0xD050);
++	AddFixed("NOP", 0x0055); //or r0,r0
 +	
 +	AddSingleReg("SR", 0x005F);
 +	AddSingleReg("SRC", 0x105F);
@@ -281,6 +310,7 @@ index 0000000..349a256
 +	AddInstTable(InstTable, "J", J_CODE, DecodeJump);
 +	AddInstTable(InstTable, "CMP", 0x000E, DecodeCmp);
 +	AddInstTable(InstTable, "CALL", 0x0000, DecodeCall);
++	AddInstTable(InstTable, "LDI", 0x0040, DecodeLdi);
 +}
 +
 +static void DeinitFields(void) {
