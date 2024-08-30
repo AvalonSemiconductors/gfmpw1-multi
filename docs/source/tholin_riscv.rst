@@ -205,7 +205,7 @@ Address: ``FFFFFF10h``
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "UART BUSY", "bits": 1},{"name": "UHB", "bits": 1},{"name": "SPI BUSY", "bits": 1},{"type": "1", "bits": 29}],
+	  {"name": "SPI BUSY", "bits": 1},{"name": "UART BUSY", "bits": 1},{"name": "UHB", "bits": 1},{"type": "1", "bits": 29}],
 	 "config": {"hspace": 2800}
 	}
 
@@ -373,6 +373,8 @@ IRQ #: ``IRQ1``
 When enabled in ``IEN``, Timer 1 will generate this interrupt every time it reaches ``TTOP1`` and resets to 0.
 
 The interrupt must be cleared by writing a zero to address ``FFFFFF44h``.
+
+*Update:** when this interrupt is enabled and Timer 1 has a prescaler setting of >1, the interrupt request will immediately be re-triggered after the beginning of the interrupt service routine, due to the timer value still not having been changed from the one equaling TOP. To work around this, clear the timer value to 0 in the interrupt handler **before** writing zero to ``FFFFFF44h``.
 
 UART Interrupt
 --------------
