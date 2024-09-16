@@ -172,7 +172,7 @@ index 0000000..66de3ad
 +				CodeLen = 1;
 +			}
 +		}else {
-+			DecodeAri(Code);
++			DecodeAri(0x005E);
 +		}
 +	}
 +}
