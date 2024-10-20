@@ -196,7 +196,7 @@ Address: ``FFFFFF0Ch``
 
 This register address is used to provide the UART data to transmit as well as read received data. When written to, the UART will immediatly activate, set its busy flag and begin serially transmitting the provided data byte. No further writes to this location should be made while the busy flag is set.
 
-When read, the UDR will contain the latest data byte received by the UART. Accessing this location with a read will also clear the ``UHB`` flag.
+When read, the UDR will contain the latest data byte received by the UART.
 
 ``STAT`` - Serial Status Register
 
@@ -210,6 +210,8 @@ Address: ``FFFFFF10h``
 	}
 
 This read-only register contains status information for both the UART and SPI master ports. Besides their respective busy flags, the STAT also contains ``UHB``, a flag which indicates that the UART has received a data byte which has not yet been read out of the ``UDR``.
+
+Accessing this location with a write will clear the ``UHB`` flag. No other flags are changed.
 
 GPIO Port
 ---------
