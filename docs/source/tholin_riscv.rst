@@ -405,7 +405,7 @@ Address: ``FFFFFF20h``
 
 This register holds the address of the first instruction of the interrupt handler. As RISC-V requires all instructions be alligned to 32-bit words, the least-significant two bits of this register are always 0.
 
-**Update: ** due to a bug, when a value is written into this register, it is right-shifted by two places. Programmers must first left-shift the intended value by two places before writing it into ``IVEC`` to counteract the issue. This does, however, mean that the interrupt routine must lie within the first 1GiB of address space.
+**Update:** due to a bug, when a value is written into this register, it is right-shifted by two places. Programmers must first left-shift the intended value by two places before writing it into ``IVEC`` to counteract the issue. This does, however, mean that the interrupt routine must lie within the first 1GiB of address space.
 
 ``INUM`` - Current Interrupt Number
 

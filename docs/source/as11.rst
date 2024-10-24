@@ -805,7 +805,7 @@ MUL - Multiply
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111000, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111000, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -829,7 +829,7 @@ DIV - Divide
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111001, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111001, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -855,7 +855,7 @@ ASH - Shift Arithmetically
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111010, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111010, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -881,7 +881,7 @@ ASHC - Arithmetic Shift Combined
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111011, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111011, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -907,7 +907,7 @@ XOR - Exclusive OR
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111100, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0b0111100, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -1423,7 +1423,7 @@ IOR - Internal IO Read
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3D, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "dest MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3D, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
@@ -1447,7 +1447,7 @@ IOW - Internal IO Write
 .. wavedrom::
 
 	{ "reg": [
-	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "Rn", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3E, "bits": 7}],
+	  {"name": "Rn", "bits": 3},{"name": "src MODE", "bits": 3},{"name": "REG", "bits": 3},{"name": 0x3E, "bits": 7}],
 	 "config": {"hspace": 700}
 	}
 
