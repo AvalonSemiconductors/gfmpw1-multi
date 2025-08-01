@@ -72,7 +72,7 @@ module D_FLIPFLOP( clock,
    /*******************************************************************************
    ** Here the actual state register is defined                                  **
    *******************************************************************************/
-   always @(posedge reset or posedge preset or posedge s_clock)
+   always @(posedge s_clock)
    begin
       if (reset) s_currentState <= 1'b0;
       else if (preset) s_currentState <= 1'b1;

@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Tue Dec 12 00:42:12 2023
+# Thu Jul 31 12:27:41 2025
 ###############################################################################
 current_design wrapped_qcpu
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 16.0000 [get_ports {wb_clk_i}]
+create_clock -name clk -period 10.0000 [get_ports {wb_clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]
@@ -168,5 +168,5 @@ set_timing_derate -late 1.0500
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 3.0000 [current_design]
+set_max_transition 1.5000 [current_design]
 set_max_fanout 4.0000 [current_design]

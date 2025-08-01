@@ -1,5 +1,21 @@
 `default_nettype none
 
+/*module hellorld(
+`ifdef USE_POWER_PINS
+	//Required for LVS check to pass
+	inout vdd,
+	inout vss,
+`endif
+	input wb_clk_i,
+	input rst_n,
+	output io_out,
+	input [11:0] custom_settings
+);
+
+assign io_out = custom_settings[0] ? custom_settings[1] : custom_settings[2];
+
+endmodule*/
+
 module hellorld(
 `ifdef USE_POWER_PINS
 	//Required for LVS check to pass

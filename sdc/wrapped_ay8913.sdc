@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Sun Apr  7 19:23:47 2024
+# Thu Jul 31 13:22:01 2025
 ###############################################################################
 current_design wrapped_ay8913
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 25.0000 [get_ports {wb_clk_i}]
+create_clock -name clk -period 9.0000 [get_ports {wb_clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]
@@ -49,5 +49,5 @@ set_timing_derate -late 1.0500
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 3.0000 [current_design]
+set_max_transition 1.5000 [current_design]
 set_max_fanout 4.0000 [current_design]

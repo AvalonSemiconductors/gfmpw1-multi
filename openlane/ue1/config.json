@@ -1,6 +1,7 @@
 {
 	"PDK": "gf180mcuD",
-	"STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+	"STD_CELL_LIBRARY": "gf180mcu_as_sc_mcu7t3v3",
+	"STD_CELL_LIBRARY_OPT": "gf180mcu_as_sc_mcu7t3v3",
 	"DESIGN_NAME": "ue1",
 	"VERILOG_FILES": [
 		"dir::../../verilog/rtl/defines.v",
@@ -18,10 +19,13 @@
 	"DESIGN_IS_CORE": 0,
 	"CLOCK_PORT": "clk",
 	"CLOCK_NET": "clk",
-	"CLOCK_PERIOD": "20",
+	"CLOCK_PERIOD": "10",
 	"FP_SIZING": "absolute",
 	"DIE_AREA": "0 0 120 120",
 	"FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+	"EXTRA_GDS_FILES": [
+		"dir::../../dependencies/pdks/gf180mcuD/libs.ref/gf180mcu_as_sc_mcu7t3v3/gf180mcu_as_sc_mcu7t3v3__merged.gds"
+	],
 	"PL_BASIC_PLACEMENT": 0,
 	"PL_TARGET_DENSITY": 0.3,
 	"FP_CORE_UTIL": 40,
@@ -35,7 +39,7 @@
 	],
     "BASE_SDC_FILE": "dir::base_ue1.sdc",
 	"RUN_HEURISTIC_DIODE_INSERTION": 1,
-	"RUN_CVC": 1,
+	"RUN_CVC": 0,
 	"RUN_CTS": 0,
 	"QUIT_ON_LINTER_ERRORS": 0
 }

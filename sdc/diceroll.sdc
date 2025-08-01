@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Sun Apr  7 21:15:11 2024
+# Thu Jul 31 12:45:29 2025
 ###############################################################################
 current_design diceroll
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 20.0000 [get_ports {wb_clk_i}]
+create_clock -name clk -period 6.0000 [get_ports {wb_clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]
@@ -30,5 +30,5 @@ set_timing_derate -late 1.0500
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 3.0000 [current_design]
+set_max_transition 1.5000 [current_design]
 set_max_fanout 4.0000 [current_design]

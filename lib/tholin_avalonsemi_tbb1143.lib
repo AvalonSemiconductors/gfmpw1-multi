@@ -23,8 +23,12 @@ library (tholin_avalonsemi_tbb1143) {
 
   nom_process                    : 1.0;
   nom_temperature                : 25.0;
-  nom_voltage                    : 5.00;
+  nom_voltage                    : 3.30;
 
+  lu_table_template(template_1) {
+    variable_1 : total_output_net_capacitance;
+    index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+  }
   type ("io_in") {
     base_type : array;
     data_type : bit;
@@ -41,14 +45,56 @@ library (tholin_avalonsemi_tbb1143) {
   }
 
   cell ("tholin_avalonsemi_tbb1143") {
-    interface_timing : true;
+    area : 23675.295 
+    is_macro_cell : true;
     pin("clk") {
       direction : input;
-      capacitance : 0.0091;
+      clock : true;
+      capacitance : 0.0211;
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : min_clock_tree_path;
+	cell_rise(scalar) {
+          values("0.35016");
+	}
+	cell_fall(scalar) {
+          values("0.40194");
+	}
+      }
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : max_clock_tree_path;
+	cell_rise(scalar) {
+          values("1.15848");
+	}
+	cell_fall(scalar) {
+          values("1.17323");
+	}
+      }
     }
     pin("rst_n") {
       direction : input;
-      capacitance : 0.0041;
+      capacitance : 0.0061;
+      timing() {
+        related_pin : "clk";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("-0.29735");
+	}
+	fall_constraint(scalar) {
+          values("-0.21851");
+	}
+      }
+      timing() {
+        related_pin : "clk";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("1.01499");
+	}
+	fall_constraint(scalar) {
+          values("0.94036");
+	}
+      }
     }
     pin("vdd") {
       direction : input;
@@ -64,27 +110,27 @@ library (tholin_avalonsemi_tbb1143) {
       capacitance : 0.0000;
     pin("io_in[5]") {
       direction : input;
-      capacitance : 0.0081;
+      capacitance : 0.0092;
     }
     pin("io_in[4]") {
       direction : input;
-      capacitance : 0.0043;
+      capacitance : 0.0151;
     }
     pin("io_in[3]") {
       direction : input;
-      capacitance : 0.0044;
+      capacitance : 0.0121;
     }
     pin("io_in[2]") {
       direction : input;
-      capacitance : 0.0083;
+      capacitance : 0.0094;
     }
     pin("io_in[1]") {
       direction : input;
-      capacitance : 0.0042;
+      capacitance : 0.0092;
     }
     pin("io_in[0]") {
       direction : input;
-      capacitance : 0.0042;
+      capacitance : 0.0059;
     }
     }
     bus("io_out") {
@@ -102,14 +148,74 @@ library (tholin_avalonsemi_tbb1143) {
     pin("io_out[2]") {
       direction : output;
       capacitance : 0.0000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+	cell_rise(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.05148,1.05264,1.05811,1.07890,1.15980,1.53306,3.19702");
+	}
+	rise_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02090,0.02147,0.02410,0.03752,0.10492,0.44674,1.96698");
+	}
+	cell_fall(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.09634,1.09755,1.10318,1.12432,1.20039,1.52667,2.98342");
+	}
+	fall_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02147,0.02215,0.02495,0.03639,0.08911,0.36669,1.61435");
+	}
+      }
     }
     pin("io_out[1]") {
       direction : output;
       capacitance : 0.0000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+	cell_rise(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.03942,1.04057,1.04604,1.06684,1.14774,1.52100,3.18495");
+	}
+	rise_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02090,0.02147,0.02410,0.03751,0.10492,0.44674,1.96698");
+	}
+	cell_fall(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.08669,1.08789,1.09352,1.11466,1.19074,1.51701,2.97376");
+	}
+	fall_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02146,0.02215,0.02494,0.03639,0.08911,0.36669,1.61435");
+	}
+      }
     }
     pin("io_out[0]") {
       direction : output;
       capacitance : 0.0000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+	cell_rise(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.03754,1.03870,1.04416,1.06496,1.14586,1.51912,3.18308");
+	}
+	rise_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02090,0.02147,0.02410,0.03752,0.10492,0.44674,1.96698");
+	}
+	cell_fall(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("1.08493,1.08613,1.09177,1.11290,1.18898,1.51525,2.97201");
+	}
+	fall_transition(template_1) {
+          index_1("0.00050,  0.00230,  0.01100,  0.05000,  0.23000,  1.10000,  5.00000");
+          values("0.02146,0.02215,0.02494,0.03639,0.08911,0.36669,1.61435");
+	}
+      }
     }
     }
   }

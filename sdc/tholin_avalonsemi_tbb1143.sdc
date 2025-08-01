@@ -1,13 +1,15 @@
 ###############################################################################
 # Created by write_sdc
-# Sun Apr  7 19:27:31 2024
+# Thu Jul 31 13:16:21 2025
 ###############################################################################
 current_design tholin_avalonsemi_tbb1143
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 60.0000 
+create_clock -name clk -period 16.0000 [get_ports {clk}]
+set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
+set_propagated_clock [get_clocks {clk}]
 set_clock_latency -source -min 4.6500 [get_clocks {clk}]
 set_clock_latency -source -max 5.5700 [get_clocks {clk}]
 ###############################################################################
@@ -18,6 +20,7 @@ set_load -pin_load 0.1900 [get_ports {io_out[3]}]
 set_load -pin_load 0.1900 [get_ports {io_out[2]}]
 set_load -pin_load 0.1900 [get_ports {io_out[1]}]
 set_load -pin_load 0.1900 [get_ports {io_out[0]}]
+set_input_transition 0.6100 [get_ports {clk}]
 set_input_transition -min 0.0500 [get_ports {io_in[5]}]
 set_input_transition -max 0.3800 [get_ports {io_in[5]}]
 set_input_transition -min 0.0500 [get_ports {io_in[4]}]
@@ -35,5 +38,5 @@ set_timing_derate -late 1.0500
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 3.0000 [current_design]
+set_max_transition 1.5000 [current_design]
 set_max_fanout 4.0000 [current_design]

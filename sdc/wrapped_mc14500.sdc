@@ -1,12 +1,12 @@
 ###############################################################################
 # Created by write_sdc
-# Mon Jan 29 09:30:10 2024
+# Thu Jul 31 12:39:46 2025
 ###############################################################################
 current_design wrapped_mc14500
 ###############################################################################
 # Timing Constraints
 ###############################################################################
-create_clock -name clk -period 6.0000 [get_ports {clk_i}]
+create_clock -name clk -period 3.2000 [get_ports {clk_i}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2500 clk
 set_propagated_clock [get_clocks {clk}]
@@ -83,5 +83,5 @@ set_timing_derate -late 1.0500
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 3.0000 [current_design]
+set_max_transition 0.5000 [current_design]
 set_max_fanout 4.0000 [current_design]

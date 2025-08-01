@@ -50,7 +50,7 @@ module REGISTER_FLIP_FLOP( clock,
    assign q = s_currentState;
    assign s_clock = invertClock == 0 ? clock : ~clock;
 
-   always @(posedge s_clock or posedge reset)
+   always @(posedge s_clock)
    begin
       if (reset) s_currentState <= 0;
       else if (clockEnable&tick) s_currentState <= d;
