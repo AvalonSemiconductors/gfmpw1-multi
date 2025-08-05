@@ -19,8 +19,8 @@ module user_project_wrapper (user_clock2,
     wbs_dat_o,
     wbs_sel_i);
  input user_clock2;
- input vdd;
- input vss;
+ inout vdd;
+ inout vss;
  input wb_clk_i;
  input wb_rst_i;
  output wbs_ack_o;

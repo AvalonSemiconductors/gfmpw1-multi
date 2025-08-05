@@ -1,14 +1,15 @@
 {
 	"PDK": "gf180mcuD",
 	"DESIGN_NAME": "user_project_wrapper",
-	"STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
+	"STD_CELL_LIBRARY": "gf180mcu_as_sc_mcu7t3v3",
+	"STD_CELL_LIBRARY_OPT": "gf180mcu_as_sc_mcu7t3v3",
 	"VERILOG_FILES": [
 		"dir::../../verilog/rtl/defines.v",
 		"dir::../../verilog/rtl/user_project_wrapper.v"
 	],
 	"CLOCK_PORT": "wb_clk_i",
 	"CLOCK_NET": "wb_clk_i",
-	"CLOCK_PERIOD": 50,
+	"CLOCK_PERIOD": 30,
 	"MACRO_PLACEMENT_CFG": "dir::macro.cfg",
 	"VERILOG_FILES_BLACKBOX": [
 		"dir::../../verilog/gl/multiplexer.v",
@@ -56,7 +57,8 @@
 		"dir::../../gds/wrapped_pdp11.gds",
 		"dir::../../gds/wrapped_tholin_riscv.gds",
 		"dir::../../gds/diceroll.gds",
-		"dir::../../gds/ue1.gds"
+		"dir::../../gds/ue1.gds",
+		"dir::../../dependencies/pdks/gf180mcuD/libs.ref/gf180mcu_as_sc_mcu7t3v3/gf180mcu_as_sc_mcu7t3v3__merged.gds"
 	],
 	"EXTRA_LIBS": [
 		"dir::../../lib/multiplexer.lib",
@@ -184,8 +186,8 @@
 	"FP_PDN_HWIDTH": 3.1,
 	"FP_PDN_VSPACING": "expr::5 * $FP_PDN_CORE_RING_VWIDTH",
 	"FP_PDN_HSPACING": 26.9,
-	"RUN_KLAYOUT_XOR": 0,
-	"RUN_MAGIC_DRC": 0,
+	"RUN_KLAYOUT_XOR": 1,
+	"RUN_MAGIC_DRC": 1,
 	"VDD_NETS": [
 		"vdd"
 	],
